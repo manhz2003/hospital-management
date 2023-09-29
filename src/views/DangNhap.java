@@ -4,6 +4,7 @@
  */
 package views;
 
+import controllers.TaiKhoanController;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -46,7 +47,6 @@ public class DangNhap extends javax.swing.JFrame {
 
 //    menu
     private JFrame frame;
-
     private void setMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu jMenuTrangChu = new JMenu("Trang chủ");
@@ -75,11 +75,7 @@ public class DangNhap extends javax.swing.JFrame {
                 dispose();
 //                Tạo form mới
                 DangKy dangKy = null;
-                try {
-                    dangKy = new DangKy();
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                dangKy = new DangKy();
 
 //                Hiển thị form mới
                 dangKy.setVisible(true);
@@ -212,7 +208,6 @@ public class DangNhap extends javax.swing.JFrame {
     private void initComponents() {
 
         txtTenDangNhap = new javax.swing.JTextField();
-        txtMatKhau = new javax.swing.JTextField();
         iconName = new javax.swing.JLabel();
         btnDangNhap = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -221,6 +216,7 @@ public class DangNhap extends javax.swing.JFrame {
         lblDoiMatKhau = new javax.swing.JLabel();
         lblQuenMatKhau = new javax.swing.JLabel();
         btnDangKy = new javax.swing.JButton();
+        txtMatKhau = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -268,6 +264,12 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
+        txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMatKhauActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -280,9 +282,9 @@ public class DangNhap extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTenDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                            .addComponent(txtMatKhau)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(211, 211, 211)
                         .addComponent(lblDoiMatKhau)
@@ -317,10 +319,8 @@ public class DangNhap extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
                     .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -338,17 +338,24 @@ public class DangNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        // TODO add your handling code here:
+        String tenDangNhap = txtTenDangNhap.getText();
+        String matKhau = new String(txtMatKhau.getPassword());
+
+        // Kiểm tra xem tên đăng nhập và mật khẩu có khớp với tài khoản đã đăng ký hay không
+        TaiKhoanController dangNhapController = new TaiKhoanController();
+        boolean dangNhapThanhCong = dangNhapController.kiemTraDangNhap(tenDangNhap, matKhau);
+
+        if (dangNhapThanhCong) {
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Đăng nhập thất bại! Vui lòng kiểm tra lại tên đăng nhập và mật khẩu.");
+        }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
         dispose();
         DangKy dangKy = null;
-        try {
-            dangKy = new DangKy();
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dangKy = new DangKy();
         dangKy.setVisible(true);
     }//GEN-LAST:event_btnDangKyActionPerformed
 
@@ -363,6 +370,10 @@ public class DangNhap extends javax.swing.JFrame {
         QuenMatKhau quenMatKhau = new QuenMatKhau();
         quenMatKhau.setVisible(true);
     }//GEN-LAST:event_lblQuenMatKhauMouseClicked
+
+    private void txtMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMatKhauActionPerformed
 
     /**
      * @param args the command line arguments
@@ -406,7 +417,7 @@ public class DangNhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lblDoiMatKhau;
     private javax.swing.JLabel lblQuenMatKhau;
-    private javax.swing.JTextField txtMatKhau;
+    private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JTextField txtTenDangNhap;
     // End of variables declaration//GEN-END:variables
 }

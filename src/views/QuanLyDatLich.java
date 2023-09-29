@@ -72,11 +72,7 @@ public class QuanLyDatLich extends javax.swing.JFrame {
                 dispose();
 //                Tạo form mới
                 DangKy dangKy = null;
-                try {
-                    dangKy = new DangKy();
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(QuanLyDatLich.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                dangKy = new DangKy();
 
 //                Hiển thị form mới
                 dangKy.setVisible(true);

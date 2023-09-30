@@ -7,15 +7,14 @@ package views;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.net.MalformedURLException;
+import java.awt.event.ActionEvent;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -36,7 +35,6 @@ public class GioiThieu extends javax.swing.JFrame {
         setMenu();
         jPanel1.setBorder(BorderFactory.createTitledBorder("Developer"));
         jPanel2.setBorder(BorderFactory.createTitledBorder("Feedback"));
-
     }
 
     //    icon mặc định
@@ -56,19 +54,121 @@ public class GioiThieu extends javax.swing.JFrame {
         JMenu jMenuDangKy = new JMenu("Đăng ký");
         JMenu jMenuDangNhap = new JMenu("Đăng nhập");
         JMenu jMenuGioiThieu = new JMenu("Giới thiệu");
+        JMenu jMenuQuanLy = new JMenu("Quản lý");
+        JMenu jMenuDatLich = new JMenu("Đặt lịch");
         JMenu jMenuThoat = new JMenu("Thoát");
+
+//      Tạo các JMenuItem và thêm chúng vào JMenu
+        JMenuItem itemBenhNhan = new JMenuItem("Quản lý bệnh nhân");
+        JMenuItem itemBacSi = new JMenuItem("Quản lý bác sĩ");
+        jMenuQuanLy.add(itemBacSi);
+        jMenuQuanLy.add(itemBenhNhan);
 
 //        xét màu đậm cho menu
         Font boldFont = new Font("Arial", Font.BOLD, 12);
         jMenuGioiThieu.setFont(boldFont);
-
         menuBar.add(jMenuTrangChu);
         menuBar.add(jMenuDangKy);
         menuBar.add(jMenuDangNhap);
         menuBar.add(jMenuGioiThieu);
+        menuBar.add(jMenuQuanLy);
+        menuBar.add(jMenuDatLich);
         menuBar.add(jMenuThoat);
         int with = 14;
         int height = 14;
+
+//      icon trang chủ
+        String imgTrangChu = "views/icons/Home-icon.png";
+        ClassLoader clTrangChu = getClass().getClassLoader();
+        java.net.URL imageURLTrangChu = clTrangChu.getResource(imgTrangChu);
+        ImageIcon iconTrangChu = new ImageIcon(imageURLTrangChu);
+        jMenuTrangChu.setIcon(iconTrangChu);
+        jMenuTrangChu.setIcon(new ImageIcon(iconTrangChu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon đăng ký
+        String imgDangKy = "views/icons/regiter-icon.png";
+        ClassLoader clDangKy = getClass().getClassLoader();
+        java.net.URL imageURLDangKy = clDangKy.getResource(imgDangKy);
+        ImageIcon iconDangKy = new ImageIcon(imageURLDangKy);
+        jMenuDangKy.setIcon(iconDangKy);
+        jMenuDangKy.setIcon(new ImageIcon(iconDangKy.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon đăng nhập
+        String imgDangNhap = "views/icons/login-icon.png";
+        ClassLoader clDangNhap = getClass().getClassLoader();
+        java.net.URL imageURLDangNhap = clDangNhap.getResource(imgDangNhap);
+        ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
+        jMenuDangNhap.setIcon(iconDangNhap);
+        jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon giới thiệu
+        String imgGioiThieu = "views/icons/About-me-icon.png";
+        ClassLoader clGioiThieu = getClass().getClassLoader();
+        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
+        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
+        jMenuGioiThieu.setIcon(iconGioiThieu);
+        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon quản lý
+        String imgQuanLy = "views/icons/Logos-Device-Manager-icon.png";
+        ClassLoader clQuanLy = getClass().getClassLoader();
+        java.net.URL imageURLQuanLy = clQuanLy.getResource(imgQuanLy);
+        ImageIcon iconQuanLy = new ImageIcon(imageURLQuanLy);
+        jMenuQuanLy.setIcon(iconQuanLy);
+        jMenuQuanLy.setIcon(new ImageIcon(iconQuanLy.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//        icon quản lý bệnh nhân
+        String imgQuanLyBenhNhan = "views/icons/patient-icon.png";
+        ClassLoader clQuanLyBenhNhan = getClass().getClassLoader();
+        java.net.URL imageURLQuanLyBenhNhan = clQuanLyBenhNhan.getResource(imgQuanLyBenhNhan);
+        ImageIcon iconQuanLyBenhNhan = new ImageIcon(imageURLQuanLyBenhNhan);
+        itemBenhNhan.setIcon(iconQuanLyBenhNhan);
+        itemBenhNhan.setIcon(new ImageIcon(iconQuanLyBenhNhan.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//        icon quản lý bác sĩ
+        String imgQuanLyBacSi = "views/icons/People-Doctor-Male-icon.png";
+        ClassLoader clQuanLyBacSi = getClass().getClassLoader();
+        java.net.URL imageURLQuanLyBacSi = clQuanLyBacSi.getResource(imgQuanLyBacSi);
+        ImageIcon iconQuanLyBacSi = new ImageIcon(imageURLQuanLyBacSi);
+        itemBacSi.setIcon(iconQuanLyBenhNhan);
+        itemBacSi.setIcon(new ImageIcon(iconQuanLyBacSi.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon đặt lịch
+        String imgDatLich = "views/icons/Apps-preferences-system-time-icon.png";
+        ClassLoader clDatLich = getClass().getClassLoader();
+        java.net.URL imageURLDatLich = clDatLich.getResource(imgDatLich);
+        ImageIcon iconDatLich = new ImageIcon(imageURLDatLich);
+        jMenuDatLich.setIcon(iconDatLich);
+        jMenuDatLich.setIcon(new ImageIcon(iconDatLich.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//       icon thoát
+        String imgThoat = "views/icons/Exit-icon.png";
+        ClassLoader clThoat = getClass().getClassLoader();
+        java.net.URL imageURLThoat = clThoat.getResource(imgThoat);
+        ImageIcon iconThoat = new ImageIcon(imageURLThoat);
+        jMenuThoat.setIcon(iconThoat);
+        jMenuThoat.setIcon(new ImageIcon(iconThoat.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//        chuyển form giới thiệu sang đặt lịch
+        jMenuDatLich.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+//                đóng form hiện tại
+                dispose();
+//                Tạo form mới
+                QuanLyDatLich datLich = new QuanLyDatLich();
+//                Hiển thị form mới
+                datLich.setVisible(true);
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+            }
+        });
 
 //        chuyển form giới thiệu sang đăng ký
         jMenuDangKy.addMenuListener(new MenuListener() {
@@ -77,8 +177,7 @@ public class GioiThieu extends javax.swing.JFrame {
 //                đóng form hiện tại
                 dispose();
 //                Tạo form mới
-                DangKy dangKy = null;
-                dangKy = new DangKy();
+                DangKy dangKy = new DangKy();
 
 //                Hiển thị form mới
                 dangKy.setVisible(true);
@@ -101,7 +200,6 @@ public class GioiThieu extends javax.swing.JFrame {
                 dispose();
 //                Tạo form mới
                 TrangChu trangChu = new TrangChu();
-
 //                Hiển thị form mới
                 trangChu.setVisible(true);
             }
@@ -113,6 +211,26 @@ public class GioiThieu extends javax.swing.JFrame {
             @Override
             public void menuCanceled(MenuEvent e) {
             }
+        });
+
+//        chuyển form giới thiệu sang form quản lý bác sĩ
+        itemBacSi.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+            dispose();
+//                Tạo form mới
+            QuanLyBacSi bacSi = new QuanLyBacSi();
+//                Hiển thị form mới
+            bacSi.setVisible(true);
+        });
+
+//        chuyển form giới thiệu sang form quản lý bệnh nhân
+        itemBenhNhan.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+            dispose();
+//                Tạo form mới
+            QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
+//                Hiển thị form mới
+            benhNhan.setVisible(true);
         });
 
 //        chuyển form giới thiệu sang form đăng nhập
@@ -156,47 +274,6 @@ public class GioiThieu extends javax.swing.JFrame {
             public void menuCanceled(MenuEvent e) {
             }
         });
-
-//       icon trang chủ
-        String imgTrangChu = "views/icons/Home-icon.png";
-        ClassLoader clTrangChu = getClass().getClassLoader();
-        java.net.URL imageURLTrangChu = clTrangChu.getResource(imgTrangChu);
-        ImageIcon iconTrangChu = new ImageIcon(imageURLTrangChu);
-        jMenuTrangChu.setIcon(iconTrangChu);
-        jMenuTrangChu.setIcon(new ImageIcon(iconTrangChu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon đăng ký
-        String imgDangKy = "views/icons/regiter-icon.png";
-        ClassLoader clDangKy = getClass().getClassLoader();
-        java.net.URL imageURLDangKy = clDangKy.getResource(imgDangKy);
-        ImageIcon iconDangKy = new ImageIcon(imageURLDangKy);
-        jMenuDangKy.setIcon(iconDangKy);
-        jMenuDangKy.setIcon(new ImageIcon(iconDangKy.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon đăng nhập
-        String imgDangNhap = "views/icons/login-icon.png";
-        ClassLoader clDangNhap = getClass().getClassLoader();
-        java.net.URL imageURLDangNhap = clDangNhap.getResource(imgDangNhap);
-        ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
-        jMenuDangNhap.setIcon(iconDangNhap);
-        jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon giới thiệu
-        String imgGioiThieu = "views/icons/About-me-icon.png";
-        ClassLoader clGioiThieu = getClass().getClassLoader();
-        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
-        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
-        jMenuGioiThieu.setIcon(iconGioiThieu);
-        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon thoát
-        String imgThoat = "views/icons/Exit-icon.png";
-        ClassLoader clThoat = getClass().getClassLoader();
-        java.net.URL imageURLThoat = clThoat.getResource(imgThoat);
-        ImageIcon iconThoat = new ImageIcon(imageURLThoat);
-        jMenuThoat.setIcon(iconThoat);
-        jMenuThoat.setIcon(new ImageIcon(iconThoat.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
         setJMenuBar(menuBar);
 
     }
@@ -210,8 +287,18 @@ public class GioiThieu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        radChuaTot = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        radRatTot = new javax.swing.JRadioButton();
+        radBinhThuong = new javax.swing.JRadioButton();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtGopY = new javax.swing.JTextArea();
+        btnGui = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -220,78 +307,18 @@ public class GioiThieu extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        radChuaTot = new javax.swing.JRadioButton();
-        jLabel9 = new javax.swing.JLabel();
-        radRatTot = new javax.swing.JRadioButton();
-        radBinhThuong = new javax.swing.JRadioButton();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtxtGopY = new javax.swing.JTextArea();
-        btnGui = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/views.images/Feedback-icon.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Phần mềm quản lý bệnh viện");
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/images/Feedback-icon.png"))); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setText("Bản quyền phát triển ứng dụng thuộc về nhóm 5, © no coppyright !");
-
-        jLabel10.setText("Liên hệ manhthenguyen2003@gmail.com");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Team phát triển");
-
-        jLabel4.setText("Nguyễn Thế Mạnh (Nhóm trưởng)");
-
-        jLabel5.setText("Lương Thị Lan Anh");
-
-        jLabel6.setText("Trần Đức Việt");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel10))
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addGap(0, 18, Short.MAX_VALUE))
-        );
-
-        buttonGroup1.add(radChuaTot);
         radChuaTot.setText("Chưa tốt");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Cảm nhận của bạn khi sử dụng phần mềm ?");
 
-        buttonGroup1.add(radRatTot);
         radRatTot.setText("Rất tốt");
         radRatTot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,15 +326,14 @@ public class GioiThieu extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(radBinhThuong);
         radBinhThuong.setText("Bình thường");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Góp ý:");
 
-        jtxtGopY.setColumns(20);
-        jtxtGopY.setRows(5);
-        jScrollPane1.setViewportView(jtxtGopY);
+        txtGopY.setColumns(20);
+        txtGopY.setRows(5);
+        jScrollPane1.setViewportView(txtGopY);
 
         btnGui.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGui.setText("Gửi");
@@ -361,17 +387,61 @@ public class GioiThieu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/views.images/Developer-icon.png"))); // NOI18N
-
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/views.images/Feedback-icon.png"))); // NOI18N
-
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/views.images/Developer-Folder-icon.png"))); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/images/Developer-Folder-icon.png"))); // NOI18N
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/views.images/Contacts-icon.png"))); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/images/Contacts-icon.png"))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Phần mềm quản lý bệnh viện");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setText("Bản quyền phát triển ứng dụng thuộc về nhóm 5, © no coppyright !");
+
+        jLabel10.setText("Liên hệ manhthenguyen2003@gmail.com");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Team phát triển");
+
+        jLabel4.setText("Nguyễn Thế Mạnh (Nhóm trưởng)");
+
+        jLabel5.setText("Lương Thị Lan Anh");
+
+        jLabel6.setText("Trần Đức Việt");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addGap(0, 18, Short.MAX_VALUE))
+        );
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/images/Developer-icon.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -429,13 +499,22 @@ public class GioiThieu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuiActionPerformed
-
     private void radRatTotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radRatTotActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_radRatTotActionPerformed
+
+    private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
+        String phanHoi = "";
+        if (radRatTot.isSelected() || radBinhThuong.isSelected() || radChuaTot.isSelected()) {
+            phanHoi = "Cảm ơn bạn đã phản hồi ý kiến !";
+        }
+        if (!phanHoi.isEmpty()) {
+            JOptionPane.showMessageDialog(null, phanHoi);
+            txtGopY.setText("");
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn đánh giá trước khi gửi.");
+        }
+    }//GEN-LAST:event_btnGuiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,19 +545,19 @@ public class GioiThieu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new GioiThieu().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GioiThieu().setVisible(true);
+            }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGui;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
@@ -491,9 +570,9 @@ public class GioiThieu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jtxtGopY;
     private javax.swing.JRadioButton radBinhThuong;
     private javax.swing.JRadioButton radChuaTot;
     private javax.swing.JRadioButton radRatTot;
+    private javax.swing.JTextArea txtGopY;
     // End of variables declaration//GEN-END:variables
 }

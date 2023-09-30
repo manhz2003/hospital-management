@@ -10,6 +10,8 @@ import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -21,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -52,24 +55,148 @@ public class DangKy extends javax.swing.JFrame {
 
 //        menu
     private JFrame frame;
+
     private void setMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu jMenuTrangChu = new JMenu("Trang chủ");
         JMenu jMenuDangKy = new JMenu("Đăng ký");
         JMenu jMenuDangNhap = new JMenu("Đăng nhập");
         JMenu jMenuGioiThieu = new JMenu("Giới thiệu");
+        JMenu jMenuQuanLy = new JMenu("Quản lý");
+        JMenu jMenuDatLich = new JMenu("Đặt lịch");
         JMenu jMenuThoat = new JMenu("Thoát");
 
+//      Tạo các JMenuItem và thêm chúng vào JMenu
+        JMenuItem itemBenhNhan = new JMenuItem("Quản lý bệnh nhân");
+        JMenuItem itemBacSi = new JMenuItem("Quản lý bác sĩ");
+        jMenuQuanLy.add(itemBacSi);
+        jMenuQuanLy.add(itemBenhNhan);
+
+//        xét màu đậm cho menu
         Font boldFont = new Font("Arial", Font.BOLD, 12);
         jMenuDangKy.setFont(boldFont);
-
         menuBar.add(jMenuTrangChu);
         menuBar.add(jMenuDangKy);
         menuBar.add(jMenuDangNhap);
         menuBar.add(jMenuGioiThieu);
+        menuBar.add(jMenuQuanLy);
+        menuBar.add(jMenuDatLich);
         menuBar.add(jMenuThoat);
         int with = 14;
         int height = 14;
+
+//      icon trang chủ
+        String imgTrangChu = "views/icons/Home-icon.png";
+        ClassLoader clTrangChu = getClass().getClassLoader();
+        java.net.URL imageURLTrangChu = clTrangChu.getResource(imgTrangChu);
+        ImageIcon iconTrangChu = new ImageIcon(imageURLTrangChu);
+        jMenuTrangChu.setIcon(iconTrangChu);
+        jMenuTrangChu.setIcon(new ImageIcon(iconTrangChu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon đăng ký
+        String imgDangKy = "views/icons/regiter-icon.png";
+        ClassLoader clDangKy = getClass().getClassLoader();
+        java.net.URL imageURLDangKy = clDangKy.getResource(imgDangKy);
+        ImageIcon iconDangKy = new ImageIcon(imageURLDangKy);
+        jMenuDangKy.setIcon(iconDangKy);
+        jMenuDangKy.setIcon(new ImageIcon(iconDangKy.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon đăng nhập
+        String imgDangNhap = "views/icons/login-icon.png";
+        ClassLoader clDangNhap = getClass().getClassLoader();
+        java.net.URL imageURLDangNhap = clDangNhap.getResource(imgDangNhap);
+        ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
+        jMenuDangNhap.setIcon(iconDangNhap);
+        jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon giới thiệu
+        String imgGioiThieu = "views/icons/About-me-icon.png";
+        ClassLoader clGioiThieu = getClass().getClassLoader();
+        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
+        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
+        jMenuGioiThieu.setIcon(iconGioiThieu);
+        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon quản lý
+        String imgQuanLy = "views/icons/Logos-Device-Manager-icon.png";
+        ClassLoader clQuanLy = getClass().getClassLoader();
+        java.net.URL imageURLQuanLy = clQuanLy.getResource(imgQuanLy);
+        ImageIcon iconQuanLy = new ImageIcon(imageURLQuanLy);
+        jMenuQuanLy.setIcon(iconQuanLy);
+        jMenuQuanLy.setIcon(new ImageIcon(iconQuanLy.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//        icon quản lý bệnh nhân
+        String imgQuanLyBenhNhan = "views/icons/patient-icon.png";
+        ClassLoader clQuanLyBenhNhan = getClass().getClassLoader();
+        java.net.URL imageURLQuanLyBenhNhan = clQuanLyBenhNhan.getResource(imgQuanLyBenhNhan);
+        ImageIcon iconQuanLyBenhNhan = new ImageIcon(imageURLQuanLyBenhNhan);
+        itemBenhNhan.setIcon(iconQuanLyBenhNhan);
+        itemBenhNhan.setIcon(new ImageIcon(iconQuanLyBenhNhan.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//        icon quản lý bác sĩ
+        String imgQuanLyBacSi = "views/icons/People-Doctor-Male-icon.png";
+        ClassLoader clQuanLyBacSi = getClass().getClassLoader();
+        java.net.URL imageURLQuanLyBacSi = clQuanLyBacSi.getResource(imgQuanLyBacSi);
+        ImageIcon iconQuanLyBacSi = new ImageIcon(imageURLQuanLyBacSi);
+        itemBacSi.setIcon(iconQuanLyBenhNhan);
+        itemBacSi.setIcon(new ImageIcon(iconQuanLyBacSi.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon đặt lịch
+        String imgDatLich = "views/icons/Apps-preferences-system-time-icon.png";
+        ClassLoader clDatLich = getClass().getClassLoader();
+        java.net.URL imageURLDatLich = clDatLich.getResource(imgDatLich);
+        ImageIcon iconDatLich = new ImageIcon(imageURLDatLich);
+        jMenuDatLich.setIcon(iconDatLich);
+        jMenuDatLich.setIcon(new ImageIcon(iconDatLich.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//       icon thoát
+        String imgThoat = "views/icons/Exit-icon.png";
+        ClassLoader clThoat = getClass().getClassLoader();
+        java.net.URL imageURLThoat = clThoat.getResource(imgThoat);
+        ImageIcon iconThoat = new ImageIcon(imageURLThoat);
+        jMenuThoat.setIcon(iconThoat);
+        jMenuThoat.setIcon(new ImageIcon(iconThoat.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//        Chuyển form đăng ký sang quản lý bác sĩ
+        itemBacSi.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+            dispose();
+//                Tạo form mới
+            QuanLyBacSi bacSi = new QuanLyBacSi();
+//                Hiển thị form mới
+            bacSi.setVisible(true);
+        });
+
+//        chuyển form đăng ký sang form quản lý bệnh nhân
+        itemBenhNhan.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+            dispose();
+//                Tạo form mới
+            QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
+//                Hiển thị form mới
+            benhNhan.setVisible(true);
+        });
+
+//        chuyển form đăng ký sang đặt lịch
+        jMenuDatLich.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+//                đóng form hiện tại
+                dispose();
+//                Tạo form mới
+                QuanLyDatLich datLich = new QuanLyDatLich();
+//                Hiển thị form mới
+                datLich.setVisible(true);
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+            }
+        });
 
 //        chuyển form đăng ký sang đăng nhập
         jMenuDangNhap.addMenuListener(new MenuListener() {
@@ -156,49 +283,7 @@ public class DangKy extends javax.swing.JFrame {
             public void menuCanceled(MenuEvent e) {
             }
         });
-
-//       icon trang chủ
-        String imgTrangChu = "views/icons/Home-icon.png";
-        ClassLoader clTrangChu = getClass().getClassLoader();
-        java.net.URL imageURLTrangChu = clTrangChu.getResource(imgTrangChu);
-        ImageIcon iconTrangChu = new ImageIcon(imageURLTrangChu);
-        jMenuTrangChu.setIcon(iconTrangChu);
-        jMenuTrangChu.setIcon(new ImageIcon(iconTrangChu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon đăng ký
-        String imgDangKy = "views/icons/regiter-icon.png";
-        ClassLoader clDangKy = getClass().getClassLoader();
-        java.net.URL imageURLDangKy = clDangKy.getResource(imgDangKy);
-        ImageIcon iconDangKy = new ImageIcon(imageURLDangKy);
-        jMenuDangKy.setIcon(iconDangKy);
-        jMenuDangKy.setIcon(new ImageIcon(iconDangKy.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon đăng nhập
-        String imgDangNhap = "views/icons/login-icon.png";
-        ClassLoader clDangNhap = getClass().getClassLoader();
-        java.net.URL imageURLDangNhap = clDangNhap.getResource(imgDangNhap);
-        ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
-        jMenuDangNhap.setIcon(iconDangNhap);
-        jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon giới thiệu
-        String imgGioiThieu = "views/icons/About-me-icon.png";
-        ClassLoader clGioiThieu = getClass().getClassLoader();
-        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
-        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
-        jMenuGioiThieu.setIcon(iconGioiThieu);
-        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon thoát
-        String imgThoat = "views/icons/Exit-icon.png";
-        ClassLoader clThoat = getClass().getClassLoader();
-        java.net.URL imageURLThoat = clThoat.getResource(imgThoat);
-        ImageIcon iconThoat = new ImageIcon(imageURLThoat);
-        jMenuThoat.setIcon(iconThoat);
-        jMenuThoat.setIcon(new ImageIcon(iconThoat.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
         setJMenuBar(menuBar);
-
     }
 
     /**

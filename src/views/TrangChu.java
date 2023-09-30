@@ -7,14 +7,14 @@ package views;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.net.MalformedURLException;
+import java.awt.event.ActionEvent;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -30,13 +30,11 @@ public class TrangChu extends javax.swing.JFrame {
      */
     public TrangChu() {
         initComponents();
-        initComponents();
         setTitle("Trang chủ");
         setIconImageJframe();
         setMenu();
-        jLabel1.setHorizontalAlignment(jLabel1.CENTER);
-        jLabel1.setVerticalAlignment(jLabel1.CENTER);
-
+        jLabel1.setHorizontalAlignment(JLabel.CENTER);
+        jLabel1.setVerticalAlignment(JLabel.CENTER);
     }
 
     //    icon mặc định
@@ -56,19 +54,164 @@ public class TrangChu extends javax.swing.JFrame {
         JMenu jMenuDangKy = new JMenu("Đăng ký");
         JMenu jMenuDangNhap = new JMenu("Đăng nhập");
         JMenu jMenuGioiThieu = new JMenu("Giới thiệu");
+        JMenu jMenuQuanLy = new JMenu("Quản lý");
+        JMenu jMenuDatLich = new JMenu("Đặt lịch");
         JMenu jMenuThoat = new JMenu("Thoát");
+
+//      Tạo các JMenuItem và thêm chúng vào JMenu
+        JMenuItem itemBenhNhan = new JMenuItem("Quản lý bệnh nhân");
+        JMenuItem itemBacSi = new JMenuItem("Quản lý bác sĩ");
+        jMenuQuanLy.add(itemBacSi);
+        jMenuQuanLy.add(itemBenhNhan);
 
 //        xét màu đậm cho menu
         Font boldFont = new Font("Arial", Font.BOLD, 12);
         jMenuTrangChu.setFont(boldFont);
-
+        
         menuBar.add(jMenuTrangChu);
         menuBar.add(jMenuDangKy);
         menuBar.add(jMenuDangNhap);
         menuBar.add(jMenuGioiThieu);
+        menuBar.add(jMenuQuanLy);
+        menuBar.add(jMenuDatLich);
         menuBar.add(jMenuThoat);
         int with = 14;
         int height = 14;
+
+//      icon trang chủ
+        String imgTrangChu = "views/icons/Home-icon.png";
+        ClassLoader clTrangChu = getClass().getClassLoader();
+        java.net.URL imageURLTrangChu = clTrangChu.getResource(imgTrangChu);
+        ImageIcon iconTrangChu = new ImageIcon(imageURLTrangChu);
+        jMenuTrangChu.setIcon(iconTrangChu);
+        jMenuTrangChu.setIcon(new ImageIcon(iconTrangChu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon đăng ký
+        String imgDangKy = "views/icons/regiter-icon.png";
+        ClassLoader clDangKy = getClass().getClassLoader();
+        java.net.URL imageURLDangKy = clDangKy.getResource(imgDangKy);
+        ImageIcon iconDangKy = new ImageIcon(imageURLDangKy);
+        jMenuDangKy.setIcon(iconDangKy);
+        jMenuDangKy.setIcon(new ImageIcon(iconDangKy.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon đăng nhập
+        String imgDangNhap = "views/icons/login-icon.png";
+        ClassLoader clDangNhap = getClass().getClassLoader();
+        java.net.URL imageURLDangNhap = clDangNhap.getResource(imgDangNhap);
+        ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
+        jMenuDangNhap.setIcon(iconDangNhap);
+        jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon giới thiệu
+        String imgGioiThieu = "views/icons/About-me-icon.png";
+        ClassLoader clGioiThieu = getClass().getClassLoader();
+        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
+        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
+        jMenuGioiThieu.setIcon(iconGioiThieu);
+        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon quản lý
+        String imgQuanLy = "views/icons/Logos-Device-Manager-icon.png";
+        ClassLoader clQuanLy = getClass().getClassLoader();
+        java.net.URL imageURLQuanLy = clQuanLy.getResource(imgQuanLy);
+        ImageIcon iconQuanLy = new ImageIcon(imageURLQuanLy);
+        jMenuQuanLy.setIcon(iconQuanLy);
+        jMenuQuanLy.setIcon(new ImageIcon(iconQuanLy.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//        icon quản lý bệnh nhân
+        String imgQuanLyBenhNhan = "views/icons/patient-icon.png";
+        ClassLoader clQuanLyBenhNhan = getClass().getClassLoader();
+        java.net.URL imageURLQuanLyBenhNhan = clQuanLyBenhNhan.getResource(imgQuanLyBenhNhan);
+        ImageIcon iconQuanLyBenhNhan = new ImageIcon(imageURLQuanLyBenhNhan);
+        itemBenhNhan.setIcon(iconQuanLyBenhNhan);
+        itemBenhNhan.setIcon(new ImageIcon(iconQuanLyBenhNhan.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//        icon quản lý bác sĩ
+        String imgQuanLyBacSi = "views/icons/People-Doctor-Male-icon.png";
+        ClassLoader clQuanLyBacSi = getClass().getClassLoader();
+        java.net.URL imageURLQuanLyBacSi = clQuanLyBacSi.getResource(imgQuanLyBacSi);
+        ImageIcon iconQuanLyBacSi = new ImageIcon(imageURLQuanLyBacSi);
+        itemBacSi.setIcon(iconQuanLyBenhNhan);
+        itemBacSi.setIcon(new ImageIcon(iconQuanLyBacSi.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//      icon đặt lịch
+        String imgDatLich = "views/icons/Apps-preferences-system-time-icon.png";
+        ClassLoader clDatLich = getClass().getClassLoader();
+        java.net.URL imageURLDatLich = clDatLich.getResource(imgDatLich);
+        ImageIcon iconDatLich = new ImageIcon(imageURLDatLich);
+        jMenuDatLich.setIcon(iconDatLich);
+        jMenuDatLich.setIcon(new ImageIcon(iconDatLich.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//       icon thoát
+        String imgThoat = "views/icons/Exit-icon.png";
+        ClassLoader clThoat = getClass().getClassLoader();
+        java.net.URL imageURLThoat = clThoat.getResource(imgThoat);
+        ImageIcon iconThoat = new ImageIcon(imageURLThoat);
+        jMenuThoat.setIcon(iconThoat);
+        jMenuThoat.setIcon(new ImageIcon(iconThoat.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
+
+//        Chuyển form trang chủ sang quản lý bác sĩ
+        itemBacSi.addActionListener((ActionEvent e) -> {
+            //    đóng form hiện tại
+            dispose();
+//                Tạo form mới
+            QuanLyBacSi bacSi = new QuanLyBacSi();
+//                Hiển thị form mới
+            bacSi.setVisible(true);
+        });
+
+//        chuyển form trang chủ sang form quản lý bệnh nhân
+        itemBenhNhan.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+            dispose();
+//                Tạo form mới
+            QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
+//                Hiển thị form mới
+            benhNhan.setVisible(true);
+        });
+
+//        chuyển form trang chủ sang form đăng nhập
+        jMenuDangNhap.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+//                đóng form hiện tại
+                dispose();
+//                Tạo form mới
+                DangNhap dangNhap = new DangNhap();
+
+//                Hiển thị form mới
+                dangNhap.setVisible(true);
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+            }
+        });
+
+//        chuyển form trang chủ sang đặt lịch
+        jMenuDatLich.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+//                đóng form hiện tại
+                dispose();
+//                Tạo form mới
+                QuanLyDatLich datLich = new QuanLyDatLich();
+//                Hiển thị form mới
+                datLich.setVisible(true);
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+            }
+        });
 
 //        chuyển form trang chủ sang đăng ký
         jMenuDangKy.addMenuListener(new MenuListener() {
@@ -77,8 +220,7 @@ public class TrangChu extends javax.swing.JFrame {
 //                đóng form hiện tại
                 dispose();
 //                Tạo form mới
-                DangKy dangKy = null;
-                dangKy = new DangKy();
+                DangKy dangKy = new DangKy();
 
 //                Hiển thị form mới
                 dangKy.setVisible(true);
@@ -115,50 +257,6 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
 
-//        chuyển form trang chủ sang form đăng nhập
-        jMenuDangNhap.addMenuListener(new MenuListener() {
-            @Override
-            public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                DangNhap dangNhap = new DangNhap();
-
-//                Hiển thị form mới
-                dangNhap.setVisible(true);
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
-        });
-
-        //        chuyển form trang chủ sang form đăng nhập
-        jMenuDangNhap.addMenuListener(new MenuListener() {
-            @Override
-            public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                DangNhap dangNhap = new DangNhap();
-
-//                Hiển thị form mới
-                dangNhap.setVisible(true);
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
-        });
-
 //        thoát chương trình
         jMenuThoat.addMenuListener(new MenuListener() {
             @Override
@@ -178,49 +276,7 @@ public class TrangChu extends javax.swing.JFrame {
             public void menuCanceled(MenuEvent e) {
             }
         });
-
-//       icon trang chủ
-        String imgTrangChu = "views/icons/Home-icon.png";
-        ClassLoader clTrangChu = getClass().getClassLoader();
-        java.net.URL imageURLTrangChu = clTrangChu.getResource(imgTrangChu);
-        ImageIcon iconTrangChu = new ImageIcon(imageURLTrangChu);
-        jMenuTrangChu.setIcon(iconTrangChu);
-        jMenuTrangChu.setIcon(new ImageIcon(iconTrangChu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon đăng ký
-        String imgDangKy = "views/icons/regiter-icon.png";
-        ClassLoader clDangKy = getClass().getClassLoader();
-        java.net.URL imageURLDangKy = clDangKy.getResource(imgDangKy);
-        ImageIcon iconDangKy = new ImageIcon(imageURLDangKy);
-        jMenuDangKy.setIcon(iconDangKy);
-        jMenuDangKy.setIcon(new ImageIcon(iconDangKy.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon đăng nhập
-        String imgDangNhap = "views/icons/login-icon.png";
-        ClassLoader clDangNhap = getClass().getClassLoader();
-        java.net.URL imageURLDangNhap = clDangNhap.getResource(imgDangNhap);
-        ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
-        jMenuDangNhap.setIcon(iconDangNhap);
-        jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon giới thiệu
-        String imgGioiThieu = "views/icons/About-me-icon.png";
-        ClassLoader clGioiThieu = getClass().getClassLoader();
-        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
-        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
-        jMenuGioiThieu.setIcon(iconGioiThieu);
-        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//       icon thoát
-        String imgThoat = "views/icons/Exit-icon.png";
-        ClassLoader clThoat = getClass().getClassLoader();
-        java.net.URL imageURLThoat = clThoat.getResource(imgThoat);
-        ImageIcon iconThoat = new ImageIcon(imageURLThoat);
-        jMenuThoat.setIcon(iconThoat);
-        jMenuThoat.setIcon(new ImageIcon(iconThoat.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
         setJMenuBar(menuBar);
-
     }
 
     /**
@@ -232,30 +288,15 @@ public class TrangChu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
-        jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnDatLich = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        sda = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/views.images/Doctor-icon.png"))); // NOI18N
-
-        jToolBar1.setRollover(true);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("<html><center>Phần mềm quản lý bệnh viện</center> </html>");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/views.images/42491-hospital-icon.png"))); // NOI18N
 
         btnDatLich.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnDatLich.setText("Đăng nhập ngay !");
@@ -266,53 +307,61 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/views.images/Doctor-icon.png"))); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("<html><center>Phần mềm quản lý bệnh viện</center> </html>");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/views.images/medical-book-icon.png"))); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/images/medical-book-icon.png"))); // NOI18N
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/images/Doctor-icon.png"))); // NOI18N
+
+        sda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/images/42491-hospital-icon.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(122, 122, 122)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
             .addComponent(jSeparator1)
             .addComponent(jSeparator2)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(sda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 85, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(249, 249, 249)
                 .addComponent(btnDatLich)
-                .addGap(248, 248, 248))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel5))
-                    .addComponent(jLabel6))
-                .addGap(41, 41, 41)
+                    .addComponent(sda, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addComponent(btnDatLich, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -364,12 +413,10 @@ public class TrangChu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDatLich;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel sda;
     // End of variables declaration//GEN-END:variables
 }

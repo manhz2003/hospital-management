@@ -31,7 +31,7 @@ public class QuanLyTaiKhoanDao implements DaoInterface<QuanLyTaiKhoanModel> {
             connection = ConnectDB.getConnection();
 
             // Kiểm tra xem tên đăng nhập đã tồn tại chưa
-            String checkExistQuery = "SELECT * FROM QuanLyTaiKhoan WHERE tenDangNhap=?";
+            String checkExistQuery = "SELECT * FROM TaiKhoan WHERE tenDangNhap=?";
             preparedStatement = connection.prepareStatement(checkExistQuery);
             preparedStatement.setString(1, tenDangNhap);
             resultSet = preparedStatement.executeQuery();
@@ -69,7 +69,7 @@ public class QuanLyTaiKhoanDao implements DaoInterface<QuanLyTaiKhoanModel> {
             connection = ConnectDB.getConnection();
 
             // Kiểm tra xem email đã tồn tại chưa
-            String checkExistQuery = "SELECT * FROM QuanLyTaiKhoan WHERE email=?";
+            String checkExistQuery = "SELECT * FROM TaiKhoan WHERE email=?";
             preparedStatement = connection.prepareStatement(checkExistQuery);
             preparedStatement.setString(1, email);
             resultSet = preparedStatement.executeQuery();
@@ -108,7 +108,7 @@ public class QuanLyTaiKhoanDao implements DaoInterface<QuanLyTaiKhoanModel> {
             connection = ConnectDB.getConnection();
 
             // Kiểm tra xem tên đăng nhập và mật khẩu có khớp với tài khoản đã đăng ký hay không
-            String checkLoginQuery = "SELECT * FROM QuanLyTaiKhoan WHERE tenDangNhap=? AND matKhau=?";
+            String checkLoginQuery = "SELECT * FROM TaiKhoan WHERE tenDangNhap=? AND matKhau=?";
             preparedStatement = connection.prepareStatement(checkLoginQuery);
             preparedStatement.setString(1, tenDangNhap);
             preparedStatement.setString(2, matKhau);
@@ -146,7 +146,7 @@ public class QuanLyTaiKhoanDao implements DaoInterface<QuanLyTaiKhoanModel> {
             connection = ConnectDB.getConnection();
 
             // Kiểm tra xem tên đăng nhập và mật khẩu cũ có khớp với tài khoản đã đăng ký hay không
-            String checkLoginQuery = "SELECT * FROM QuanLyTaiKhoan WHERE tenDangNhap=? AND matKhau=?";
+            String checkLoginQuery = "SELECT * FROM TaiKhoan WHERE tenDangNhap=? AND matKhau=?";
             preparedStatement = connection.prepareStatement(checkLoginQuery);
             preparedStatement.setString(1, tenDangNhap);
             preparedStatement.setString(2, matKhauCu);
@@ -154,7 +154,7 @@ public class QuanLyTaiKhoanDao implements DaoInterface<QuanLyTaiKhoanModel> {
 
             if (resultSet.next()) {
                 // Tên đăng nhập và mật khẩu cũ đúng, cập nhật mật khẩu mới
-                String updatePasswordQuery = "UPDATE QuanLyTaiKhoan SET matKhau=? WHERE tenDangNhap=?";
+                String updatePasswordQuery = "UPDATE TaiKhoan SET matKhau=? WHERE tenDangNhap=?";
                 preparedStatement = connection.prepareStatement(updatePasswordQuery);
                 preparedStatement.setString(1, matKhauMoi);
                 preparedStatement.setString(2, tenDangNhap);
@@ -190,7 +190,7 @@ public class QuanLyTaiKhoanDao implements DaoInterface<QuanLyTaiKhoanModel> {
             connection = ConnectDB.getConnection();
 
             // Kiểm tra xem tên đăng nhập và email có khớp với tài khoản đã đăng ký hay không
-            String checkLoginQuery = "SELECT matKhau FROM QuanLyTaiKhoan WHERE tenDangNhap=? AND email=?";
+            String checkLoginQuery = "SELECT matKhau FROM TaiKhoan WHERE tenDangNhap=? AND email=?";
             preparedStatement = connection.prepareStatement(checkLoginQuery);
             preparedStatement.setString(1, tenDangNhap);
             preparedStatement.setString(2, email);
@@ -229,7 +229,7 @@ public class QuanLyTaiKhoanDao implements DaoInterface<QuanLyTaiKhoanModel> {
             connection = ConnectDB.getConnection();
 
             // Chuẩn bị câu truy vấn SQL để chèn dữ liệu
-            String sql = "INSERT INTO QuanLyTaiKhoan (hoVaTen, tenDangNhap, matKhau, email, GioiTinh) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO TaiKhoan (hoVaTen, tenDangNhap, matKhau, email, GioiTinh) VALUES (?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
 
             // Đặt các tham số cho câu truy vấn SQL từ đối tượng DangKy

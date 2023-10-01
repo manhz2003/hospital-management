@@ -157,7 +157,7 @@ public class DangNhap extends javax.swing.JFrame {
 //                Hiển thị form mới
             bacSi.setVisible(true);
         });
-        
+
 //        chuyển form đổi mật khẩu sang form quản lý bệnh nhân
         itemBenhNhan.addActionListener((ActionEvent e) -> {
 //                đóng form hiện tại
@@ -196,7 +196,7 @@ public class DangNhap extends javax.swing.JFrame {
 //                đóng form hiện tại
                 dispose();
 //                Tạo form mới
-               DangKy dangKy = new DangKy();
+                DangKy dangKy = new DangKy();
 
 //                Hiển thị form mới
                 dangKy.setVisible(true);
@@ -433,8 +433,7 @@ public class DangNhap extends javax.swing.JFrame {
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
         dispose();
-        DangKy dangKy = null;
-        dangKy = new DangKy();
+        DangKy dangKy = new DangKy();
         dangKy.setVisible(true);
     }//GEN-LAST:event_btnDangKyActionPerformed
 

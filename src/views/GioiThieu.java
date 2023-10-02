@@ -38,6 +38,7 @@ public class GioiThieu extends javax.swing.JFrame {
         setMenu();
         jPanel1.setBorder(BorderFactory.createTitledBorder("Developer"));
         jPanel2.setBorder(BorderFactory.createTitledBorder("Feedback"));
+        
     }
 
     //    icon mặc định

@@ -4,13 +4,11 @@
  */
 package views;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -34,7 +32,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         setTitle("Quản lý bệnh nhân");
         setIconImageJframe();
         setMenu();
-        jPanel1.setBorder(BorderFactory.createTitledBorder(""));
+        getContentPane().setBackground(Color.WHITE);
     }
 
     //    set icon cho jframe form
@@ -53,7 +51,6 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         JMenu jMenuTrangChu = new JMenu("Trang chủ");
         JMenu jMenuDangKy = new JMenu("Đăng ký");
         JMenu jMenuDangNhap = new JMenu("Đăng nhập");
-        JMenu jMenuGioiThieu = new JMenu("Giới thiệu");
         JMenu jMenuQuanLy = new JMenu("Quản lý");
         JMenu jMenuDatLich = new JMenu("Đặt lịch");
         JMenu jMenuThoat = new JMenu("Thoát");
@@ -70,7 +67,6 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         menuBar.add(jMenuTrangChu);
         menuBar.add(jMenuDangKy);
         menuBar.add(jMenuDangNhap);
-        menuBar.add(jMenuGioiThieu);
         menuBar.add(jMenuQuanLy);
         menuBar.add(jMenuDatLich);
         menuBar.add(jMenuThoat);
@@ -100,14 +96,6 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
         jMenuDangNhap.setIcon(iconDangNhap);
         jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//      icon giới thiệu
-        String imgGioiThieu = "views/icons/About-me-icon.png";
-        ClassLoader clGioiThieu = getClass().getClassLoader();
-        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
-        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
-        jMenuGioiThieu.setIcon(iconGioiThieu);
-        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
 
 //      icon quản lý
         String imgQuanLy = "views/icons/Logos-Device-Manager-icon.png";
@@ -222,28 +210,6 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
             }
         });
 
-//        chuyển form quản lý bệnh nhân sang form giới thiệu
-        jMenuGioiThieu.addMenuListener(new MenuListener() {
-            @Override
-            public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                GioiThieu gioiThieu = new GioiThieu();
-
-//                Hiển thị form mới
-                gioiThieu.setVisible(true);
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
-        });
-
 //        chuyển form bệnh nhân sang form đăng nhập
         jMenuDangNhap.addMenuListener(new MenuListener() {
             @Override
@@ -298,32 +264,17 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 847, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 55, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 847, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(440, Short.MAX_VALUE))
+            .addGap(0, 495, Short.MAX_VALUE)
         );
 
         pack();
@@ -359,14 +310,11 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QuanLyBenhNhan().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new QuanLyBenhNhan().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

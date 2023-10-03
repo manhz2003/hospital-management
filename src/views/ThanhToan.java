@@ -9,7 +9,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.net.URL;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -33,6 +32,7 @@ public class ThanhToan extends javax.swing.JFrame {
         setTitle("Thanh toán");
         setIconImageJframe();
         setMenu();
+        getContentPane().setBackground(Color.WHITE);
     }
 
     //    set icon cho jframe form
@@ -51,7 +51,6 @@ public class ThanhToan extends javax.swing.JFrame {
         JMenu jMenuTrangChu = new JMenu("Trang chủ");
         JMenu jMenuDangKy = new JMenu("Đăng ký");
         JMenu jMenuDangNhap = new JMenu("Đăng nhập");
-        JMenu jMenuGioiThieu = new JMenu("Giới thiệu");
         JMenu jMenuQuanLy = new JMenu("Quản lý");
         JMenu jMenuDatLich = new JMenu("Đặt lịch");
         JMenu jMenuThoat = new JMenu("Thoát");
@@ -68,7 +67,6 @@ public class ThanhToan extends javax.swing.JFrame {
         menuBar.add(jMenuTrangChu);
         menuBar.add(jMenuDangKy);
         menuBar.add(jMenuDangNhap);
-        menuBar.add(jMenuGioiThieu);
         menuBar.add(jMenuQuanLy);
         menuBar.add(jMenuDatLich);
         menuBar.add(jMenuThoat);
@@ -98,14 +96,6 @@ public class ThanhToan extends javax.swing.JFrame {
         ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
         jMenuDangNhap.setIcon(iconDangNhap);
         jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//      icon giới thiệu
-        String imgGioiThieu = "views/icons/About-me-icon.png";
-        ClassLoader clGioiThieu = getClass().getClassLoader();
-        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
-        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
-        jMenuGioiThieu.setIcon(iconGioiThieu);
-        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
 
 //      icon quản lý
         String imgQuanLy = "views/icons/Logos-Device-Manager-icon.png";
@@ -231,28 +221,6 @@ public class ThanhToan extends javax.swing.JFrame {
             }
         });
 
-//        chuyển form đổi mật khẩu sang form giới thiệu
-        jMenuGioiThieu.addMenuListener(new MenuListener() {
-            @Override
-            public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                GioiThieu gioiThieu = new GioiThieu();
-
-//                Hiển thị form mới
-                gioiThieu.setVisible(true);
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
-        });
-
         //        chuyển form đổi mật khẩu sang form đăng nhập
         jMenuDangNhap.addMenuListener(new MenuListener() {
             @Override
@@ -349,11 +317,14 @@ public class ThanhToan extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 255));
 
+        jCheckBox8.setForeground(new java.awt.Color(0, 102, 102));
         jCheckBox8.setText("Đồng ý điều khoản về giao dịch !");
 
+        jLabel129.setForeground(new java.awt.Color(0, 102, 102));
         jLabel129.setText("Tên đăng nhập");
 
         jLabel130.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel130.setForeground(new java.awt.Color(0, 102, 102));
         jLabel130.setText("Thanh toán bằng thẻ ngân hàng");
 
         jLabel131.setBackground(new java.awt.Color(0, 102, 102));
@@ -364,20 +335,23 @@ public class ThanhToan extends javax.swing.JFrame {
         jLabel131.setOpaque(true);
 
         cbbNganHang7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cbbNganHang7.setForeground(new java.awt.Color(0, 102, 102));
         cbbNganHang7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agribank", "BIDV", "VietinBank", "Vietcombank", "VPBank", "MBbank", "Techcombank", "Sacombank", "TPBank", "MaiBank" }));
         cbbNganHang7.setToolTipText("Chọn ngân hàng"); // NOI18N
 
         jLabel132.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel132.setIcon(new javax.swing.ImageIcon("E:\\EAUT\\HK5\\java\\project\\java-swing-hospital-management\\src\\views\\icons\\Mastercard-icon.png")); // NOI18N
 
-        lblMaGiaoDich49.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaGiaoDich49.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich49.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich49.setOpaque(true);
 
         jLabel133.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel133.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons/Visa-icon.png"))); // NOI18N
 
+        btnThanhToan7.setBackground(new java.awt.Color(0, 102, 102));
         btnThanhToan7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThanhToan7.setForeground(new java.awt.Color(255, 255, 255));
         btnThanhToan7.setText("Thanh Toán");
         btnThanhToan7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -392,45 +366,54 @@ public class ThanhToan extends javax.swing.JFrame {
         lblMaGiaoDich50.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich50.setOpaque(true);
 
+        jLabel135.setForeground(new java.awt.Color(0, 102, 102));
         jLabel135.setText("Số tài khoản");
 
+        jLabel136.setForeground(new java.awt.Color(0, 102, 102));
         jLabel136.setText("Ngày thanh toán");
 
         lblMaGiaoDich51.setBackground(new java.awt.Color(255, 255, 255));
         lblMaGiaoDich51.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich51.setOpaque(true);
 
+        jLabel137.setForeground(new java.awt.Color(0, 102, 102));
         jLabel137.setText("Tên tài khoản");
 
+        jLabel138.setForeground(new java.awt.Color(0, 102, 102));
         jLabel138.setText("Tổng số tiền thanh toán");
 
+        jLabel139.setForeground(new java.awt.Color(0, 102, 102));
         jLabel139.setText("Mã giao dịch");
 
+        jLabel140.setForeground(new java.awt.Color(0, 102, 102));
         jLabel140.setText("Chọn ngân hàng");
 
-        lblMaGiaoDich44.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaGiaoDich44.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich44.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaGiaoDich44.setOpaque(true);
 
-        lblMaGiaoDich48.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaGiaoDich48.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich48.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaGiaoDich48.setText("Nguyễn Thế Mạnh");
         lblMaGiaoDich48.setOpaque(true);
 
+        jLabel124.setForeground(new java.awt.Color(0, 102, 102));
         jLabel124.setText("Chủ tài khoản");
 
+        jLabel123.setForeground(new java.awt.Color(0, 102, 102));
         jLabel123.setText("Tổng số tiền thanh toán");
 
+        jLabel127.setForeground(new java.awt.Color(0, 102, 102));
         jLabel127.setText("Nội dung chuyển khoản: tên tài khoản + mã giao dịch");
 
-        lblMaGiaoDich47.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaGiaoDich47.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich47.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaGiaoDich47.setOpaque(true);
 
-        lblMaGiaoDich42.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaGiaoDich42.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich42.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaGiaoDich42.setText("MBBank");
@@ -439,33 +422,40 @@ public class ThanhToan extends javax.swing.JFrame {
         jLabel118.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel118.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/images/Ecommerce-Qr-Code-icon (1).png"))); // NOI18N
 
+        jLabel121.setForeground(new java.awt.Color(0, 102, 102));
         jLabel121.setText("Hotline hỗ trợ khách hàng: 0987739823");
 
+        jLabel122.setForeground(new java.awt.Color(0, 102, 102));
         jLabel122.setText("Số tài khoản");
 
+        jLabel120.setForeground(new java.awt.Color(0, 102, 102));
         jLabel120.setText("Ngày thanh toán");
 
+        jLabel128.setForeground(new java.awt.Color(0, 102, 102));
         jLabel128.setText("Mã giao dịch");
 
-        lblMaGiaoDich43.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaGiaoDich43.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich43.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaGiaoDich43.setOpaque(true);
 
         jLabel126.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel126.setForeground(new java.awt.Color(0, 102, 102));
         jLabel126.setText("Thanh toán chuyển khoản / quét mã QR");
 
+        jLabel119.setForeground(new java.awt.Color(0, 102, 102));
         jLabel119.setText("Ngân hàng");
 
+        jLabel125.setForeground(new java.awt.Color(0, 102, 102));
         jLabel125.setText("Ví momo");
 
-        lblMaGiaoDich46.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaGiaoDich46.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich46.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaGiaoDich46.setText("0987739823");
         lblMaGiaoDich46.setOpaque(true);
 
-        lblMaGiaoDich45.setBackground(new java.awt.Color(255, 255, 255));
+        lblMaGiaoDich45.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich45.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaGiaoDich45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaGiaoDich45.setText("029986666868");
@@ -677,10 +667,8 @@ public class ThanhToan extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ThanhToan().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ThanhToan().setVisible(true);
         });
     }
 

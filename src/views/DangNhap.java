@@ -5,6 +5,7 @@
 package views;
 
 import controllers.TaiKhoanController;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -16,6 +17,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -33,7 +36,7 @@ public class DangNhap extends javax.swing.JFrame {
         setTitle("Đăng nhập");
         setIconImageJframe();
         setMenu();
-
+        getContentPane().setBackground(Color.WHITE);
     }
 
 //    set icon cho jframe form
@@ -52,7 +55,6 @@ public class DangNhap extends javax.swing.JFrame {
         JMenu jMenuTrangChu = new JMenu("Trang chủ");
         JMenu jMenuDangKy = new JMenu("Đăng ký");
         JMenu jMenuDangNhap = new JMenu("Đăng nhập");
-        JMenu jMenuGioiThieu = new JMenu("Giới thiệu");
         JMenu jMenuQuanLy = new JMenu("Quản lý");
         JMenu jMenuDatLich = new JMenu("Đặt lịch");
         JMenu jMenuThoat = new JMenu("Thoát");
@@ -69,7 +71,6 @@ public class DangNhap extends javax.swing.JFrame {
         menuBar.add(jMenuTrangChu);
         menuBar.add(jMenuDangKy);
         menuBar.add(jMenuDangNhap);
-        menuBar.add(jMenuGioiThieu);
         menuBar.add(jMenuQuanLy);
         menuBar.add(jMenuDatLich);
         menuBar.add(jMenuThoat);
@@ -99,14 +100,6 @@ public class DangNhap extends javax.swing.JFrame {
         ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
         jMenuDangNhap.setIcon(iconDangNhap);
         jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//      icon giới thiệu
-        String imgGioiThieu = "views/icons/About-me-icon.png";
-        ClassLoader clGioiThieu = getClass().getClassLoader();
-        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
-        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
-        jMenuGioiThieu.setIcon(iconGioiThieu);
-        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
 
 //      icon quản lý
         String imgQuanLy = "views/icons/Logos-Device-Manager-icon.png";
@@ -233,28 +226,6 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
-//        chuyển form đăng nhập sang form giới thiệu
-        jMenuGioiThieu.addMenuListener(new MenuListener() {
-            @Override
-            public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                GioiThieu gioiThieu = new GioiThieu();
-
-//                Hiển thị form mới
-                gioiThieu.setVisible(true);
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
-        });
-
 //        thoát chương trình
         jMenuThoat.addMenuListener(new MenuListener() {
             @Override
@@ -302,7 +273,9 @@ public class DangNhap extends javax.swing.JFrame {
         iconName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons/frm-login.png"))); // NOI18N
 
+        btnDangNhap.setBackground(new java.awt.Color(0, 102, 102));
         btnDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnDangNhap.setText("Đăng nhập");
         btnDangNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
@@ -311,13 +284,17 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("Tên đăng nhập");
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 102));
         jLabel4.setText("Mật khẩu");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 102, 102));
         jLabel9.setText("Đăng nhập tài khoản");
 
+        lblDoiMatKhau.setForeground(new java.awt.Color(0, 102, 102));
         lblDoiMatKhau.setText("Đổi mật khẩu");
         lblDoiMatKhau.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblDoiMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -326,6 +303,7 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
+        lblQuenMatKhau.setForeground(new java.awt.Color(0, 102, 102));
         lblQuenMatKhau.setText("Quên mật khẩu ?");
         lblQuenMatKhau.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -334,7 +312,9 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
+        btnDangKy.setBackground(new java.awt.Color(0, 102, 102));
         btnDangKy.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDangKy.setForeground(new java.awt.Color(255, 255, 255));
         btnDangKy.setText("Đăng ký");
         btnDangKy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDangKy.addActionListener(new java.awt.event.ActionListener() {
@@ -426,6 +406,9 @@ public class DangNhap extends javax.swing.JFrame {
 
         if (dangNhapThanhCong) {
             JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+            dispose();
+            QuanLyDatLich datLich = new QuanLyDatLich();
+            datLich.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Đăng nhập thất bại! Vui lòng kiểm tra lại tên đăng nhập và mật khẩu.");
         }

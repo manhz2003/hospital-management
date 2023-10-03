@@ -5,7 +5,6 @@
 package views;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -35,7 +34,8 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         setTitle("Quản lý bác sĩ");
         setIconImageJframe();
         setMenu();
-        jPanel10.setBorder(new LineBorder(Color.black, 1));
+        jPanel10.setBorder(new LineBorder(Color.WHITE, 1));
+        getContentPane().setBackground(Color.WHITE);
     }
 
     //    set icon cho jframe form
@@ -48,13 +48,12 @@ public class QuanLyBacSi extends javax.swing.JFrame {
 
 //    menu
     private JFrame frame;
-
+    
     private void setMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu jMenuTrangChu = new JMenu("Trang chủ");
         JMenu jMenuDangKy = new JMenu("Đăng ký");
         JMenu jMenuDangNhap = new JMenu("Đăng nhập");
-        JMenu jMenuGioiThieu = new JMenu("Giới thiệu");
         JMenu jMenuQuanLy = new JMenu("Quản lý");
         JMenu jMenuDatLich = new JMenu("Đặt lịch");
         JMenu jMenuThoat = new JMenu("Thoát");
@@ -71,7 +70,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         menuBar.add(jMenuTrangChu);
         menuBar.add(jMenuDangKy);
         menuBar.add(jMenuDangNhap);
-        menuBar.add(jMenuGioiThieu);
         menuBar.add(jMenuQuanLy);
         menuBar.add(jMenuDatLich);
         menuBar.add(jMenuThoat);
@@ -101,14 +99,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
         jMenuDangNhap.setIcon(iconDangNhap);
         jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//      icon giới thiệu
-        String imgGioiThieu = "views/icons/About-me-icon.png";
-        ClassLoader clGioiThieu = getClass().getClassLoader();
-        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
-        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
-        jMenuGioiThieu.setIcon(iconGioiThieu);
-        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
 
 //      icon quản lý
         String imgQuanLy = "views/icons/Logos-Device-Manager-icon.png";
@@ -171,11 +161,11 @@ public class QuanLyBacSi extends javax.swing.JFrame {
 //                Hiển thị form mới
                 datLich.setVisible(true);
             }
-
+            
             @Override
             public void menuDeselected(MenuEvent e) {
             }
-
+            
             @Override
             public void menuCanceled(MenuEvent e) {
             }
@@ -193,11 +183,11 @@ public class QuanLyBacSi extends javax.swing.JFrame {
 //                Hiển thị form mới
                 dangKy.setVisible(true);
             }
-
+            
             @Override
             public void menuDeselected(MenuEvent e) {
             }
-
+            
             @Override
             public void menuCanceled(MenuEvent e) {
             }
@@ -214,33 +204,11 @@ public class QuanLyBacSi extends javax.swing.JFrame {
 //                Hiển thị form mới
                 trangChu.setVisible(true);
             }
-
+            
             @Override
             public void menuDeselected(MenuEvent e) {
             }
-
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
-        });
-
-//        chuyển form quản lý bác sĩ sang form giới thiệu
-        jMenuGioiThieu.addMenuListener(new MenuListener() {
-            @Override
-            public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                GioiThieu gioiThieu = new GioiThieu();
-
-//                Hiển thị form mới
-                gioiThieu.setVisible(true);
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-
+            
             @Override
             public void menuCanceled(MenuEvent e) {
             }
@@ -258,11 +226,11 @@ public class QuanLyBacSi extends javax.swing.JFrame {
 //                Hiển thị form mới
                 dangNhap.setVisible(true);
             }
-
+            
             @Override
             public void menuDeselected(MenuEvent e) {
             }
-
+            
             @Override
             public void menuCanceled(MenuEvent e) {
             }
@@ -273,16 +241,16 @@ public class QuanLyBacSi extends javax.swing.JFrame {
             @Override
             public void menuSelected(MenuEvent e) {
                 int result = JOptionPane.showConfirmDialog(frame, "Bạn có chắc chắn muốn thoát chương trình không?", "Thoát chương trình", JOptionPane.YES_NO_OPTION);
-
+                
                 if (result == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
             }
-
+            
             @Override
             public void menuDeselected(MenuEvent e) {
             }
-
+            
             @Override
             public void menuCanceled(MenuEvent e) {
             }
@@ -354,40 +322,54 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         );
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 102, 102));
         jLabel16.setText("Học vấn");
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 102, 102));
         jLabel17.setText("Email");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 102, 102));
         jLabel11.setText("Mã bác sĩ");
 
+        radNu.setForeground(new java.awt.Color(0, 102, 102));
         radNu.setText("Nữ");
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 102, 102));
         jLabel12.setText("Số điện thoại");
 
+        radNam.setForeground(new java.awt.Color(0, 102, 102));
         radNam.setText("Nam");
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 102, 102));
         jLabel13.setText("Email");
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 102, 102));
         jLabel18.setText("Giới tính");
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 102, 102));
         jLabel14.setText("Địa chỉ");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
         jLabel5.setText("Thông tin bác sĩ");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 102, 102));
         jLabel15.setText("Kinh nghiệm làm việc:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 102, 102));
         jLabel7.setText("Họ và tên");
 
+        btnXoa4.setBackground(new java.awt.Color(0, 102, 102));
         btnXoa4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoa4.setForeground(new java.awt.Color(255, 255, 255));
         btnXoa4.setText("Xóa");
         btnXoa4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnXoa4.addActionListener(new java.awt.event.ActionListener() {
@@ -397,9 +379,12 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         });
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setText("Chức năng điều khiển");
 
+        btnSua4.setBackground(new java.awt.Color(0, 102, 102));
         btnSua4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua4.setForeground(new java.awt.Color(255, 255, 255));
         btnSua4.setText("Sửa");
         btnSua4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSua4.addActionListener(new java.awt.event.ActionListener() {
@@ -408,7 +393,9 @@ public class QuanLyBacSi extends javax.swing.JFrame {
             }
         });
 
+        btnXoaTatCa4.setBackground(new java.awt.Color(0, 102, 102));
         btnXoaTatCa4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoaTatCa4.setForeground(new java.awt.Color(255, 255, 255));
         btnXoaTatCa4.setText("Xóa tất cả");
         btnXoaTatCa4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnXoaTatCa4.addActionListener(new java.awt.event.ActionListener() {
@@ -417,7 +404,9 @@ public class QuanLyBacSi extends javax.swing.JFrame {
             }
         });
 
+        btnThem4.setBackground(new java.awt.Color(0, 102, 102));
         btnThem4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem4.setForeground(new java.awt.Color(255, 255, 255));
         btnThem4.setText("Thêm");
         btnThem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem4.addActionListener(new java.awt.event.ActionListener() {
@@ -426,6 +415,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setForeground(new java.awt.Color(0, 102, 102));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -440,9 +430,12 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable1);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 102, 102));
         jLabel4.setText("Danh sách bác sĩ");
 
+        btnTimTheoId.setBackground(new java.awt.Color(0, 102, 102));
         btnTimTheoId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTimTheoId.setForeground(new java.awt.Color(255, 255, 255));
         btnTimTheoId.setText("Tìm kiếm theo mã");
         btnTimTheoId.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTimTheoId.addActionListener(new java.awt.event.ActionListener() {
@@ -451,7 +444,9 @@ public class QuanLyBacSi extends javax.swing.JFrame {
             }
         });
 
+        btnTimTatCa.setBackground(new java.awt.Color(0, 102, 102));
         btnTimTatCa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTimTatCa.setForeground(new java.awt.Color(255, 255, 255));
         btnTimTatCa.setText("Tìm kiếm tất cả");
         btnTimTatCa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTimTatCa.addActionListener(new java.awt.event.ActionListener() {
@@ -675,19 +670,13 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSua3;
     private javax.swing.JButton btnSua4;
-    private javax.swing.JButton btnThem3;
     private javax.swing.JButton btnThem4;
     private javax.swing.JButton btnTimTatCa;
     private javax.swing.JButton btnTimTheoId;
-    private javax.swing.JButton btnXoa3;
     private javax.swing.JButton btnXoa4;
-    private javax.swing.JButton btnXoaTatCa3;
     private javax.swing.JButton btnXoaTatCa4;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -697,17 +686,11 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
@@ -715,8 +698,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JLabel lblAnhHoSo;
-    private javax.swing.JLabel lblAnhHoSo2;
     private javax.swing.JRadioButton radNam;
     private javax.swing.JRadioButton radNu;
     private javax.swing.JTextField txtEmail;

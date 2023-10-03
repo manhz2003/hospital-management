@@ -6,6 +6,7 @@ package views;
 
 import models.QuanLyTaiKhoanModel;
 import controllers.TaiKhoanController;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Image;
@@ -43,6 +44,7 @@ public class DangKy extends javax.swing.JFrame {
         setIconImageJframe();
         setMenu();
         setVisible(true);
+        getContentPane().setBackground(Color.WHITE);
     }
 
     //    set icon cho jframe form
@@ -61,7 +63,6 @@ public class DangKy extends javax.swing.JFrame {
         JMenu jMenuTrangChu = new JMenu("Trang chủ");
         JMenu jMenuDangKy = new JMenu("Đăng ký");
         JMenu jMenuDangNhap = new JMenu("Đăng nhập");
-        JMenu jMenuGioiThieu = new JMenu("Giới thiệu");
         JMenu jMenuQuanLy = new JMenu("Quản lý");
         JMenu jMenuDatLich = new JMenu("Đặt lịch");
         JMenu jMenuThoat = new JMenu("Thoát");
@@ -78,7 +79,6 @@ public class DangKy extends javax.swing.JFrame {
         menuBar.add(jMenuTrangChu);
         menuBar.add(jMenuDangKy);
         menuBar.add(jMenuDangNhap);
-        menuBar.add(jMenuGioiThieu);
         menuBar.add(jMenuQuanLy);
         menuBar.add(jMenuDatLich);
         menuBar.add(jMenuThoat);
@@ -108,14 +108,6 @@ public class DangKy extends javax.swing.JFrame {
         ImageIcon iconDangNhap = new ImageIcon(imageURLDangNhap);
         jMenuDangNhap.setIcon(iconDangNhap);
         jMenuDangNhap.setIcon(new ImageIcon(iconDangNhap.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
-
-//      icon giới thiệu
-        String imgGioiThieu = "views/icons/About-me-icon.png";
-        ClassLoader clGioiThieu = getClass().getClassLoader();
-        java.net.URL imageURLGioiThieu = clGioiThieu.getResource(imgGioiThieu);
-        ImageIcon iconGioiThieu = new ImageIcon(imageURLGioiThieu);
-        jMenuGioiThieu.setIcon(iconGioiThieu);
-        jMenuGioiThieu.setIcon(new ImageIcon(iconGioiThieu.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
 
 //      icon quản lý
         String imgQuanLy = "views/icons/Logos-Device-Manager-icon.png";
@@ -242,28 +234,6 @@ public class DangKy extends javax.swing.JFrame {
             }
         });
 
-//        chuyển form đăng ký sang form giới thiệu
-        jMenuGioiThieu.addMenuListener(new MenuListener() {
-            @Override
-            public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                GioiThieu gioiThieu = new GioiThieu();
-
-//                Hiển thị form mới
-                gioiThieu.setVisible(true);
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
-        });
-
 //        thoát chương trình
         jMenuThoat.addMenuListener(new MenuListener() {
             @Override
@@ -334,8 +304,10 @@ public class DangKy extends javax.swing.JFrame {
         iconName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons/Users-icon.png"))); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 102, 102));
         jLabel9.setText("Đăng ký tài khoản");
 
+        txtDieuKhoan.setForeground(new java.awt.Color(0, 102, 102));
         txtDieuKhoan.setText("bạn có đồng ý với điều khoản dịch vụ ?");
         txtDieuKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtDieuKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -344,7 +316,9 @@ public class DangKy extends javax.swing.JFrame {
             }
         });
 
+        btnDangKy.setBackground(new java.awt.Color(0, 102, 102));
         btnDangKy.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDangKy.setForeground(new java.awt.Color(255, 255, 255));
         btnDangKy.setText("Đăng ký");
         btnDangKy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDangKy.addActionListener(new java.awt.event.ActionListener() {
@@ -353,19 +327,26 @@ public class DangKy extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("Tên đăng nhập");
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setText("Tên của bạn");
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 102));
         jLabel4.setText("Mật khẩu");
 
+        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
         jLabel5.setText("Xác nhận mật khẩu");
 
+        jLabel6.setForeground(new java.awt.Color(0, 102, 102));
         jLabel6.setText("Giới tính");
 
+        jLabel7.setForeground(new java.awt.Color(0, 102, 102));
         jLabel7.setText("Email");
 
         buttonGroup1.add(radNam);
+        radNam.setForeground(new java.awt.Color(0, 102, 102));
         radNam.setText("Nam");
         radNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,6 +355,7 @@ public class DangKy extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(radNu);
+        radNu.setForeground(new java.awt.Color(0, 102, 102));
         radNu.setText("Nữ");
         radNu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -430,8 +412,8 @@ public class DangKy extends javax.swing.JFrame {
                         .addComponent(iconName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(288, 288, 288))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(227, 227, 227))))
+                        .addComponent(jLabel9)
+                        .addGap(253, 253, 253))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

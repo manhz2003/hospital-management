@@ -281,9 +281,9 @@ public class ThanhToan extends javax.swing.JFrame {
         jLabel131 = new javax.swing.JLabel();
         cbbNganHang7 = new javax.swing.JComboBox<>();
         jLabel132 = new javax.swing.JLabel();
-        lblMaGiaoDich49 = new javax.swing.JLabel();
+        lblMaGiaoDich = new javax.swing.JLabel();
         jLabel133 = new javax.swing.JLabel();
-        btnThanhToan7 = new javax.swing.JButton();
+        btnThanhToan = new javax.swing.JButton();
         jLabel134 = new javax.swing.JLabel();
         lblMaGiaoDich50 = new javax.swing.JLabel();
         jLabel135 = new javax.swing.JLabel();
@@ -295,19 +295,19 @@ public class ThanhToan extends javax.swing.JFrame {
         txtTenTaiKhoan7 = new javax.swing.JTextField();
         jLabel139 = new javax.swing.JLabel();
         jLabel140 = new javax.swing.JLabel();
-        lblMaGiaoDich44 = new javax.swing.JLabel();
+        lblTongTien = new javax.swing.JLabel();
         lblMaGiaoDich48 = new javax.swing.JLabel();
         jLabel124 = new javax.swing.JLabel();
         jLabel123 = new javax.swing.JLabel();
         jLabel127 = new javax.swing.JLabel();
-        lblMaGiaoDich47 = new javax.swing.JLabel();
+        lblMaGiaoDichQr = new javax.swing.JLabel();
         lblMaGiaoDich42 = new javax.swing.JLabel();
         jLabel118 = new javax.swing.JLabel();
         jLabel121 = new javax.swing.JLabel();
         jLabel122 = new javax.swing.JLabel();
         jLabel120 = new javax.swing.JLabel();
         jLabel128 = new javax.swing.JLabel();
-        lblMaGiaoDich43 = new javax.swing.JLabel();
+        lblNgayThanhToan = new javax.swing.JLabel();
         jLabel126 = new javax.swing.JLabel();
         jLabel119 = new javax.swing.JLabel();
         jLabel125 = new javax.swing.JLabel();
@@ -342,20 +342,20 @@ public class ThanhToan extends javax.swing.JFrame {
         jLabel132.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel132.setIcon(new javax.swing.ImageIcon("E:\\EAUT\\HK5\\java\\project\\java-swing-hospital-management\\src\\views\\icons\\Mastercard-icon.png")); // NOI18N
 
-        lblMaGiaoDich49.setBackground(new java.awt.Color(204, 204, 204));
-        lblMaGiaoDich49.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblMaGiaoDich49.setOpaque(true);
+        lblMaGiaoDich.setBackground(new java.awt.Color(204, 204, 204));
+        lblMaGiaoDich.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblMaGiaoDich.setOpaque(true);
 
         jLabel133.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel133.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons/Visa-icon.png"))); // NOI18N
 
-        btnThanhToan7.setBackground(new java.awt.Color(0, 102, 102));
-        btnThanhToan7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThanhToan7.setForeground(new java.awt.Color(255, 255, 255));
-        btnThanhToan7.setText("Thanh Toán");
-        btnThanhToan7.addActionListener(new java.awt.event.ActionListener() {
+        btnThanhToan.setBackground(new java.awt.Color(0, 102, 102));
+        btnThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThanhToan.setForeground(new java.awt.Color(255, 255, 255));
+        btnThanhToan.setText("Thanh Toán");
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThanhToan7btnThanhToanActionPerformed(evt);
+                btnThanhToanbtnThanhToanActionPerformed(evt);
             }
         });
 
@@ -388,10 +388,10 @@ public class ThanhToan extends javax.swing.JFrame {
         jLabel140.setForeground(new java.awt.Color(0, 102, 102));
         jLabel140.setText("Chọn ngân hàng");
 
-        lblMaGiaoDich44.setBackground(new java.awt.Color(204, 204, 204));
-        lblMaGiaoDich44.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblMaGiaoDich44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMaGiaoDich44.setOpaque(true);
+        lblTongTien.setBackground(new java.awt.Color(204, 204, 204));
+        lblTongTien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTongTien.setOpaque(true);
 
         lblMaGiaoDich48.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich48.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -408,10 +408,10 @@ public class ThanhToan extends javax.swing.JFrame {
         jLabel127.setForeground(new java.awt.Color(0, 102, 102));
         jLabel127.setText("Nội dung chuyển khoản: tên tài khoản + mã giao dịch");
 
-        lblMaGiaoDich47.setBackground(new java.awt.Color(204, 204, 204));
-        lblMaGiaoDich47.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblMaGiaoDich47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMaGiaoDich47.setOpaque(true);
+        lblMaGiaoDichQr.setBackground(new java.awt.Color(204, 204, 204));
+        lblMaGiaoDichQr.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblMaGiaoDichQr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMaGiaoDichQr.setOpaque(true);
 
         lblMaGiaoDich42.setBackground(new java.awt.Color(204, 204, 204));
         lblMaGiaoDich42.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -434,10 +434,10 @@ public class ThanhToan extends javax.swing.JFrame {
         jLabel128.setForeground(new java.awt.Color(0, 102, 102));
         jLabel128.setText("Mã giao dịch");
 
-        lblMaGiaoDich43.setBackground(new java.awt.Color(204, 204, 204));
-        lblMaGiaoDich43.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblMaGiaoDich43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMaGiaoDich43.setOpaque(true);
+        lblNgayThanhToan.setBackground(new java.awt.Color(204, 204, 204));
+        lblNgayThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblNgayThanhToan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNgayThanhToan.setOpaque(true);
 
         jLabel126.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel126.setForeground(new java.awt.Color(0, 102, 102));
@@ -474,7 +474,7 @@ public class ThanhToan extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbbNganHang7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblMaGiaoDich49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblMaGiaoDich, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -504,7 +504,7 @@ public class ThanhToan extends javax.swing.JFrame {
                             .addComponent(jCheckBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(90, 90, 90)
-                                .addComponent(btnThanhToan7)))
+                                .addComponent(btnThanhToan)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -527,17 +527,17 @@ public class ThanhToan extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel128, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblMaGiaoDich47, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblMaGiaoDichQr, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel121, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel127)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblMaGiaoDich44, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel123, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel120, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblMaGiaoDich43, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(lblNgayThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -563,7 +563,7 @@ public class ThanhToan extends javax.swing.JFrame {
                             .addComponent(jLabel139))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblMaGiaoDich49, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblMaGiaoDich, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbbNganHang7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
                         .addComponent(jLabel135)
@@ -592,7 +592,7 @@ public class ThanhToan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel128)
-                            .addComponent(lblMaGiaoDich47, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblMaGiaoDichQr, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel123)
@@ -601,8 +601,8 @@ public class ThanhToan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblMaGiaoDich44, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMaGiaoDich43, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNgayThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel118, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -626,7 +626,7 @@ public class ThanhToan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnThanhToan7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -634,9 +634,9 @@ public class ThanhToan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThanhToan7btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToan7btnThanhToanActionPerformed
+    private void btnThanhToanbtnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanbtnThanhToanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThanhToan7btnThanhToanActionPerformed
+    }//GEN-LAST:event_btnThanhToanbtnThanhToanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -673,7 +673,7 @@ public class ThanhToan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnThanhToan7;
+    private javax.swing.JButton btnThanhToan;
     private javax.swing.JComboBox<String> cbbNganHang7;
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JLabel jLabel118;
@@ -699,16 +699,16 @@ public class ThanhToan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel138;
     private javax.swing.JLabel jLabel139;
     private javax.swing.JLabel jLabel140;
+    private javax.swing.JLabel lblMaGiaoDich;
     private javax.swing.JLabel lblMaGiaoDich42;
-    private javax.swing.JLabel lblMaGiaoDich43;
-    private javax.swing.JLabel lblMaGiaoDich44;
     private javax.swing.JLabel lblMaGiaoDich45;
     private javax.swing.JLabel lblMaGiaoDich46;
-    private javax.swing.JLabel lblMaGiaoDich47;
     private javax.swing.JLabel lblMaGiaoDich48;
-    private javax.swing.JLabel lblMaGiaoDich49;
     private javax.swing.JLabel lblMaGiaoDich50;
     private javax.swing.JLabel lblMaGiaoDich51;
+    private javax.swing.JLabel lblMaGiaoDichQr;
+    private javax.swing.JLabel lblNgayThanhToan;
+    private javax.swing.JLabel lblTongTien;
     private javax.swing.JTextField txtSoTaiKhoan7;
     private javax.swing.JTextField txtTenDangNhap7;
     private javax.swing.JTextField txtTenTaiKhoan7;

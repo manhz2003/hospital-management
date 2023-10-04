@@ -24,7 +24,6 @@ public class TaiKhoanController {
     }
 
     public boolean kiemTraTenDangNhapTrung(String tenDangNhap) {
-        QuanLyTaiKhoanDao dangKyDao = new QuanLyTaiKhoanDao();
         return dangKyDao.tenDangNhapDaTonTai(tenDangNhap);
     }
 

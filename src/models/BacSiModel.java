@@ -1,6 +1,77 @@
 package models;
 
 
-public class BacSiModel {
+public class BacSiModel extends NguoiModel{
+    private String maBacSi;
+    private String chuyenKhoa;
+    private String kinhNgiemLamViec;
+    private String hocVan;
+    private String hinhAnh;
 
+    public BacSiModel() {
+    }
+
+    public BacSiModel(String maBacSi, String chuyenKhoa, String kinhNgiemLamViec, String hocVan, String hinhAnh) {
+        this.maBacSi = maBacSi;
+        this.chuyenKhoa = chuyenKhoa;
+        this.kinhNgiemLamViec = kinhNgiemLamViec;
+        this.hocVan = hocVan;
+        this.hinhAnh = hinhAnh;
+    }
+
+    public BacSiModel(String maBacSi, String hoVaTen, String soDienThoai, String emai, String gioiTinh, String diaChi,  String chuyenKhoa, String kinhNgiemLamViec, String hocVan, String hinhAnh) {
+        super(hoVaTen, soDienThoai, emai, gioiTinh, diaChi);
+        this.maBacSi = maBacSi;
+        this.chuyenKhoa = chuyenKhoa;
+        this.kinhNgiemLamViec = kinhNgiemLamViec;
+        this.hocVan = hocVan;
+        this.hinhAnh = hinhAnh;
+    }
+
+    public String getMaBacSi() {
+        return maBacSi;
+    }
+
+    public void setMaBacSi(String maBacSi) {
+        this.maBacSi = maBacSi;
+    }
+
+    public String getChuyenKhoa() {
+        return chuyenKhoa;
+    }
+
+    public void setChuyenKhoa(String chuyenKhoa) {
+        this.chuyenKhoa = chuyenKhoa;
+    }
+
+    public String getKinhNgiemLamViec() {
+        return kinhNgiemLamViec;
+    }
+
+    public void setKinhNgiemLamViec(String kinhNgiemLamViec) {
+        this.kinhNgiemLamViec = kinhNgiemLamViec;
+    }
+
+    public String getHocVan() {
+        return hocVan;
+    }
+
+    public void setHocVan(String hocVan) {
+        this.hocVan = hocVan;
+    }
+
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
+    @Override
+    public String toString() {
+        return "BacSiModel{" + "maBacSi=" + maBacSi + ", chuyenKhoa=" + chuyenKhoa + ", kinhNgiemLamViec=" + kinhNgiemLamViec + ", hocVan=" + hocVan + ", hinhAnh=" + hinhAnh + '}';
+    }
+    
+    
 }

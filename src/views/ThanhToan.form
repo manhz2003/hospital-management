@@ -35,7 +35,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="cbbNganHang7" min="-2" pref="139" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblMaGiaoDich49" max="32767" attributes="0"/>
+                      <Component id="lblMaGiaoDich" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -71,7 +71,7 @@
                           <Component id="jCheckBox8" alignment="0" min="-2" pref="208" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                              <Component id="btnThanhToan7" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnThanhToan" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -102,19 +102,19 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel128" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblMaGiaoDich47" min="-2" pref="197" max="-2" attributes="0"/>
+                              <Component id="lblMaGiaoDichQr" min="-2" pref="197" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel121" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
                           <Component id="jLabel127" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblMaGiaoDich44" min="-2" pref="130" max="-2" attributes="0"/>
+                                  <Component id="lblTongTien" min="-2" pref="130" max="-2" attributes="0"/>
                                   <Component id="jLabel123" min="-2" pref="130" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel120" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <Component id="lblMaGiaoDich43" min="-2" pref="161" max="-2" attributes="0"/>
+                                  <Component id="lblNgayThanhToan" min="-2" pref="161" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -150,7 +150,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblMaGiaoDich49" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblMaGiaoDich" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="cbbNganHang7" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -185,7 +185,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel128" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblMaGiaoDich47" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblMaGiaoDichQr" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -198,8 +198,8 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblMaGiaoDich44" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="lblMaGiaoDich43" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblTongTien" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblNgayThanhToan" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel118" min="-2" pref="82" max="-2" attributes="0"/>
@@ -227,7 +227,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jCheckBox8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnThanhToan7" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnThanhToan" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="39" max="32767" attributes="0"/>
@@ -317,7 +317,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblMaGiaoDich49">
+    <Component class="javax.swing.JLabel" name="lblMaGiaoDich">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -336,7 +336,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnThanhToan7">
+    <Component class="javax.swing.JButton" name="btnThanhToan">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
@@ -350,7 +350,7 @@
         <Property name="text" type="java.lang.String" value="Thanh To&#xe1;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThanhToan7btnThanhToanActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThanhToanbtnThanhToanActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel134">
@@ -435,7 +435,7 @@
         <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n ng&#xe2;n h&#xe0;ng"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblMaGiaoDich44">
+    <Component class="javax.swing.JLabel" name="lblTongTien">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -484,7 +484,7 @@
         <Property name="text" type="java.lang.String" value="N&#x1ed9;i dung chuy&#x1ec3;n kho&#x1ea3;n: t&#xea;n t&#xe0;i kho&#x1ea3;n + m&#xe3; giao d&#x1ecb;ch"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblMaGiaoDich47">
+    <Component class="javax.swing.JLabel" name="lblMaGiaoDichQr">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -549,7 +549,7 @@
         <Property name="text" type="java.lang.String" value="M&#xe3; giao d&#x1ecb;ch"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblMaGiaoDich43">
+    <Component class="javax.swing.JLabel" name="lblNgayThanhToan">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>

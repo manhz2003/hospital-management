@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/views/QuanLyBenhNhan.java</file>
+            <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/dao/QuanLyTaiKhoanDao.java</file>
+            <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/models/BacSiModel.java</file>
+            <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/controllers/BacSiController.java</file>
             <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/views/QuanLyBacSi.java</file>
             <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/dao/QuanLyBacSiDao.java</file>
+            <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/dao/DaoInterface.java</file>
         </group>
     </open-files>
 </project-private>

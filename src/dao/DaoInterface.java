@@ -8,7 +8,7 @@ public interface DaoInterface<T> {
 
     public int update(T t, int id);
 
-    public int deleteById(int id);
+    public int deleteById(String id);
     
     public void deleteAll();
 

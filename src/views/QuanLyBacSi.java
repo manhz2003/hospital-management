@@ -12,8 +12,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,17 +23,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -55,12 +48,27 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         jPanel10.setPreferredSize(new Dimension(130, 138));
         getContentPane().setBackground(Color.WHITE);
 
-        // Thiết lập sự kiện cho JTable khi dòng được chọn
+//        load tên cột tự động
+        // Tạo DefaultTableModel với các cột bạn muốn hiển thị
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã Bác Sĩ");
+        model.addColumn("Họ và Tên");
+        model.addColumn("Số Điện Thoại");
+        model.addColumn("Email");
+        model.addColumn("Địa Chỉ");
+        model.addColumn("Giới Tính");
+        model.addColumn("Chuyên Khoa");
+        model.addColumn("Kinh Nghiệm Làm Việc");
+        model.addColumn("Học Vấn");
+        jTableBacSi.setModel(model);
+
+// Thiết lập sự kiện cho JTable khi dòng được chọn
         jTableBacSi.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
                 int selectedRow = jTableBacSi.getSelectedRow();
                 if (selectedRow >= 0) {
                     // Lấy dữ liệu từ dòng được chọn và đặt vào các thành phần điều khiển tương ứng
+                    txtTimKiem.setText(jTableBacSi.getValueAt(selectedRow, 0).toString());
                     txtMaBacSi.setText(jTableBacSi.getValueAt(selectedRow, 0).toString());
                     txtHoVaTen.setText(jTableBacSi.getValueAt(selectedRow, 1).toString());
                     txtSoDienThoai.setText(jTableBacSi.getValueAt(selectedRow, 2).toString());
@@ -100,6 +108,11 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                     }
                     txtKinhNghiem.setText(jTableBacSi.getValueAt(selectedRow, 7).toString());
                     txtHocVan.setText(jTableBacSi.getValueAt(selectedRow, 8).toString());
+                    String hinhAnh = jTableBacSi.getValueAt(selectedRow, 9).toString().trim();
+                    // Hiển thị hình ảnh trên JLabel
+                    ImageIcon imageIcon = new ImageIcon(hinhAnh);
+                    lblAnh.setIcon(imageIcon);
+
                 }
             }
         });
@@ -324,6 +337,42 @@ public class QuanLyBacSi extends javax.swing.JFrame {
             }
         });
         setJMenuBar(menuBar);
+    }
+
+    private void hienThiDanhSachBacSi() {
+        // Gọi controller để lấy danh sách bác sĩ
+        BacSiController bacSiController = new BacSiController();
+        ArrayList<BacSiModel> danhSachBacSi = bacSiController.layDanhSachBacSi();
+
+        // Tạo DefaultTableModel với các cột bạn muốn hiển thị
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã Bác Sĩ");
+        model.addColumn("Họ và Tên");
+        model.addColumn("Số Điện Thoại");
+        model.addColumn("Email");
+        model.addColumn("Địa Chỉ");
+        model.addColumn("Giới Tính");
+        model.addColumn("Chuyên Khoa");
+        model.addColumn("Kinh Nghiệm Làm Việc");
+        model.addColumn("Học Vấn");
+
+        // Thêm dữ liệu từ danh sách bác sĩ vào model
+        for (BacSiModel bacSi : danhSachBacSi) {
+            model.addRow(new Object[]{
+                bacSi.getMaBacSi(),
+                bacSi.getHoVaTen(),
+                bacSi.getSoDienThoai(),
+                bacSi.getEmai(),
+                bacSi.getDiaChi(),
+                bacSi.getGioiTinh(),
+                bacSi.getChuyenKhoa(),
+                bacSi.getKinhNgiemLamViec(),
+                bacSi.getHocVan()
+            });
+        }
+
+        // Gắn model vào JTable
+        jTableBacSi.setModel(model);
     }
 
     /**
@@ -637,18 +686,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(btnXoaTatCa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 10, Short.MAX_VALUE))
                     .addComponent(txtTimKiem)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -657,7 +694,19 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnTimTatCa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnXuatExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnXuatExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnXoaTatCa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -727,8 +776,8 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnXoaTatCa, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnXoaTatCa, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2))
                 .addGap(37, 37, 37))
         );
@@ -742,7 +791,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaTatCajButton1ActionPerformed
 
     private void btnXoajButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoajButton4ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnXoajButton4ActionPerformed
 
     private void btnSuajButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuajButton2ActionPerformed
@@ -776,7 +825,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                 } else {
                     gioiTinh = "Không xác định";
                 }
-
+                hinhAnh = selectedImagePath;
                 // Kiểm tra chuyên khoa
                 Object selectedChuyenKhoa = cbbChuyenKhoa.getSelectedItem();
                 if (selectedChuyenKhoa == null || selectedChuyenKhoa.toString().isEmpty()) {
@@ -837,6 +886,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         model.addColumn("Chuyên Khoa");
         model.addColumn("Kinh Nghiệm Làm Việc");
         model.addColumn("Học Vấn");
+        model.addColumn("Ảnh");
 
         // Thêm dữ liệu từ danh sách bác sĩ vào model
         for (BacSiModel bacSi : danhSachBacSi) {
@@ -849,16 +899,16 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                 bacSi.getGioiTinh(),
                 bacSi.getChuyenKhoa(),
                 bacSi.getKinhNgiemLamViec(),
-                bacSi.getHocVan()
+                bacSi.getHocVan(),
+                bacSi.getHinhAnh()
             });
         }
 
 //         Gắn model vào JTable.
         jTableBacSi.setModel(model);
-        
+
 //        tự động chỉnh độ rộng cột với thanh cuộn ngang.
         jTableBacSi.setAutoscrolls(true);
-
     }//GEN-LAST:event_btnTimTatCaActionPerformed
 
     private String selectedImagePath;

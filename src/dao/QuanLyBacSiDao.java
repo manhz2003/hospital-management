@@ -111,8 +111,38 @@ public class QuanLyBacSiDao implements DaoInterface<BacSiModel> {
     }
 
     @Override
-    public int deleteById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int deleteById(String id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        int rowsAffected = 0;
+
+        try {
+            // Lấy kết nối tới cơ sở dữ liệu
+            connection = ConnectDB.getConnection();
+
+            // Chuẩn bị câu truy vấn SQL để xóa dữ liệu
+            String sql = "DELETE FROM bacsi WHERE id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Đặt tham số cho câu truy vấn SQL
+            preparedStatement.setString(1, id);
+
+            // Thực hiện xóa dữ liệu và lấy số dòng bị ảnh hưởng
+            rowsAffected = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối và tài nguyên
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return rowsAffected;
     }
 
     @Override

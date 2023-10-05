@@ -30,5 +30,18 @@ public class BacSiController {
     public ArrayList<BacSiModel> layDanhSachBacSi() {
         return bacSiDao.selectAll();
     }
+    
+    public int xoaBacSiTheoID(String id) {
+    // Gọi phương thức xóa từ lớp DAO
+    int rowsAffected = bacSiDao.deleteById(id);
+    
+    if (rowsAffected > 0) {
+        // Dữ liệu đã được xóa thành công
+        return rowsAffected;
+    } else {
+        // Xóa thất bại hoặc không tìm thấy dữ liệu để xóa
+        return -1;
+    }
+}
 
 }

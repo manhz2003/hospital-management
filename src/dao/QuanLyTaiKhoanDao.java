@@ -258,7 +258,7 @@ public class QuanLyTaiKhoanDao implements DaoInterface<QuanLyTaiKhoanModel> {
     }
 
     @Override
-    public int update(QuanLyTaiKhoanModel t, int id) {
+    public int update(QuanLyTaiKhoanModel t, String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -274,7 +274,7 @@ public class QuanLyTaiKhoanDao implements DaoInterface<QuanLyTaiKhoanModel> {
     }
 
     @Override
-    public QuanLyTaiKhoanModel selectById(int id) {
+    public QuanLyTaiKhoanModel selectById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

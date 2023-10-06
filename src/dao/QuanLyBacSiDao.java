@@ -23,50 +23,6 @@ public class QuanLyBacSiDao implements DaoInterface<BacSiModel> {
         return instance;
     }
 
-    @Override
-    public int insert(BacSiModel t) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        int rowsAffected = 0;
-
-        try {
-            // Lấy kết nối tới cơ sở dữ liệu
-            connection = ConnectDB.getConnection();
-
-            // Chuẩn bị câu truy vấn SQL để chèn dữ liệu
-            String sql = "INSERT INTO bacsi (maBacSi, hoVaTen, soDienThoai, email, diaChi, GioiTinh, chuyenKhoa, kinhNghiemLamViec, hocVan, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            preparedStatement = connection.prepareStatement(sql);
-
-            // Đặt các tham số cho câu truy vấn SQL từ đối tượng DangKy
-            preparedStatement.setString(1, t.getMaBacSi());
-            preparedStatement.setString(2, t.getHoVaTen());
-            preparedStatement.setString(3, t.getSoDienThoai());
-            preparedStatement.setString(4, t.getEmai());
-            preparedStatement.setString(5, t.getDiaChi());
-            preparedStatement.setString(6, t.getGioiTinh());
-            preparedStatement.setString(7, t.getChuyenKhoa());
-            preparedStatement.setString(8, t.getKinhNgiemLamViec());
-            preparedStatement.setString(9, t.getHocVan());
-            preparedStatement.setString(10, t.getHinhAnh());
-
-            // Thực hiện chèn dữ liệu và lấy số dòng bị ảnh hưởng
-            rowsAffected = preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Đóng kết nối và tài nguyên
-            ConnectDB.closeConnection(connection);
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return rowsAffected;
-    }
-
 //    kiểm tra mã bác sĩ bị trùng
     public boolean maBacSiTrung(String maBacSi) {
         Connection connection = null;
@@ -106,8 +62,50 @@ public class QuanLyBacSiDao implements DaoInterface<BacSiModel> {
     }
 
     @Override
-    public int update(BacSiModel t, int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int update(BacSiModel bacSi, String id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        int rowsAffected = 0;
+
+        try {
+            // Lấy kết nối tới cơ sở dữ liệu
+            connection = ConnectDB.getConnection();
+
+            // Chuẩn bị câu truy vấn SQL để cập nhật dữ liệu
+            String sql = "UPDATE bacsi SET maBacSi = ?, hoVaTen = ?, soDienThoai = ?, email = ?, diaChi = ?, GioiTinh = ?, chuyenKhoa = ?, kinhNghiemLamViec = ?, hocVan = ?, hinhAnh = ? WHERE maBacSi = ?";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Đặt các tham số cho câu truy vấn SQL từ đối tượng T
+            preparedStatement.setString(1, bacSi.getMaBacSi());
+            preparedStatement.setString(2, bacSi.getHoVaTen());
+            preparedStatement.setString(3, bacSi.getSoDienThoai());
+            preparedStatement.setString(4, bacSi.getEmai());
+            preparedStatement.setString(5, bacSi.getDiaChi());
+            preparedStatement.setString(6, bacSi.getGioiTinh());
+            preparedStatement.setString(7, bacSi.getChuyenKhoa());
+            preparedStatement.setString(8, bacSi.getKinhNgiemLamViec());
+            preparedStatement.setString(9, bacSi.getHocVan());
+            preparedStatement.setString(10, bacSi.getHinhAnh());
+
+            // Đặt tham số cho WHERE clause (maBacSi)
+            preparedStatement.setString(11, id);
+
+            // Thực hiện cập nhật dữ liệu và lấy số dòng bị ảnh hưởng
+            rowsAffected = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối và tài nguyên
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return rowsAffected;
     }
 
     @Override
@@ -121,7 +119,7 @@ public class QuanLyBacSiDao implements DaoInterface<BacSiModel> {
             connection = ConnectDB.getConnection();
 
             // Chuẩn bị câu truy vấn SQL để xóa dữ liệu
-            String sql = "DELETE FROM bacsi WHERE id = ?";
+            String sql = "DELETE FROM bacsi WHERE maBacSi = ?";
             preparedStatement = connection.prepareStatement(sql);
 
             // Đặt tham số cho câu truy vấn SQL
@@ -147,7 +145,32 @@ public class QuanLyBacSiDao implements DaoInterface<BacSiModel> {
 
     @Override
     public void deleteAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            // Lấy kết nối tới cơ sở dữ liệu
+            connection = ConnectDB.getConnection();
+
+            // Chuẩn bị câu truy vấn SQL để xóa tất cả dữ liệu
+            String sql = "DELETE FROM bacsi";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Thực hiện xóa dữ liệu
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối và tài nguyên
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
@@ -202,8 +225,98 @@ public class QuanLyBacSiDao implements DaoInterface<BacSiModel> {
     }
 
     @Override
-    public BacSiModel selectById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public BacSiModel selectById(String id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        BacSiModel bacSi = null;
+
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "SELECT * FROM bacsi WHERE maBacSi = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, id);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                bacSi = new BacSiModel(
+                        resultSet.getString("maBacSi"),
+                        resultSet.getString("hoVaTen"),
+                        resultSet.getString("soDienThoai"),
+                        resultSet.getString("email"),
+                        resultSet.getString("gioiTinh"),
+                        resultSet.getString("diaChi"),
+                        resultSet.getString("chuyenKhoa"),
+                        resultSet.getString("kinhNghiemLamViec"),
+                        resultSet.getString("hocVan"),
+                        resultSet.getString("hinhAnh")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return bacSi;
+    }
+
+    @Override
+    public int insert(BacSiModel bacSi) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        int rowsAffected = 0;
+
+        try {
+            // Lấy kết nối tới cơ sở dữ liệu
+            connection = ConnectDB.getConnection();
+
+            // Chuẩn bị câu truy vấn SQL để chèn dữ liệu
+            String sql = "INSERT INTO bacsi (maBacSi, hoVaTen, soDienThoai, email, diaChi, GioiTinh, chuyenKhoa, kinhNghiemLamViec, hocVan, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Đặt các tham số cho câu truy vấn SQL từ đối tượng BacSiModel
+            preparedStatement.setString(1, bacSi.getMaBacSi());
+            preparedStatement.setString(2, bacSi.getHoVaTen());
+            preparedStatement.setString(3, bacSi.getSoDienThoai());
+            preparedStatement.setString(4, bacSi.getEmai());
+            preparedStatement.setString(5, bacSi.getDiaChi());
+            preparedStatement.setString(6, bacSi.getGioiTinh());
+            preparedStatement.setString(7, bacSi.getChuyenKhoa());
+            preparedStatement.setString(8, bacSi.getKinhNgiemLamViec());
+            preparedStatement.setString(9, bacSi.getHocVan());
+            preparedStatement.setString(10, bacSi.getHinhAnh());
+
+            // Thực hiện chèn dữ liệu và lấy số dòng bị ảnh hưởng
+            rowsAffected = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối và tài nguyên
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return rowsAffected;
     }
 
 }

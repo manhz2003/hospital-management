@@ -6,7 +6,7 @@ import models.BacSiModel;
 
 public class BacSiController {
 
-    private QuanLyBacSiDao bacSiDao;
+    private final QuanLyBacSiDao bacSiDao;
 
     public BacSiController() {
         bacSiDao = QuanLyBacSiDao.getInstance();
@@ -30,18 +30,31 @@ public class BacSiController {
     public ArrayList<BacSiModel> layDanhSachBacSi() {
         return bacSiDao.selectAll();
     }
-    
+
     public int xoaBacSiTheoID(String id) {
-    // Gọi phương thức xóa từ lớp DAO
-    int rowsAffected = bacSiDao.deleteById(id);
-    
-    if (rowsAffected > 0) {
-        // Dữ liệu đã được xóa thành công
-        return rowsAffected;
-    } else {
-        // Xóa thất bại hoặc không tìm thấy dữ liệu để xóa
-        return -1;
+        int rowsAffected = bacSiDao.deleteById(id);
+        if (rowsAffected > 0) {
+            return rowsAffected;
+        } else {
+            return -1;
+        }
     }
-}
+
+    public void xoaTatCaBacSi() {
+        bacSiDao.deleteAll();
+    }
+
+    public BacSiModel timBacSiTheoID(String id) {
+        return bacSiDao.selectById(id);
+    }
+
+    public int capNhatThongTinBacSi(BacSiModel bacSi, String id) {
+        int rowsAffected = bacSiDao.update(bacSi, id);
+        if (rowsAffected > 0) {
+            return rowsAffected;
+        } else {
+            return -1;
+        }
+    }
 
 }

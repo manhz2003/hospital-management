@@ -60,25 +60,27 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         model.addColumn("Chuyên Khoa");
         model.addColumn("Kinh Nghiệm Làm Việc");
         model.addColumn("Học Vấn");
+        model.addColumn("Hình Ảnh");
         jTableBacSi.setModel(model);
 
-// Thiết lập sự kiện cho JTable khi dòng được chọn
+        // Thiết lập sự kiện cho JTable khi dòng được chọn
         jTableBacSi.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
                 int selectedRow = jTableBacSi.getSelectedRow();
-                if (selectedRow >= 0) {
+                if (selectedRow >= 0 && jTableBacSi.isRowSelected(selectedRow)) {
                     // Lấy dữ liệu từ dòng được chọn và đặt vào các thành phần điều khiển tương ứng
+                    Object value = jTableBacSi.getValueAt(selectedRow, 0);
+                    if (value != null) {
+                        txtTimKiem.setText(value.toString());
+                    }
                     txtTimKiem.setText(jTableBacSi.getValueAt(selectedRow, 0).toString());
                     txtMaBacSi.setText(jTableBacSi.getValueAt(selectedRow, 0).toString());
                     txtHoVaTen.setText(jTableBacSi.getValueAt(selectedRow, 1).toString());
                     txtSoDienThoai.setText(jTableBacSi.getValueAt(selectedRow, 2).toString());
                     txtEmail.setText(jTableBacSi.getValueAt(selectedRow, 3).toString());
                     txtDiaChi.setText(jTableBacSi.getValueAt(selectedRow, 4).toString());
-                    String gioiTinh = jTableBacSi.getValueAt(selectedRow, 5).toString().trim();
-                    if (null == gioiTinh) {
-                        radNam.setSelected(false);
-                        radNu.setSelected(false);
-                    } else {
+                    String gioiTinh = (String) jTableBacSi.getValueAt(selectedRow, 5);
+                    if (gioiTinh != null) {
                         switch (gioiTinh) {
                             case "Nam" -> {
                                 if (!radNam.isSelected()) {
@@ -98,21 +100,20 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                             }
                         }
                     }
-                    String chuyenKhoa = jTableBacSi.getValueAt(selectedRow, 6).toString();
-                    // Lặp qua từng phần tử trong ComboBox để tìm giá trị tương ứng và chọn nó
-                    for (int i = 0; i < cbbChuyenKhoa.getItemCount(); i++) {
-                        if (chuyenKhoa.equals(cbbChuyenKhoa.getItemAt(i))) {
-                            cbbChuyenKhoa.setSelectedItem(cbbChuyenKhoa.getItemAt(i));
-                            break; // Tìm thấy giá trị, thoát khỏi vòng lặp
-                        }
-                    }
-                    txtKinhNghiem.setText(jTableBacSi.getValueAt(selectedRow, 7).toString());
-                    txtHocVan.setText(jTableBacSi.getValueAt(selectedRow, 8).toString());
-                    String hinhAnh = jTableBacSi.getValueAt(selectedRow, 9).toString().trim();
-                    // Hiển thị hình ảnh trên JLabel
-                    ImageIcon imageIcon = new ImageIcon(hinhAnh);
-                    lblAnh.setIcon(imageIcon);
 
+                    String chuyenKhoa = (String) jTableBacSi.getValueAt(selectedRow, 6);
+                    if (chuyenKhoa != null) {
+                        cbbChuyenKhoa.setSelectedItem(chuyenKhoa);
+                    }
+
+                    txtKinhNghiem.setText((String) jTableBacSi.getValueAt(selectedRow, 7));
+                    txtHocVan.setText((String) jTableBacSi.getValueAt(selectedRow, 8));
+
+                    String hinhAnh = (String) jTableBacSi.getValueAt(selectedRow, 9);
+                    if (hinhAnh != null) {
+                        ImageIcon imageIcon = new ImageIcon(hinhAnh);
+                        lblAnh.setIcon(imageIcon);
+                    }
                 }
             }
         });
@@ -355,6 +356,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         model.addColumn("Chuyên Khoa");
         model.addColumn("Kinh Nghiệm Làm Việc");
         model.addColumn("Học Vấn");
+        model.addColumn("Hình Ảnh");
 
         // Thêm dữ liệu từ danh sách bác sĩ vào model
         for (BacSiModel bacSi : danhSachBacSi) {
@@ -367,7 +369,8 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                 bacSi.getGioiTinh(),
                 bacSi.getChuyenKhoa(),
                 bacSi.getKinhNgiemLamViec(),
-                bacSi.getHocVan()
+                bacSi.getHocVan(),
+                bacSi.getHinhAnh()
             });
         }
 
@@ -773,11 +776,12 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnXoaTatCa, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnXoaTatCa, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jScrollPane2))
                 .addGap(37, 37, 37))
         );
@@ -787,15 +791,87 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaTatCajButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTatCajButton1ActionPerformed
-        // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa tất cả dữ liệu?", "Xác nhận xóa tất cả", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            BacSiController bacSiController = new BacSiController();
+            bacSiController.xoaTatCaBacSi();
+            hienThiDanhSachBacSi();
+        }
     }//GEN-LAST:event_btnXoaTatCajButton1ActionPerformed
 
     private void btnXoajButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoajButton4ActionPerformed
-        
+        String idXoa = txtTimKiem.getText().trim();
+        if (idXoa.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập ID cần xóa.");
+        } else {
+            BacSiController bacSiController = new BacSiController();
+            int rowsAffected = bacSiController.xoaBacSiTheoID(idXoa);
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Xóa bác sĩ thành công.");
+                hienThiDanhSachBacSi();
+            } else if (rowsAffected == -1) {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy bác sĩ có ID: " + idXoa);
+            } else {
+                JOptionPane.showMessageDialog(null, "Xóa bác sĩ thất bại.");
+            }
+        }
     }//GEN-LAST:event_btnXoajButton4ActionPerformed
 
     private void btnSuajButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuajButton2ActionPerformed
-        // TODO add your handling code here:
+        // Lấy ID từ JTextField txtTimKiem
+        String idCapNhat = txtTimKiem.getText().trim();
+
+        // Kiểm tra xem ID có được nhập hay không
+        if (idCapNhat.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập ID cần cập nhật.");
+        } else {
+            // Đọc thông tin mới từ các trường nhập liệu
+            String maBacSi = txtMaBacSi.getText();
+            String hoVaTen = txtHoVaTen.getText();
+            String soDienThoai = txtSoDienThoai.getText();
+            String diaChi = txtDiaChi.getText();
+            String kinhNghiem = txtKinhNghiem.getText();
+            String email = txtEmail.getText();
+            String hocVan = txtHocVan.getText();
+            String gioiTinh = "";
+            String chuyenKhoa = "";
+            String hinhAnh = "";
+
+            ButtonModel selectedButton = buttonGroup1.getSelection();
+            if (selectedButton == null) {
+                JOptionPane.showMessageDialog(null, "Bạn chưa chọn giới tính!");
+                return;
+            } else {
+                if (selectedButton == radNam.getModel()) {
+                    gioiTinh = "Nam";
+                } else if (selectedButton == radNu.getModel()) {
+                    gioiTinh = "Nữ";
+                } else {
+                    gioiTinh = "Không xác định";
+                }
+            }
+
+            Object selectedChuyenKhoa = cbbChuyenKhoa.getSelectedItem();
+            if (selectedChuyenKhoa != null) {
+                chuyenKhoa = selectedChuyenKhoa.toString();
+            }
+            hinhAnh = selectedImagePath;
+            // Tạo một đối tượng BacSiModel mới từ thông tin đã nhập
+            BacSiModel bacSiMoi = new BacSiModel(maBacSi, hoVaTen, soDienThoai, email, gioiTinh, diaChi, chuyenKhoa, kinhNghiem, hocVan, hinhAnh);
+
+            // Gọi phương thức cập nhật thông tin từ controller
+            BacSiController bacSiController = new BacSiController();
+            int rowsAffected = bacSiController.capNhatThongTinBacSi(bacSiMoi, idCapNhat);
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Cập nhật thông tin bác sĩ thành công.");
+                hienThiDanhSachBacSi();
+                reset();
+            } else {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy bác sĩ có ID: " + idCapNhat);
+            }
+        }
     }//GEN-LAST:event_btnSuajButton2ActionPerformed
 
 //    thêm dữ liệu
@@ -846,6 +922,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                         // Kiểm tra kết quả và hiển thị thông báo
                         if (rowsAffected > 0) {
                             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
+                            hienThiDanhSachBacSi();
                             txtMaBacSi.setText("");
                             txtHoVaTen.setText("");
                             txtSoDienThoai.setText("");
@@ -855,6 +932,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                             cbbChuyenKhoa.setSelectedIndex(0);
                             txtHocVan.setText("");
                             txtKinhNghiem.setText("");
+                            reset();
                         } else {
                             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại!");
                         }
@@ -867,7 +945,55 @@ public class QuanLyBacSi extends javax.swing.JFrame {
 
 
     private void btnTimTheoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTheoIdActionPerformed
-        // TODO add your handling code here:
+        // Lấy ID từ JTextField txtTimKiem
+        String idTimKiem = txtTimKiem.getText().trim();
+
+        // Kiểm tra xem ID có được nhập hay không
+        if (idTimKiem.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập ID cần tìm kiếm.");
+            return;
+        }
+
+        // Gọi phương thức tìm kiếm bác sĩ theo ID từ controller
+        BacSiController bacSiController = new BacSiController();
+        BacSiModel bacSiTimKiem = bacSiController.timBacSiTheoID(idTimKiem);
+
+        // Kiểm tra xem có bác sĩ nào được tìm thấy không
+        if (bacSiTimKiem != null) {
+            // Tạo một custom DefaultTableModel để hiển thị kết quả tìm kiếm
+            DefaultTableModel customModel = new DefaultTableModel();
+            customModel.addColumn("Mã Bác Sĩ");
+            customModel.addColumn("Họ và Tên");
+            customModel.addColumn("Số Điện Thoại");
+            customModel.addColumn("Email");
+            customModel.addColumn("Địa Chỉ");
+            customModel.addColumn("Giới Tính");
+            customModel.addColumn("Chuyên Khoa");
+            customModel.addColumn("Kinh Nghiệm Làm Việc");
+            customModel.addColumn("Học Vấn");
+            customModel.addColumn("Hình ảnh");
+
+            // Thêm thông tin của bác sĩ được tìm thấy vào customModel
+            customModel.addRow(new Object[]{
+                bacSiTimKiem.getMaBacSi(),
+                bacSiTimKiem.getHoVaTen(),
+                bacSiTimKiem.getSoDienThoai(),
+                bacSiTimKiem.getEmai(),
+                bacSiTimKiem.getDiaChi(),
+                bacSiTimKiem.getGioiTinh(),
+                bacSiTimKiem.getChuyenKhoa(),
+                bacSiTimKiem.getKinhNgiemLamViec(),
+                bacSiTimKiem.getHocVan(),
+                bacSiTimKiem.getHinhAnh()
+            }
+            );
+
+            // Gán customModel vào jTableBacSi để hiển thị kết quả
+            jTableBacSi.setModel(customModel);
+        } else {
+            // Hiển thị thông báo nếu không tìm thấy bác sĩ
+            JOptionPane.showMessageDialog(null, "Không tìm thấy bác sĩ có ID: " + idTimKiem);
+        }
     }//GEN-LAST:event_btnTimTheoIdActionPerformed
 
     private void btnTimTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTatCaActionPerformed
@@ -937,10 +1063,14 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTaiAnhjButton3ActionPerformed
 
     private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnXuatExcelActionPerformed
 
     private void btnResetjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetjButton3ActionPerformed
+        reset ();
+    }//GEN-LAST:event_btnResetjButton3ActionPerformed
+
+    public void reset (){
         txtMaBacSi.setText("");
         txtHoVaTen.setText("");
         txtSoDienThoai.setText("");
@@ -950,10 +1080,10 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         cbbChuyenKhoa.setSelectedIndex(0);
         txtHocVan.setText("");
         txtKinhNghiem.setText("");
+        txtTimKiem.setText("");
         // xóa icon ảnh
         lblAnh.setIcon(null);
-    }//GEN-LAST:event_btnResetjButton3ActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */

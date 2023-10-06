@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public interface DaoInterface<T> {
     public int insert(T t);
 
-    public int update(T t, int id);
+    public int update(T t, String id);
 
     public int deleteById(String id);
     
@@ -14,5 +14,5 @@ public interface DaoInterface<T> {
 
     public ArrayList<T> selectAll();
 
-    public T selectById(int id);
+    public T selectById(String id);
 }

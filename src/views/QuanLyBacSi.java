@@ -13,8 +13,13 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -1063,14 +1068,15 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTaiAnhjButton3ActionPerformed
 
     private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
-        
+
+
     }//GEN-LAST:event_btnXuatExcelActionPerformed
 
     private void btnResetjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetjButton3ActionPerformed
-        reset ();
+        reset();
     }//GEN-LAST:event_btnResetjButton3ActionPerformed
 
-    public void reset (){
+    public void reset() {
         txtMaBacSi.setText("");
         txtHoVaTen.setText("");
         txtSoDienThoai.setText("");
@@ -1084,6 +1090,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         // xóa icon ảnh
         lblAnh.setIcon(null);
     }
+
     /**
      * @param args the command line arguments
      */

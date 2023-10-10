@@ -204,6 +204,48 @@ public class DatLichKhamDao implements DaoInterface<DatLichKhamModel> {
         return list;
     }
 
+    // Kiểm tra trùng lịch dựa trên thời gian khám
+    public boolean kiemTraTrungLich(String selectedDate) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "SELECT * FROM lichkham WHERE thoiGianKham = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, selectedDate);
+            resultSet = preparedStatement.executeQuery();
+            return resultSet.next(); // Nếu resultSet có dữ liệu, có lịch trùng.
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Xử lý lỗi và trả về false nếu có lỗi
+        } finally {
+            // Đảm bảo đóng kết nối và tài nguyên
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     @Override
     public DatLichKhamModel selectById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

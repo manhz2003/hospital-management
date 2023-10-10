@@ -897,20 +897,30 @@ public class QuanLyDatLich extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cbbChuyenKhoaActionPerformed
 
+    
+    
 //    đặt lịch và lưu trữ
     DefaultListModel<String> listModel = new DefaultListModel<>();
     Map<String, Set<String>> selectedDates = new HashMap<>();
     String maDatLich;
 
     public void datLich(String selectedLabel, String selectedDate, String selectChuyenKhoa) {
+        // Kiểm tra trùng lịch trong CSDL
+        String thoiGianKham = "Ca khám: [" + selectedDate + ", " + selectedLabel + "]";
+        DatLichKhamController datLichController = new DatLichKhamController();
+        if (datLichController.kiemTraTrungLich(thoiGianKham)) {
+            JOptionPane.showMessageDialog(this, "Thời gian khám đã có lịch, bạn không được chọn trùng ca!", "Lỗi chọn trùng lịch", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         // Lấy ra ca khám đã chọn
-        Set<String> selectedCaKham = selectedDates.get(selectedDate);
+        Set<String> selectedCaKham = selectedDates.get(thoiGianKham);
         if (selectedCaKham == null) {
             selectedCaKham = new HashSet<>();
         }
 
         // Kiểm tra trùng ca khám
-        if (selectedCaKham.contains(selectedLabel)) {
+        if (selectedCaKham.contains(thoiGianKham)) {
             JOptionPane.showMessageDialog(this, "Bạn không được chọn hai ca trùng nhau cùng một ngày !", "Lỗi chọn trùng ca", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -918,16 +928,15 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         selectedCaKham.add(selectedLabel);
         selectedDates.put(selectedDate, selectedCaKham);
 
-        // Tạo mã đặt lịch
-        maDatLich = generateRandomCode();
-
         // Tạo nội dung hiển thị trên jList
-        String thoiGianKham = "Ca khám: [" + selectedDate + ", " + selectedLabel + "]";
         float giaDichVu = 300000.0f;
         lblGia.setText("Giá: " + giaDichVu + "đ");
         lblPhongKham.setText("Phòng khám đa khoa bệnh viện EAUT");
         lblDiaChi.setText("78 Giải Phóng, Phương Mai, Đống Đa, Hà Nội.");
 
+//        lưu lịch đặt
+//        Tạo mã đặt lịch
+        maDatLich = generateRandomCode();
         String diaChi = lblPhongKham.getText() + lblDiaChi.getText();
         String maBacSi = getRandomMaBacSi(jTableBacSi);
         String tenDangNhap = DangNhap.xacNhanDangNhap;
@@ -935,7 +944,6 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         if (chuyenKhoa == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn chuyên khoa trước khi đặt lịch !");
         } else {
-            DatLichKhamController datLichController = new DatLichKhamController();
             DatLichKhamModel datLich = new DatLichKhamModel(maDatLich, giaDichVu, thoiGianKham, diaChi, tenDangNhap, maBacSi, selectChuyenKhoa);
             int result = datLichController.insertDatLich(datLich);
             // Kiểm tra kết quả lưu vào CSDL
@@ -973,7 +981,6 @@ public class QuanLyDatLich extends javax.swing.JFrame {
                 return maBacSi.toString();
             }
         }
-
         return null;
     }
 

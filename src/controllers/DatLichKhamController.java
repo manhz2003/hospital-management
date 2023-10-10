@@ -33,4 +33,9 @@ public class DatLichKhamController {
             return -1;
         }
     }
+
+    public boolean kiemTraTrungLich(String selectedDate) {
+        return datLichDao.kiemTraTrungLich(selectedDate);
+    }
+
 }

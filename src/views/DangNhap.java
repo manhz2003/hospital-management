@@ -141,36 +141,61 @@ public class DangNhap extends javax.swing.JFrame {
         jMenuThoat.setIcon(iconThoat);
         jMenuThoat.setIcon(new ImageIcon(iconThoat.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
 
-//        Chuyển form đăng nhập sang quản lý bác sĩ
+//        phân quyền riêng admin truy cập tới bác sĩ
         itemBacSi.addActionListener((ActionEvent e) -> {
-            //    đóng form hiện tại
-            dispose();
-//                Tạo form mới
-            QuanLyBacSi bacSi = new QuanLyBacSi();
-//                Hiển thị form mới
-            bacSi.setVisible(true);
+            if (!"Admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            }
         });
 
-//        chuyển form đổi mật khẩu sang form quản lý bệnh nhân
-        itemBenhNhan.addActionListener((ActionEvent e) -> {
+        if (DangNhap.xacNhanDangNhap != null) {
+            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+//                chuyển form đặt lịch sang form quản lý bác sĩ
+                itemBacSi.addActionListener((ActionEvent e) -> {
 //                đóng form hiện tại
-            dispose();
+                    dispose();
 //                Tạo form mới
-            QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
+                    QuanLyBacSi bacSi = new QuanLyBacSi();
 //                Hiển thị form mới
-            benhNhan.setVisible(true);
+                    bacSi.setVisible(true);
+                });
+            }
+        }
+
+//                phân quyền riêng admin truy cập tới bệnh nhân
+        itemBenhNhan.addActionListener((ActionEvent e) -> {
+            if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            }
         });
 
-//        chuyển form đăng nhập sang đặt lịch
+        if (DangNhap.xacNhanDangNhap != null) {
+            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+//                chuyển form đặt lịch sang form quản lý bác sĩ
+                itemBenhNhan.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+                    dispose();
+//                Tạo form mới
+                    QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
+//                Hiển thị form mới
+                    benhNhan.setVisible(true);
+                });
+            }
+        }
+
+        // phân quyền riêng user truy cập tới đặt lịch
+        TaiKhoanController tk = new TaiKhoanController();
+        boolean taiKhoanDaDangNhap = tk.kiemTraTenDangNhapTrung(DangNhap.xacNhanDangNhap);
         jMenuDatLich.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                QuanLyDatLich datLich = new QuanLyDatLich();
-//                Hiển thị form mới
-                datLich.setVisible(true);
+                if (!taiKhoanDaDangNhap) {
+                    JOptionPane.showMessageDialog(null, "Bạn cần đăng nhập trước !");
+                } else {
+                    dispose();
+                    QuanLyDatLich datLich = new QuanLyDatLich();
+                    datLich.setVisible(true);
+                }
             }
 
             @Override
@@ -395,17 +420,19 @@ public class DangNhap extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    public static String xacNhanDangNhap;
+    public static String xacNhanMatKhau;
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         String tenDangNhap = txtTenDangNhap.getText();
         String matKhau = new String(txtMatKhau.getPassword());
-
         // Kiểm tra xem tên đăng nhập và mật khẩu có khớp với tài khoản đã đăng ký hay không
         TaiKhoanController dangNhapController = new TaiKhoanController();
         boolean dangNhapThanhCong = dangNhapController.kiemTraDangNhap(tenDangNhap, matKhau);
 
         if (dangNhapThanhCong) {
+            DangNhap.xacNhanDangNhap = tenDangNhap;
             JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+            System.out.println(xacNhanDangNhap);
             dispose();
             QuanLyDatLich datLich = new QuanLyDatLich();
             datLich.setVisible(true);

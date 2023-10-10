@@ -149,36 +149,61 @@ public class DangKy extends javax.swing.JFrame {
         jMenuThoat.setIcon(iconThoat);
         jMenuThoat.setIcon(new ImageIcon(iconThoat.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
 
-//        Chuyển form đăng ký sang quản lý bác sĩ
+//        phân quyền riêng admin truy cập tới bác sĩ
         itemBacSi.addActionListener((ActionEvent e) -> {
-//                đóng form hiện tại
-            dispose();
-//                Tạo form mới
-            QuanLyBacSi bacSi = new QuanLyBacSi();
-//                Hiển thị form mới
-            bacSi.setVisible(true);
+            if (!"Admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            }
         });
 
-//        chuyển form đăng ký sang form quản lý bệnh nhân
+        if (DangNhap.xacNhanDangNhap != null) {
+            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+//                chuyển form đặt lịch sang form quản lý bác sĩ
+                itemBacSi.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+                    dispose();
+//                Tạo form mới
+                    QuanLyBacSi bacSi = new QuanLyBacSi();
+//                Hiển thị form mới
+                    bacSi.setVisible(true);
+                });
+            }
+        }
+
+//                phân quyền riêng admin truy cập tới bệnh nhân
         itemBenhNhan.addActionListener((ActionEvent e) -> {
-//                đóng form hiện tại
-            dispose();
-//                Tạo form mới
-            QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
-//                Hiển thị form mới
-            benhNhan.setVisible(true);
+            if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            }
         });
 
-//        chuyển form đăng ký sang đặt lịch
+        if (DangNhap.xacNhanDangNhap != null) {
+            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+//                chuyển form đặt lịch sang form quản lý bác sĩ
+                itemBenhNhan.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+                    dispose();
+//                Tạo form mới
+                    QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
+//                Hiển thị form mới
+                    benhNhan.setVisible(true);
+                });
+            }
+        }
+
+        // phân quyền riêng user truy cập tới đặt lịch
+        TaiKhoanController tk = new TaiKhoanController();
+        boolean taiKhoanDaDangNhap = tk.kiemTraTenDangNhapTrung(DangNhap.xacNhanDangNhap);
         jMenuDatLich.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                QuanLyDatLich datLich = new QuanLyDatLich();
-//                Hiển thị form mới
-                datLich.setVisible(true);
+                if (!taiKhoanDaDangNhap) {
+                    JOptionPane.showMessageDialog(null, "Bạn cần đăng nhập trước !");
+                } else {
+                    dispose();
+                    QuanLyDatLich datLich = new QuanLyDatLich();
+                    datLich.setVisible(true);
+                }
             }
 
             @Override

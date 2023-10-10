@@ -303,8 +303,6 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         txtChuanDoan = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         btnTimTheoId = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
         btnXoa4 = new javax.swing.JButton();
@@ -319,6 +317,8 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         txtKetLuanKham = new javax.swing.JTextField();
         btnTimTheoId2 = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTablebenhNhan = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -420,21 +420,6 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 102, 102));
         jLabel22.setText("Kết luận khám");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jTable1.setSelectionBackground(new java.awt.Color(0, 102, 102));
-        jTable1.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane2.setViewportView(jTable1);
 
         btnTimTheoId.setBackground(new java.awt.Color(0, 102, 102));
         btnTimTheoId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -540,6 +525,23 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
             }
         });
 
+        jTablebenhNhan.setForeground(new java.awt.Color(0, 102, 102));
+        jTablebenhNhan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jTablebenhNhan.setAutoResizeMode(0);
+        jTablebenhNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTablebenhNhan.setSelectionBackground(new java.awt.Color(0, 102, 102));
+        jScrollPane3.setViewportView(jTablebenhNhan);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -620,7 +622,6 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                                             .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -637,7 +638,11 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnXoa9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(8, 8, 8))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -690,7 +695,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnXoa5))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -874,8 +879,8 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTablebenhNhan;
     private javax.swing.JLabel lblAnh;
     private javax.swing.JRadioButton radNam;
     private javax.swing.JRadioButton radNam1;

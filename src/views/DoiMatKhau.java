@@ -138,36 +138,61 @@ public class DoiMatKhau extends javax.swing.JFrame {
         jMenuThoat.setIcon(iconThoat);
         jMenuThoat.setIcon(new ImageIcon(iconThoat.getImage().getScaledInstance(with, height, Image.SCALE_DEFAULT)));
 
-//        Chuyển form đổi mật khẩu sang quản lý bác sĩ
+//        phân quyền riêng admin truy cập tới bác sĩ
         itemBacSi.addActionListener((ActionEvent e) -> {
-//                đóng form hiện tại
-            dispose();
-//                Tạo form mới
-            QuanLyBacSi bacSi = new QuanLyBacSi();
-//                Hiển thị form mới
-            bacSi.setVisible(true);
+            if (!"Admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            }
         });
 
-//        chuyển form đổi mật khẩu sang form quản lý bệnh nhân
+        if (DangNhap.xacNhanDangNhap != null) {
+            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+//                chuyển form đặt lịch sang form quản lý bác sĩ
+                itemBacSi.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+                    dispose();
+//                Tạo form mới
+                    QuanLyBacSi bacSi = new QuanLyBacSi();
+//                Hiển thị form mới
+                    bacSi.setVisible(true);
+                });
+            }
+        }
+
+//                phân quyền riêng admin truy cập tới bệnh nhân
         itemBenhNhan.addActionListener((ActionEvent e) -> {
-//                đóng form hiện tại
-            dispose();
-//                Tạo form mới
-            QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
-//                Hiển thị form mới
-            benhNhan.setVisible(true);
+            if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            }
         });
 
-//        chuyển form đổi mật khẩu sang đặt lịch
+        if (DangNhap.xacNhanDangNhap != null) {
+            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+//                chuyển form đặt lịch sang form quản lý bác sĩ
+                itemBenhNhan.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+                    dispose();
+//                Tạo form mới
+                    QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
+//                Hiển thị form mới
+                    benhNhan.setVisible(true);
+                });
+            }
+        }
+
+        // phân quyền riêng user truy cập tới đặt lịch
+        TaiKhoanController tk = new TaiKhoanController();
+        boolean taiKhoanDaDangNhap = tk.kiemTraTenDangNhapTrung(DangNhap.xacNhanDangNhap);
         jMenuDatLich.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-//                đóng form hiện tại
-                dispose();
-//                Tạo form mới
-                QuanLyDatLich datLich = new QuanLyDatLich();
-//                Hiển thị form mới
-                datLich.setVisible(true);
+                if (!taiKhoanDaDangNhap) {
+                    JOptionPane.showMessageDialog(null, "Bạn cần đăng nhập trước !");
+                } else {
+                    dispose();
+                    QuanLyDatLich datLich = new QuanLyDatLich();
+                    datLich.setVisible(true);
+                }
             }
 
             @Override
@@ -180,9 +205,11 @@ public class DoiMatKhau extends javax.swing.JFrame {
         });
 
 //        chuyển form đổi mật khẩu sang đăng ký
-        jMenuDangKy.addMenuListener(new MenuListener() {
+        jMenuDangKy.addMenuListener(
+                new MenuListener() {
             @Override
-            public void menuSelected(MenuEvent e) {
+            public void menuSelected(MenuEvent e
+            ) {
 //                đóng form hiện tại
                 dispose();
 //                Tạo form mới
@@ -193,18 +220,22 @@ public class DoiMatKhau extends javax.swing.JFrame {
             }
 
             @Override
-            public void menuDeselected(MenuEvent e) {
+            public void menuDeselected(MenuEvent e
+            ) {
             }
 
             @Override
-            public void menuCanceled(MenuEvent e) {
+            public void menuCanceled(MenuEvent e
+            ) {
             }
         });
 
 //        chuyển form đổi mật khẩu sang form trang chủ
-        jMenuTrangChu.addMenuListener(new MenuListener() {
+        jMenuTrangChu.addMenuListener(
+                new MenuListener() {
             @Override
-            public void menuSelected(MenuEvent e) {
+            public void menuSelected(MenuEvent e
+            ) {
 //                đóng form hiện tại
                 dispose();
 //                Tạo form mới
@@ -214,18 +245,22 @@ public class DoiMatKhau extends javax.swing.JFrame {
             }
 
             @Override
-            public void menuDeselected(MenuEvent e) {
+            public void menuDeselected(MenuEvent e
+            ) {
             }
 
             @Override
-            public void menuCanceled(MenuEvent e) {
+            public void menuCanceled(MenuEvent e
+            ) {
             }
         });
 
         //        chuyển form đổi mật khẩu sang form trang chủ
-        jMenuDangNhap.addMenuListener(new MenuListener() {
+        jMenuDangNhap.addMenuListener(
+                new MenuListener() {
             @Override
-            public void menuSelected(MenuEvent e) {
+            public void menuSelected(MenuEvent e
+            ) {
 //                đóng form hiện tại
                 dispose();
 //                Tạo form mới
@@ -235,18 +270,22 @@ public class DoiMatKhau extends javax.swing.JFrame {
             }
 
             @Override
-            public void menuDeselected(MenuEvent e) {
+            public void menuDeselected(MenuEvent e
+            ) {
             }
 
             @Override
-            public void menuCanceled(MenuEvent e) {
+            public void menuCanceled(MenuEvent e
+            ) {
             }
         });
 
 //        thoát chương trình
-        jMenuThoat.addMenuListener(new MenuListener() {
+        jMenuThoat.addMenuListener(
+                new MenuListener() {
             @Override
-            public void menuSelected(MenuEvent e) {
+            public void menuSelected(MenuEvent e
+            ) {
                 int result = JOptionPane.showConfirmDialog(frame, "Bạn có chắc chắn muốn thoát chương trình không?", "Thoát chương trình", JOptionPane.YES_NO_OPTION);
 
                 if (result == JOptionPane.YES_OPTION) {
@@ -255,11 +294,13 @@ public class DoiMatKhau extends javax.swing.JFrame {
             }
 
             @Override
-            public void menuDeselected(MenuEvent e) {
+            public void menuDeselected(MenuEvent e
+            ) {
             }
 
             @Override
-            public void menuCanceled(MenuEvent e) {
+            public void menuCanceled(MenuEvent e
+            ) {
             }
         });
         setJMenuBar(menuBar);
@@ -430,16 +471,24 @@ public class DoiMatKhau extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoiMatKhau.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoiMatKhau.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoiMatKhau.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoiMatKhau.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

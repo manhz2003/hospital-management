@@ -81,45 +81,42 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel120" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblNgayThanhToan" alignment="1" min="-2" pref="167" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel142" min="-2" pref="72" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                          <Component id="lblTongTien2" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel126" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel119" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="jLabel124" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="jLabel125" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                              <Component id="jLabel122" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="lblNgayThanhToan" alignment="1" min="-2" pref="167" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel142" min="-2" pref="72" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="lblTongTien2" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel126" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel119" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <Component id="jLabel124" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="lblMaGiaoDich45" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="lblMaGiaoDich42" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="lblMaGiaoDich48" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="lblMaGiaoDich46" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jLabel125" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="jLabel122" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel128" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lblMaGiaoDichQr" min="-2" pref="197" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="lblMaGiaoDich45" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lblMaGiaoDich42" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lblMaGiaoDich48" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lblMaGiaoDich46" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel128" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblMaGiaoDichQr" min="-2" pref="197" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>

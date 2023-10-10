@@ -46,4 +46,6 @@ public class TaiKhoanController {
         QuanLyTaiKhoanDao layMatKhauMoiDao = new QuanLyTaiKhoanDao();
         return layMatKhauMoiDao.layMatKhauMoi(tenDangNhap, email);
     }
+
+   
 }

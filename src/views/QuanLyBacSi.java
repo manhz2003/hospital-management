@@ -13,13 +13,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -54,7 +49,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
 
 //        load tên cột tự động
-        // Tạo DefaultTableModel với các cột bạn muốn hiển thị
+//        Tạo DefaultTableModel với các cột bạn muốn hiển thị
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Mã Bác Sĩ");
         model.addColumn("Họ và Tên");
@@ -381,6 +376,8 @@ public class QuanLyBacSi extends javax.swing.JFrame {
 
         // Gắn model vào JTable
         jTableBacSi.setModel(model);
+        jTableBacSi.setAutoscrolls(true);
+
     }
 
     /**
@@ -1089,6 +1086,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         txtTimKiem.setText("");
         // xóa icon ảnh
         lblAnh.setIcon(null);
+        txtTimKiem.setText("");
     }
 
     /**

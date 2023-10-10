@@ -4,20 +4,34 @@
  */
 package views;
 
+import controllers.DatLichKhamController;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import javax.swing.table.DefaultTableModel;
+import models.BacSiModel;
+import models.DatLichKhamModel;
 
 /**
  *
@@ -30,10 +44,47 @@ public class QuanLyDatLich extends javax.swing.JFrame {
      */
     public QuanLyDatLich() {
         initComponents();
+        timBacSiTheoChuyenKhoa();
         setTitle("Đặt lịch");
+        lblTaiKhoan.setText(DangNhap.xacNhanDangNhap);
         setIconImageJframe();
-        setMenu();
         getContentPane().setBackground(Color.WHITE);
+        setMenu();
+
+//        đặt mặc định của cbbChuyenKhoa là null.
+        cbbChuyenKhoa.setSelectedIndex(-1);
+//        tự động load data lên jlist
+        refreshListView();
+        // load tên cột tự động
+        // Tạo DefaultTableModel với các cột bạn muốn hiển thị
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã Bác Sĩ");
+        model.addColumn("Họ và Tên");
+        model.addColumn("Số Điện Thoại");
+        model.addColumn("Email");
+        model.addColumn("Địa Chỉ");
+        model.addColumn("Giới Tính");
+        model.addColumn("Chuyên Khoa");
+        model.addColumn("Kinh Nghiệm Làm Việc");
+        model.addColumn("Học Vấn");
+        model.addColumn("Hình Ảnh");
+        jTableBacSi.setModel(model);
+        jList.setModel(listModel);
+        // Thiết lập sự kiện cho JTable khi dòng được chọn
+        jTableBacSi.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+
+            int selectedRow = jTableBacSi.getSelectedRow();
+            if (selectedRow >= 0 && jTableBacSi.isRowSelected(selectedRow)) {
+
+                String hinhAnh = (String) jTableBacSi.getValueAt(selectedRow, 9);
+                if (hinhAnh != null) {
+                    ImageIcon imageIcon = new ImageIcon(hinhAnh);
+                    lblAnh.setIcon(imageIcon);
+                }
+
+            }
+        }
+        );
     }
 
 //    set icon cho jframe form
@@ -48,7 +99,7 @@ public class QuanLyDatLich extends javax.swing.JFrame {
     private JFrame frame;
 
     private void setMenu() {
-         JMenuBar menuBar = new JMenuBar();
+        JMenuBar menuBar = new JMenuBar();
         JMenu jMenuTrangChu = new JMenu("Trang chủ");
         JMenu jMenuDangKy = new JMenu("Đăng ký");
         JMenu jMenuDangNhap = new JMenu("Đăng nhập");
@@ -181,25 +232,47 @@ public class QuanLyDatLich extends javax.swing.JFrame {
             }
         });
 
-//        chuyển form đặt lịch sang form quản lý bác sĩ
+//        phân quyền riêng admin truy cập tới bác sĩ
         itemBacSi.addActionListener((ActionEvent e) -> {
-//                đóng form hiện tại
-            dispose();
-//                Tạo form mới
-            QuanLyBacSi bacSi = new QuanLyBacSi();
-//                Hiển thị form mới
-            bacSi.setVisible(true);
+            if (!"Admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            }
         });
 
-//        chuyển form đặt lịch sang form quản lý bệnh nhân
-        itemBenhNhan.addActionListener((ActionEvent e) -> {
+        if (DangNhap.xacNhanDangNhap != null) {
+            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+//                chuyển form đặt lịch sang form quản lý bác sĩ
+                itemBacSi.addActionListener((ActionEvent e) -> {
 //                đóng form hiện tại
-            dispose();
+                    dispose();
 //                Tạo form mới
-            QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
+                    QuanLyBacSi bacSi = new QuanLyBacSi();
 //                Hiển thị form mới
-            benhNhan.setVisible(true);
+                    bacSi.setVisible(true);
+                });
+            }
+        }
+
+//                phân quyền riêng admin truy cập tới bệnh nhân
+        itemBenhNhan.addActionListener((ActionEvent e) -> {
+            if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            }
         });
+
+        if (DangNhap.xacNhanDangNhap != null) {
+            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+//                chuyển form đặt lịch sang form quản lý bác sĩ
+                itemBenhNhan.addActionListener((ActionEvent e) -> {
+//                đóng form hiện tại
+                    dispose();
+//                Tạo form mới
+                    QuanLyBenhNhan benhNhan = new QuanLyBenhNhan();
+//                Hiển thị form mới
+                    benhNhan.setVisible(true);
+                });
+            }
+        }
 
         //        chuyển form đặt lịch sang form đăng nhập
         jMenuDangNhap.addMenuListener(new MenuListener() {
@@ -245,6 +318,64 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         setJMenuBar(menuBar);
     }
 
+    private void timBacSiTheoChuyenKhoa() {
+        DatLichKhamController datLichKhamController = new DatLichKhamController();
+        cbbChuyenKhoa.addActionListener((ActionEvent e) -> {
+            int selectedIndex = cbbChuyenKhoa.getSelectedIndex();
+            if (selectedIndex >= 0) {
+                String selectedChuyenKhoa = (String) cbbChuyenKhoa.getItemAt(selectedIndex);
+                System.out.println("Đã chọn chuyên khoa: " + selectedChuyenKhoa);
+                ArrayList<BacSiModel> danhSachBacSi = datLichKhamController.layDanhSachBacSiTheoChuyenKhoa(selectedChuyenKhoa);
+                DefaultTableModel model = new DefaultTableModel();
+                model.addColumn("Mã Bác Sĩ");
+                model.addColumn("Họ và Tên");
+                model.addColumn("Số Điện Thoại");
+                model.addColumn("Email");
+                model.addColumn("Địa Chỉ");
+                model.addColumn("Giới Tính");
+                model.addColumn("Chuyên Khoa");
+                model.addColumn("Kinh Nghiệm Làm Việc");
+                model.addColumn("Học Vấn");
+                model.addColumn("Hình Ảnh");
+
+                for (BacSiModel bacSi : danhSachBacSi) {
+                    model.addRow(new Object[]{
+                        bacSi.getMaBacSi(),
+                        bacSi.getHoVaTen(),
+                        bacSi.getSoDienThoai(),
+                        bacSi.getEmai(),
+                        bacSi.getDiaChi(),
+                        bacSi.getGioiTinh(),
+                        bacSi.getChuyenKhoa(),
+                        bacSi.getKinhNgiemLamViec(),
+                        bacSi.getHocVan(),
+                        bacSi.getHinhAnh()
+                    });
+                }
+
+                jTableBacSi.setModel(model);
+
+            } else {
+                System.out.println("Chưa chọn chuyên khoa");
+            }
+        });
+    }
+
+//    tạo 1 hàm random ra mã đặt lịch
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final int CODE_LENGTH = 5;
+    private static final SecureRandom random = new SecureRandom();
+
+    public static String generateRandomCode() {
+        StringBuilder code = new StringBuilder(CODE_LENGTH);
+        for (int i = 0; i < CODE_LENGTH; i++) {
+            int randomIndex = random.nextInt(CHARACTERS.length());
+            char randomChar = CHARACTERS.charAt(randomIndex);
+            code.append(randomChar);
+        }
+        return code.toString().toUpperCase();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -256,40 +387,42 @@ public class QuanLyDatLich extends javax.swing.JFrame {
 
         jLabel26 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblCaKham1 = new javax.swing.JLabel();
         cbbNgay = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        lblCaKham2 = new javax.swing.JLabel();
+        lblCaKham3 = new javax.swing.JLabel();
+        lblCaKham7 = new javax.swing.JLabel();
+        lblCaKham5 = new javax.swing.JLabel();
+        lblCaKham6 = new javax.swing.JLabel();
+        lblCaKham11 = new javax.swing.JLabel();
+        lblCaKham9 = new javax.swing.JLabel();
+        lblCaKham10 = new javax.swing.JLabel();
+        lblCaKham15 = new javax.swing.JLabel();
+        lblCaKham8 = new javax.swing.JLabel();
+        lblCaKham14 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jList = new javax.swing.JList<>();
         jLabel18 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         cbbChuyenKhoa = new javax.swing.JComboBox<>();
-        jLabel17 = new javax.swing.JLabel();
+        lblAnh = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        lblCaKham4 = new javax.swing.JLabel();
+        lblCaKham13 = new javax.swing.JLabel();
+        lblCaKham12 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        lblPhongKham = new javax.swing.JLabel();
+        lblDiaChi = new javax.swing.JLabel();
         lblGia = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableBacSi = new javax.swing.JTable();
+        jLabel25 = new javax.swing.JLabel();
+        lblTaiKhoan = new javax.swing.JLabel();
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(0, 102, 102));
@@ -301,13 +434,18 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setText("Đặt lịch khám");
 
-        jLabel3.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("08:00 - 08:30");
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel3.setOpaque(true);
+        lblCaKham1.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham1.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham1.setText("08:00 - 08:30");
+        lblCaKham1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham1.setOpaque(true);
+        lblCaKham1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham1MouseClicked(evt);
+            }
+        });
 
         cbbNgay.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cbbNgay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7" }));
@@ -319,95 +457,150 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons/Calendar-icon.png"))); // NOI18N
 
-        jLabel6.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("08:30 - 09:00");
-        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel6.setOpaque(true);
+        lblCaKham2.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham2.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham2.setText("08:30 - 09:00");
+        lblCaKham2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham2.setOpaque(true);
+        lblCaKham2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham2MouseClicked(evt);
+            }
+        });
 
-        jLabel7.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("09:00 - 09:30");
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel7.setOpaque(true);
+        lblCaKham3.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham3.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham3.setText("09:00 - 09:30");
+        lblCaKham3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham3.setOpaque(true);
+        lblCaKham3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham3MouseClicked(evt);
+            }
+        });
 
-        jLabel8.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("11:00 - 11:30");
-        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel8.setOpaque(true);
+        lblCaKham7.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham7.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham7.setText("11:00 - 11:30");
+        lblCaKham7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham7.setOpaque(true);
+        lblCaKham7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham7MouseClicked(evt);
+            }
+        });
 
-        jLabel9.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("10:00 - 10:30");
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel9.setOpaque(true);
+        lblCaKham5.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham5.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham5.setText("10:00 - 10:30");
+        lblCaKham5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham5.setOpaque(true);
+        lblCaKham5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham5MouseClicked(evt);
+            }
+        });
 
-        jLabel10.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("10:30 - 11:00");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.setOpaque(true);
+        lblCaKham6.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham6.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham6.setText("10:30 - 11:00");
+        lblCaKham6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham6.setOpaque(true);
+        lblCaKham6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham6MouseClicked(evt);
+            }
+        });
 
-        jLabel11.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("14:30 - 15:00");
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel11.setOpaque(true);
+        lblCaKham11.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham11.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham11.setText("14:30 - 15:00");
+        lblCaKham11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham11.setOpaque(true);
+        lblCaKham11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham11MouseClicked(evt);
+            }
+        });
 
-        jLabel12.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("13:30 - 14:00");
-        jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel12.setOpaque(true);
+        lblCaKham9.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham9.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham9.setText("13:30 - 14:00");
+        lblCaKham9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham9.setOpaque(true);
+        lblCaKham9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham9MouseClicked(evt);
+            }
+        });
 
-        jLabel13.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("14:00 - 14:30");
-        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel13.setOpaque(true);
+        lblCaKham10.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham10.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham10.setText("14:00 - 14:30");
+        lblCaKham10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham10.setOpaque(true);
+        lblCaKham10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham10MouseClicked(evt);
+            }
+        });
 
-        jLabel14.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("16:00 - 16:30");
-        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel14.setOpaque(true);
+        lblCaKham15.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham15.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham15.setText("16:00 - 16:30");
+        lblCaKham15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham15.setOpaque(true);
+        lblCaKham15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham15MouseClicked(evt);
+            }
+        });
 
-        jLabel15.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("15:00 - 15:30");
-        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel15.setOpaque(true);
+        lblCaKham8.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham8.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham8.setText("15:00 - 15:30");
+        lblCaKham8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham8.setOpaque(true);
+        lblCaKham8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham8MouseClicked(evt);
+            }
+        });
 
-        jLabel16.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("15:30 - 16:00");
-        jLabel16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel16.setOpaque(true);
+        lblCaKham14.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham14.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham14.setText("15:30 - 16:00");
+        lblCaKham14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham14.setOpaque(true);
+        lblCaKham14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham14MouseClicked(evt);
+            }
+        });
 
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(jList);
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 102, 102));
@@ -418,8 +611,97 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Hủy lịch");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        cbbChuyenKhoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cbbChuyenKhoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khoa da liễu", "Khoa thần kinh", "Khoa Tâm lý", "Khoa xương khớp", "Khoa tai - mũi - họng", "Khoa mắt", "Khoa xét nghiệm" }));
+        cbbChuyenKhoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbChuyenKhoaActionPerformed(evt);
+            }
+        });
+
+        lblAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/image-bacsi/3.png"))); // NOI18N
+
+        jLabel2.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel2.setText("Chọn chuyên khoa");
+
+        lblCaKham4.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham4.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham4.setText("16:30 - 17:00");
+        lblCaKham4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham4.setOpaque(true);
+        lblCaKham4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham4MouseClicked(evt);
+            }
+        });
+
+        lblCaKham13.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham13.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham13.setText("17:00 - 17:30");
+        lblCaKham13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham13.setOpaque(true);
+        lblCaKham13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham13MouseClicked(evt);
+            }
+        });
+
+        lblCaKham12.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham12.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham12.setText("17:30 - 18:00");
+        lblCaKham12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham12.setOpaque(true);
+        lblCaKham12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham12MouseClicked(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel22.setText("Xem thông tin bác sĩ điều trị theo chuyên khoa");
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel23.setText("Chọn và đặt lịch ");
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel24.setText("ĐỊA CHỈ KHÁM");
+
+        lblPhongKham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblPhongKham.setForeground(new java.awt.Color(0, 102, 102));
+
+        lblDiaChi.setForeground(new java.awt.Color(0, 102, 102));
+
+        lblGia.setBackground(new java.awt.Color(255, 255, 255));
+        lblGia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblGia.setForeground(new java.awt.Color(0, 102, 102));
+        lblGia.setText("Giá:");
+        lblGia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblGia.setOpaque(true);
+
+        jButton2.setBackground(new java.awt.Color(0, 102, 102));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Đặt lịch");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jTableBacSi.setForeground(new java.awt.Color(0, 102, 102));
+        jTableBacSi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -430,74 +712,17 @@ public class QuanLyDatLich extends javax.swing.JFrame {
 
             }
         ));
-        jTable1.setSelectionBackground(new java.awt.Color(0, 102, 102));
-        jTable1.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTable1);
-
-        cbbChuyenKhoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        cbbChuyenKhoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khoa da liễu", "Khoa thần kinh", "Khoa Tâm lý", "Khoa xương khớp", "Khoa tai - mũi - họng", "Khoa mắt", "Khoa xét nghiệm", " " }));
-
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/image-bacsi/3.png"))); // NOI18N
-
-        jLabel2.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel2.setText("Chọn chuyên khoa");
-
-        jLabel19.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("16:30 - 17:00");
-        jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel19.setOpaque(true);
-
-        jLabel20.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("17:00 - 17:30");
-        jLabel20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel20.setOpaque(true);
-
-        jLabel21.setBackground(new java.awt.Color(0, 102, 102));
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("17:30 - 18:00");
-        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel21.setOpaque(true);
-
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel22.setText("Xem thông tin bác sĩ điều trị theo chuyên khoa");
-
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel23.setText("Chọn và đặt lịch, phí đặt 0đ");
-
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel24.setText("ĐỊA CHỈ KHÁM");
+        jTableBacSi.setAutoResizeMode(0);
+        jTableBacSi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableBacSi.setSelectionBackground(new java.awt.Color(0, 102, 102));
+        jScrollPane3.setViewportView(jTableBacSi);
 
         jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel25.setText("Phòng khám đa khoa bệnh viện EAUT");
+        jLabel25.setText("Xin chào:");
 
-        jLabel27.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel27.setText("78 Giải Phóng, Phương Mai, Đống Đa, Hà Nội ");
-
-        lblGia.setBackground(new java.awt.Color(255, 255, 255));
-        lblGia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblGia.setForeground(new java.awt.Color(0, 102, 102));
-        lblGia.setText("Giá:");
-        lblGia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblGia.setOpaque(true);
-
-        jButton2.setBackground(new java.awt.Color(0, 102, 102));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Đặt lịch");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblTaiKhoan.setForeground(new java.awt.Color(0, 102, 102));
+        lblTaiKhoan.setText("manhz2003");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -506,133 +731,150 @@ public class QuanLyDatLich extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(133, 133, 133))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cbbNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel23)
-                                            .addGap(31, 31, 31)
-                                            .addComponent(lblGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCaKham9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCaKham10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCaKham11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCaKham12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCaKham5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCaKham6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCaKham7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCaKham8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCaKham13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCaKham14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCaKham15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblCaKham1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblCaKham2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblCaKham3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(cbbNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel25)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(lblTaiKhoan)))))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel23)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblCaKham4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblGia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(cbbChuyenKhoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblPhongKham)
+                                    .addComponent(lblDiaChi)))
+                            .addComponent(lblAnh))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbbChuyenKhoa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel27))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblGia, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton1)
-                                    .addComponent(jButton2))
+                                    .addComponent(jButton2)
+                                    .addComponent(jLabel25)
+                                    .addComponent(lblTaiKhoan)
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(cbbNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblGia, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel4)
+                                        .addComponent(cbbNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblCaKham1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblCaKham5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblCaKham9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                            .addComponent(lblCaKham14, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaKham13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPhongKham, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel27)
+                        .addComponent(lblDiaChi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel17)
+                        .addComponent(lblAnh)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -643,6 +885,243 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbbChuyenKhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbChuyenKhoaActionPerformed
+
+    }//GEN-LAST:event_cbbChuyenKhoaActionPerformed
+
+//    đặt lịch và lưu trữ
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+    Map<String, Set<String>> selectedDates = new HashMap<>();
+    String maDatLich;
+
+    public void datLich(String selectedLabel, String selectedDate, String selectChuyenKhoa) {
+        // Lấy ra ca khám đã chọn
+        Set<String> selectedCaKham = selectedDates.get(selectedDate);
+        if (selectedCaKham == null) {
+            selectedCaKham = new HashSet<>();
+        }
+
+        // Kiểm tra trùng ca khám
+        if (selectedCaKham.contains(selectedLabel)) {
+            JOptionPane.showMessageDialog(this, "Bạn không được chọn hai ca trùng nhau cùng một ngày !", "Lỗi chọn trùng ca", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        selectedCaKham.add(selectedLabel);
+        selectedDates.put(selectedDate, selectedCaKham);
+
+        // Tạo mã đặt lịch
+        maDatLich = generateRandomCode();
+
+        // Tạo nội dung hiển thị trên jList
+        String thoiGianKham = "Ca khám: [" + selectedDate + ", " + selectedLabel + "]";
+        float giaDichVu = 300000.0f;
+        lblGia.setText("Giá: " + giaDichVu + "đ");
+        lblPhongKham.setText("Phòng khám đa khoa bệnh viện EAUT");
+        lblDiaChi.setText("78 Giải Phóng, Phương Mai, Đống Đa, Hà Nội.");
+
+        String diaChi = lblPhongKham.getText() + lblDiaChi.getText();
+        String maBacSi = getRandomMaBacSi(jTableBacSi);
+        String tenDangNhap = DangNhap.xacNhanDangNhap;
+        String chuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        if (chuyenKhoa == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn chuyên khoa trước khi đặt lịch !");
+        } else {
+            refreshListView();
+            DatLichKhamController datLichController = new DatLichKhamController();
+            DatLichKhamModel datLich = new DatLichKhamModel(maDatLich, giaDichVu, thoiGianKham, diaChi, tenDangNhap, maBacSi, selectChuyenKhoa);
+            int result = datLichController.insertDatLich(datLich);
+            // Kiểm tra kết quả lưu vào CSDL
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this, "Đặt lịch thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Đặt lịch thất bại!");
+            }
+        }
+    }
+
+    private void refreshListView() {
+        DatLichKhamController datLichKhamController = new DatLichKhamController();
+        ArrayList<DatLichKhamModel> danhSachDatLich = datLichKhamController.layDanhSachDatLich();
+        listModel.clear();
+        for (DatLichKhamModel datLichKham : danhSachDatLich) {
+            String thongTinDatLich = "Mã đặt lịch: " + datLichKham.getMaDatLich()
+                    + ", " + datLichKham.getThoiGioiKham()
+                    + ", " + datLichKham.getChuyenKhoa()
+                    + ", mã bác sĩ: " + datLichKham.getMaBacSi();
+            listModel.addElement(thongTinDatLich);
+        }
+    }
+
+//    random mã bác sĩ theo chuyên khoa
+    public static String getRandomMaBacSi(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        if (model.getRowCount() > 0) {
+            int randomRowIndex = new Random().nextInt(model.getRowCount());
+            Object maBacSi = model.getValueAt(randomRowIndex, 0);
+
+            if (maBacSi != null) {
+                return maBacSi.toString();
+            }
+        }
+
+        return null;
+    }
+
+    private void lblCaKham1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham1MouseClicked
+        String selectedLabel = lblCaKham1.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham1MouseClicked
+
+    private void lblCaKham2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham2MouseClicked
+        String selectedLabel = lblCaKham2.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham2MouseClicked
+
+    private void lblCaKham3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham3MouseClicked
+        String selectedLabel = lblCaKham3.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham3MouseClicked
+
+    private void lblCaKham4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham4MouseClicked
+        String selectedLabel = lblCaKham4.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham4MouseClicked
+
+    private void lblCaKham5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham5MouseClicked
+        String selectedLabel = lblCaKham5.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham5MouseClicked
+
+    private void lblCaKham6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham6MouseClicked
+        String selectedLabel = lblCaKham6.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham6MouseClicked
+
+    private void lblCaKham7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham7MouseClicked
+        String selectedLabel = lblCaKham7.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham7MouseClicked
+
+    private void lblCaKham8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham8MouseClicked
+        String selectedLabel = lblCaKham8.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham8MouseClicked
+
+    private void lblCaKham9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham9MouseClicked
+        String selectedLabel = lblCaKham9.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham9MouseClicked
+
+    private void lblCaKham10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham10MouseClicked
+        String selectedLabel = lblCaKham10.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham10MouseClicked
+
+    private void lblCaKham11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham11MouseClicked
+        String selectedLabel = lblCaKham11.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham11MouseClicked
+
+    private void lblCaKham12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham12MouseClicked
+        String selectedLabel = lblCaKham12.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham12MouseClicked
+
+    private void lblCaKham13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham13MouseClicked
+        String selectedLabel = lblCaKham13.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham13MouseClicked
+
+    private void lblCaKham14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham14MouseClicked
+        String selectedLabel = lblCaKham14.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham14MouseClicked
+
+    private void lblCaKham15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham15MouseClicked
+        String selectedLabel = lblCaKham15.getText();
+        String selectedDate = (String) cbbNgay.getSelectedItem();
+        String selectChuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        datLich(selectedLabel, selectedDate, selectChuyenKhoa);
+    }//GEN-LAST:event_lblCaKham15MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//           Lấy chỉ số dòng được chọn trong JList
+        int selectedIndex = jList.getSelectedIndex();
+
+//           Kiểm tra xem có dòng được chọn không
+        if (selectedIndex != -1) {
+            // Lấy dòng được chọn từ JList
+            Object selectedObject = jList.getModel().getElementAt(selectedIndex);
+
+            // Chuyển đối tượng dòng được chọn thành chuỗi
+            String selectedText = selectedObject.toString();
+
+            // Sử dụng logic để trích xuất mã đặt lịch từ chuỗi dòng đó (tương tự như ví dụ ở trên)
+            // Ví dụ:
+            int startIndex = selectedText.indexOf("Mã đặt lịch: ");
+            if (startIndex != -1) {
+                startIndex += "Mã đặt lịch: ".length();
+                int commaIndex = selectedText.indexOf(",", startIndex);
+                if (commaIndex != -1) {
+                    String maDatLich = selectedText.substring(startIndex, commaIndex);
+
+                    // Bây giờ bạn có thể làm gì đó với mã đặt lịch này
+                    System.out.println("Mã đặt lịch: " + maDatLich);
+
+                    // Xóa phần tử đã chọn từ JList
+                    listModel.remove(selectedIndex);
+
+                    // Sử dụng maDatLich để xóa dữ liệu tương ứng trong CSDL
+                    int result = xoaLichKhamTrongCSDL(maDatLich);
+
+                    if (result > 0) {
+                        JOptionPane.showMessageDialog(this, "Xóa lịch khám thành công!");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Xóa lịch khám thất bại!");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn một lịch khám để xóa.");
+            }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    }
+
+    private int xoaLichKhamTrongCSDL(String maDatLich) {
+        // Sử dụng maDatLich để thực hiện xóa dữ liệu trong CSDL
+        DatLichKhamController datLichController = new DatLichKhamController();
+        return datLichController.xoaLichKhamTheoId(maDatLich);
+    }
 
     /**
      * @param args the command line arguments
@@ -658,16 +1137,24 @@ public class QuanLyDatLich extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLyDatLich.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyDatLich.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLyDatLich.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyDatLich.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLyDatLich.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyDatLich.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLyDatLich.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyDatLich.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -686,36 +1173,38 @@ public class QuanLyDatLich extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> jList;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTableBacSi;
+    private javax.swing.JLabel lblAnh;
+    private javax.swing.JLabel lblCaKham1;
+    private javax.swing.JLabel lblCaKham10;
+    private javax.swing.JLabel lblCaKham11;
+    private javax.swing.JLabel lblCaKham12;
+    private javax.swing.JLabel lblCaKham13;
+    private javax.swing.JLabel lblCaKham14;
+    private javax.swing.JLabel lblCaKham15;
+    private javax.swing.JLabel lblCaKham2;
+    private javax.swing.JLabel lblCaKham3;
+    private javax.swing.JLabel lblCaKham4;
+    private javax.swing.JLabel lblCaKham5;
+    private javax.swing.JLabel lblCaKham6;
+    private javax.swing.JLabel lblCaKham7;
+    private javax.swing.JLabel lblCaKham8;
+    private javax.swing.JLabel lblCaKham9;
+    private javax.swing.JLabel lblDiaChi;
     private javax.swing.JLabel lblGia;
+    private javax.swing.JLabel lblPhongKham;
+    private javax.swing.JLabel lblTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }

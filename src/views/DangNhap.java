@@ -17,8 +17,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -143,7 +141,7 @@ public class DangNhap extends javax.swing.JFrame {
 
 //        phân quyền riêng admin truy cập tới bác sĩ
         itemBacSi.addActionListener((ActionEvent e) -> {
-            if (!"Admin".equals(DangNhap.xacNhanDangNhap)) {
+            if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
                 JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
             }
         });

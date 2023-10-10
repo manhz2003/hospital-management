@@ -12,7 +12,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -151,7 +150,7 @@ public class DangKy extends javax.swing.JFrame {
 
 //        phân quyền riêng admin truy cập tới bác sĩ
         itemBacSi.addActionListener((ActionEvent e) -> {
-            if (!"Admin".equals(DangNhap.xacNhanDangNhap)) {
+            if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
                 JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
             }
         });

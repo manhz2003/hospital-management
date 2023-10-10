@@ -140,7 +140,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
 
 //        phân quyền riêng admin truy cập tới bác sĩ
         itemBacSi.addActionListener((ActionEvent e) -> {
-            if (!"Admin".equals(DangNhap.xacNhanDangNhap)) {
+            if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
                 JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
             }
         });

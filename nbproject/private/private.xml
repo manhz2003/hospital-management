@@ -4,9 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/controllers/DatLichKhamController.java</file>
+            <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/controllers/BacSiController.java</file>
             <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/dao/DatLichKhamDao.java</file>
             <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/dao/QuanLyBacSiDao.java</file>
-            <file>file:/E:/EAUT/HK5/java/project/java-swing-hospital-management/src/views/QuanLyDatLich.java</file>
         </group>
     </open-files>
 </project-private>

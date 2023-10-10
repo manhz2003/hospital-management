@@ -145,13 +145,13 @@ public class TrangChu extends javax.swing.JFrame {
 
 //        phân quyền riêng admin truy cập tới bác sĩ
         itemBacSi.addActionListener((ActionEvent e) -> {
-            if (!"Admin".equals(DangNhap.xacNhanDangNhap)) {
-                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ admin mới được truy cập mục này !");
             }
         });
 
         if (DangNhap.xacNhanDangNhap != null) {
-            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+            if (DangNhap.xacNhanDangNhap.equals("admin")) {
 //                chuyển form đặt lịch sang form quản lý bác sĩ
                 itemBacSi.addActionListener((ActionEvent e) -> {
 //                đóng form hiện tại
@@ -167,12 +167,12 @@ public class TrangChu extends javax.swing.JFrame {
 //                phân quyền riêng admin truy cập tới bệnh nhân
         itemBenhNhan.addActionListener((ActionEvent e) -> {
             if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
-                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+                JOptionPane.showMessageDialog(null, "Chỉ admin mới được truy cập mục này !");
             }
         });
 
         if (DangNhap.xacNhanDangNhap != null) {
-            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+            if (DangNhap.xacNhanDangNhap.equals("admin")) {
 //                chuyển form đặt lịch sang form quản lý bác sĩ
                 itemBenhNhan.addActionListener((ActionEvent e) -> {
 //                đóng form hiện tại

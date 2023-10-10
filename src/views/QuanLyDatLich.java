@@ -87,7 +87,7 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         );
     }
 
-//    set icon cho jframe form
+    //    set icon cho jframe form
     private void setIconImageJframe() {
         URL hospitalIcon = DangKy.class.getResource("icons/Hospital-red-icon.png");
         Image img;
@@ -234,13 +234,13 @@ public class QuanLyDatLich extends javax.swing.JFrame {
 
 //        phân quyền riêng admin truy cập tới bác sĩ
         itemBacSi.addActionListener((ActionEvent e) -> {
-            if (!"Admin".equals(DangNhap.xacNhanDangNhap)) {
-                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+            if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
+                JOptionPane.showMessageDialog(null, "Chỉ admin mới được truy cập mục này !");
             }
         });
 
         if (DangNhap.xacNhanDangNhap != null) {
-            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+            if (DangNhap.xacNhanDangNhap.equals("admin")) {
 //                chuyển form đặt lịch sang form quản lý bác sĩ
                 itemBacSi.addActionListener((ActionEvent e) -> {
 //                đóng form hiện tại
@@ -256,12 +256,12 @@ public class QuanLyDatLich extends javax.swing.JFrame {
 //                phân quyền riêng admin truy cập tới bệnh nhân
         itemBenhNhan.addActionListener((ActionEvent e) -> {
             if (!"admin".equals(DangNhap.xacNhanDangNhap)) {
-                JOptionPane.showMessageDialog(null, "Chỉ Admin mới được truy cập mục này !");
+                JOptionPane.showMessageDialog(null, "Chỉ admin mới được truy cập mục này !");
             }
         });
 
         if (DangNhap.xacNhanDangNhap != null) {
-            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+            if (DangNhap.xacNhanDangNhap.equals("admin")) {
 //                chuyển form đặt lịch sang form quản lý bác sĩ
                 itemBenhNhan.addActionListener((ActionEvent e) -> {
 //                đóng form hiện tại
@@ -361,21 +361,6 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         });
     }
 
-//    tạo 1 hàm random ra mã đặt lịch
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    private static final int CODE_LENGTH = 5;
-    private static final SecureRandom random = new SecureRandom();
-
-    public static String generateRandomCode() {
-        StringBuilder code = new StringBuilder(CODE_LENGTH);
-        for (int i = 0; i < CODE_LENGTH; i++) {
-            int randomIndex = random.nextInt(CHARACTERS.length());
-            char randomChar = CHARACTERS.charAt(randomIndex);
-            code.append(randomChar);
-        }
-        return code.toString().toUpperCase();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -385,27 +370,26 @@ public class QuanLyDatLich extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel26 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        lblCaKham1 = new javax.swing.JLabel();
-        cbbNgay = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         lblCaKham2 = new javax.swing.JLabel();
-        lblCaKham3 = new javax.swing.JLabel();
-        lblCaKham7 = new javax.swing.JLabel();
         lblCaKham5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblCaKham7 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbbNgay = new javax.swing.JComboBox<>();
+        lblCaKham3 = new javax.swing.JLabel();
+        lblCaKham1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         lblCaKham6 = new javax.swing.JLabel();
         lblCaKham11 = new javax.swing.JLabel();
         lblCaKham9 = new javax.swing.JLabel();
         lblCaKham10 = new javax.swing.JLabel();
         lblCaKham15 = new javax.swing.JLabel();
-        lblCaKham8 = new javax.swing.JLabel();
         lblCaKham14 = new javax.swing.JLabel();
+        lblCaKham8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList = new javax.swing.JList<>();
         jLabel18 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnHuyLich = new javax.swing.JButton();
         cbbChuyenKhoa = new javax.swing.JComboBox<>();
         lblAnh = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -418,44 +402,13 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         lblPhongKham = new javax.swing.JLabel();
         lblDiaChi = new javax.swing.JLabel();
         lblGia = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnDatLich = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableBacSi = new javax.swing.JTable();
         jLabel25 = new javax.swing.JLabel();
         lblTaiKhoan = new javax.swing.JLabel();
 
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel26.setText("Phòng khám đa khoa bệnh viện Ba Vì");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel1.setText("Đặt lịch khám");
-
-        lblCaKham1.setBackground(new java.awt.Color(0, 102, 102));
-        lblCaKham1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblCaKham1.setForeground(new java.awt.Color(255, 255, 255));
-        lblCaKham1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCaKham1.setText("08:00 - 08:30");
-        lblCaKham1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblCaKham1.setOpaque(true);
-        lblCaKham1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCaKham1MouseClicked(evt);
-            }
-        });
-
-        cbbNgay.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        cbbNgay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7" }));
-
-        jLabel4.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel4.setText("Chọn ngày");
-
-        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons/Calendar-icon.png"))); // NOI18N
 
         lblCaKham2.setBackground(new java.awt.Color(0, 102, 102));
         lblCaKham2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -467,32 +420,6 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         lblCaKham2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCaKham2MouseClicked(evt);
-            }
-        });
-
-        lblCaKham3.setBackground(new java.awt.Color(0, 102, 102));
-        lblCaKham3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblCaKham3.setForeground(new java.awt.Color(255, 255, 255));
-        lblCaKham3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCaKham3.setText("09:00 - 09:30");
-        lblCaKham3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblCaKham3.setOpaque(true);
-        lblCaKham3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCaKham3MouseClicked(evt);
-            }
-        });
-
-        lblCaKham7.setBackground(new java.awt.Color(0, 102, 102));
-        lblCaKham7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblCaKham7.setForeground(new java.awt.Color(255, 255, 255));
-        lblCaKham7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCaKham7.setText("11:00 - 11:30");
-        lblCaKham7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblCaKham7.setOpaque(true);
-        lblCaKham7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCaKham7MouseClicked(evt);
             }
         });
 
@@ -508,6 +435,59 @@ public class QuanLyDatLich extends javax.swing.JFrame {
                 lblCaKham5MouseClicked(evt);
             }
         });
+
+        jLabel4.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel4.setText("Chọn ngày");
+
+        lblCaKham7.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham7.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham7.setText("11:00 - 11:30");
+        lblCaKham7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham7.setOpaque(true);
+        lblCaKham7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham7MouseClicked(evt);
+            }
+        });
+
+        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/icons/Calendar-icon.png"))); // NOI18N
+
+        cbbNgay.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cbbNgay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7" }));
+
+        lblCaKham3.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham3.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham3.setText("09:00 - 09:30");
+        lblCaKham3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham3.setOpaque(true);
+        lblCaKham3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham3MouseClicked(evt);
+            }
+        });
+
+        lblCaKham1.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham1.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham1.setText("08:00 - 08:30");
+        lblCaKham1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham1.setOpaque(true);
+        lblCaKham1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham1MouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel1.setText("Đặt lịch khám");
 
         lblCaKham6.setBackground(new java.awt.Color(0, 102, 102));
         lblCaKham6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -574,19 +554,6 @@ public class QuanLyDatLich extends javax.swing.JFrame {
             }
         });
 
-        lblCaKham8.setBackground(new java.awt.Color(0, 102, 102));
-        lblCaKham8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblCaKham8.setForeground(new java.awt.Color(255, 255, 255));
-        lblCaKham8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCaKham8.setText("15:00 - 15:30");
-        lblCaKham8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblCaKham8.setOpaque(true);
-        lblCaKham8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCaKham8MouseClicked(evt);
-            }
-        });
-
         lblCaKham14.setBackground(new java.awt.Color(0, 102, 102));
         lblCaKham14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCaKham14.setForeground(new java.awt.Color(255, 255, 255));
@@ -600,30 +567,38 @@ public class QuanLyDatLich extends javax.swing.JFrame {
             }
         });
 
+        lblCaKham8.setBackground(new java.awt.Color(0, 102, 102));
+        lblCaKham8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCaKham8.setForeground(new java.awt.Color(255, 255, 255));
+        lblCaKham8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCaKham8.setText("15:00 - 15:30");
+        lblCaKham8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCaKham8.setOpaque(true);
+        lblCaKham8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCaKham8MouseClicked(evt);
+            }
+        });
+
         jScrollPane2.setViewportView(jList);
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 102, 102));
         jLabel18.setText("Lịch sử đặt lịch khám / hủy lịch");
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 102));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Hủy lịch");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnHuyLich.setBackground(new java.awt.Color(0, 102, 102));
+        btnHuyLich.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHuyLich.setForeground(new java.awt.Color(255, 255, 255));
+        btnHuyLich.setText("Hủy lịch");
+        btnHuyLich.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHuyLich.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnHuyLichActionPerformed(evt);
             }
         });
 
         cbbChuyenKhoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cbbChuyenKhoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khoa da liễu", "Khoa thần kinh", "Khoa Tâm lý", "Khoa xương khớp", "Khoa tai - mũi - họng", "Khoa mắt", "Khoa xét nghiệm" }));
-        cbbChuyenKhoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbChuyenKhoaActionPerformed(evt);
-            }
-        });
 
         lblAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/image-bacsi/3.png"))); // NOI18N
@@ -694,11 +669,16 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         lblGia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblGia.setOpaque(true);
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 102));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Đặt lịch");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDatLich.setBackground(new java.awt.Color(0, 102, 102));
+        btnDatLich.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDatLich.setForeground(new java.awt.Color(255, 255, 255));
+        btnDatLich.setText("Đặt lịch");
+        btnDatLich.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDatLich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatLichActionPerformed(evt);
+            }
+        });
 
         jTableBacSi.setForeground(new java.awt.Color(0, 102, 102));
         jTableBacSi.setModel(new javax.swing.table.DefaultTableModel(
@@ -790,21 +770,20 @@ public class QuanLyDatLich extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblPhongKham)
-                                    .addComponent(lblDiaChi))
-                                .addGap(0, 368, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                                .addComponent(jButton2)
+                                .addComponent(btnDatLich)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
+                                .addComponent(btnHuyLich))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblPhongKham)
+                                            .addComponent(lblDiaChi))
+                                        .addGap(0, 368, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
@@ -832,8 +811,8 @@ public class QuanLyDatLich extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButton2)
+                                    .addComponent(btnHuyLich)
+                                    .addComponent(btnDatLich)
                                     .addComponent(jLabel25)
                                     .addComponent(lblTaiKhoan)
                                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -867,7 +846,7 @@ public class QuanLyDatLich extends javax.swing.JFrame {
                             .addComponent(lblCaKham14, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCaKham15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCaKham13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -893,12 +872,50 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbbChuyenKhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbChuyenKhoaActionPerformed
+    //    tạo 1 hàm random ra mã đặt lịch
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final int CODE_LENGTH = 5;
+    private static final SecureRandom random = new SecureRandom();
 
-    }//GEN-LAST:event_cbbChuyenKhoaActionPerformed
+    public static String generateRandomCode() {
+        StringBuilder code = new StringBuilder(CODE_LENGTH);
+        for (int i = 0; i < CODE_LENGTH; i++) {
+            int randomIndex = random.nextInt(CHARACTERS.length());
+            char randomChar = CHARACTERS.charAt(randomIndex);
+            code.append(randomChar);
+        }
+        return code.toString().toUpperCase();
+    }
 
-    
-    
+//    random mã bác sĩ theo chuyên khoa
+    public static String getRandomMaBacSi(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        if (model.getRowCount() > 0) {
+            int randomRowIndex = new Random().nextInt(model.getRowCount());
+            Object maBacSi = model.getValueAt(randomRowIndex, 0);
+
+            if (maBacSi != null) {
+                return maBacSi.toString();
+            }
+        }
+        return null;
+    }
+
+//    cập nhật lại jlist
+    private void refreshListView() {
+        DatLichKhamController datLichKhamController = new DatLichKhamController();
+        ArrayList<DatLichKhamModel> danhSachDatLich = datLichKhamController.layDanhSachDatLich();
+        listModel.clear();
+        for (DatLichKhamModel datLichKham : danhSachDatLich) {
+            String thongTinDatLich = "Mã đặt lịch: " + datLichKham.getMaDatLich()
+                    + ", " + datLichKham.getThoiGioiKham()
+                    + ", " + datLichKham.getChuyenKhoa()
+                    + ", mã bác sĩ: " + datLichKham.getMaBacSi();
+            listModel.addElement(thongTinDatLich);
+        }
+    }
+
 //    đặt lịch và lưu trữ
     DefaultListModel<String> listModel = new DefaultListModel<>();
     Map<String, Set<String>> selectedDates = new HashMap<>();
@@ -908,6 +925,7 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         // Kiểm tra trùng lịch trong CSDL
         String thoiGianKham = "Ca khám: [" + selectedDate + ", " + selectedLabel + "]";
         DatLichKhamController datLichController = new DatLichKhamController();
+
         if (datLichController.kiemTraTrungLich(thoiGianKham)) {
             JOptionPane.showMessageDialog(this, "Thời gian khám đã có lịch, bạn không được chọn trùng ca!", "Lỗi chọn trùng lịch", JOptionPane.ERROR_MESSAGE);
             return;
@@ -925,8 +943,12 @@ public class QuanLyDatLich extends javax.swing.JFrame {
             return;
         }
 
+        // Nếu không trùng lịch hoặc trùng ca khám, tiến hành đặt lịch
         selectedCaKham.add(selectedLabel);
         selectedDates.put(selectedDate, selectedCaKham);
+
+        // Tạo mã đặt lịch
+        maDatLich = generateRandomCode();
 
         // Tạo nội dung hiển thị trên jList
         float giaDichVu = 300000.0f;
@@ -956,33 +978,58 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         }
     }
 
-    private void refreshListView() {
-        DatLichKhamController datLichKhamController = new DatLichKhamController();
-        ArrayList<DatLichKhamModel> danhSachDatLich = datLichKhamController.layDanhSachDatLich();
-        listModel.clear();
-        for (DatLichKhamModel datLichKham : danhSachDatLich) {
-            String thongTinDatLich = "Mã đặt lịch: " + datLichKham.getMaDatLich()
-                    + ", " + datLichKham.getThoiGioiKham()
-                    + ", " + datLichKham.getChuyenKhoa()
-                    + ", mã bác sĩ: " + datLichKham.getMaBacSi();
-            listModel.addElement(thongTinDatLich);
+    private void btnHuyLichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyLichActionPerformed
+        //           Lấy chỉ số dòng được chọn trong JList
+        int selectedIndex = jList.getSelectedIndex();
+
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một lịch khám để xóa.");
         }
-    }
+        //           Kiểm tra xem có dòng được chọn không
+        if (selectedIndex != -1) {
+            // Lấy dòng được chọn từ JList
+            Object selectedObject = jList.getModel().getElementAt(selectedIndex);
 
-//    random mã bác sĩ theo chuyên khoa
-    public static String getRandomMaBacSi(JTable table) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
+            // Chuyển đối tượng dòng được chọn thành chuỗi
+            String selectedText = selectedObject.toString();
 
-        if (model.getRowCount() > 0) {
-            int randomRowIndex = new Random().nextInt(model.getRowCount());
-            Object maBacSi = model.getValueAt(randomRowIndex, 0);
+            // Sử dụng logic để trích xuất mã đặt lịch từ chuỗi dòng đó (tương tự như ví dụ ở trên)
+            // Ví dụ:
+            int startIndex = selectedText.indexOf("Mã đặt lịch: ");
+            if (startIndex != -1) {
+                startIndex += "Mã đặt lịch: ".length();
+                int commaIndex = selectedText.indexOf(",", startIndex);
+                if (commaIndex != -1) {
+                    String maDatLich = selectedText.substring(startIndex, commaIndex);
 
-            if (maBacSi != null) {
-                return maBacSi.toString();
+                    // Bây giờ bạn có thể làm gì đó với mã đặt lịch này
+                    System.out.println("Mã đặt lịch: " + maDatLich);
+
+                    // Xóa phần tử đã chọn từ JList
+                    listModel.remove(selectedIndex);
+
+                    // Sử dụng maDatLich để xóa dữ liệu tương ứng trong CSDL
+                    int result = xoaLichKhamTrongCSDL(maDatLich);
+
+                    if (result > 0) {
+                        JOptionPane.showMessageDialog(this, "Xóa lịch khám thành công!");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Xóa lịch khám thất bại!");
+                    }
+                }
             }
         }
-        return null;
+    }//GEN-LAST:event_btnHuyLichActionPerformed
+
+    private int xoaLichKhamTrongCSDL(String maDatLich) {
+        // Sử dụng maDatLich để thực hiện xóa dữ liệu trong CSDL
+        DatLichKhamController datLichController = new DatLichKhamController();
+        return datLichController.xoaLichKhamTheoId(maDatLich);
     }
+
+    private void btnDatLichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatLichActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDatLichActionPerformed
 
     private void lblCaKham1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham1MouseClicked
         String selectedLabel = lblCaKham1.getText();
@@ -1089,54 +1136,6 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         datLich(selectedLabel, selectedDate, selectChuyenKhoa);
     }//GEN-LAST:event_lblCaKham15MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//           Lấy chỉ số dòng được chọn trong JList
-        int selectedIndex = jList.getSelectedIndex();
-
-//           Kiểm tra xem có dòng được chọn không
-        if (selectedIndex != -1) {
-            // Lấy dòng được chọn từ JList
-            Object selectedObject = jList.getModel().getElementAt(selectedIndex);
-
-            // Chuyển đối tượng dòng được chọn thành chuỗi
-            String selectedText = selectedObject.toString();
-
-            // Sử dụng logic để trích xuất mã đặt lịch từ chuỗi dòng đó (tương tự như ví dụ ở trên)
-            // Ví dụ:
-            int startIndex = selectedText.indexOf("Mã đặt lịch: ");
-            if (startIndex != -1) {
-                startIndex += "Mã đặt lịch: ".length();
-                int commaIndex = selectedText.indexOf(",", startIndex);
-                if (commaIndex != -1) {
-                    String maDatLich = selectedText.substring(startIndex, commaIndex);
-
-                    // Bây giờ bạn có thể làm gì đó với mã đặt lịch này
-                    System.out.println("Mã đặt lịch: " + maDatLich);
-
-                    // Xóa phần tử đã chọn từ JList
-                    listModel.remove(selectedIndex);
-
-                    // Sử dụng maDatLich để xóa dữ liệu tương ứng trong CSDL
-                    int result = xoaLichKhamTrongCSDL(maDatLich);
-
-                    if (result > 0) {
-                        JOptionPane.showMessageDialog(this, "Xóa lịch khám thành công!");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Xóa lịch khám thất bại!");
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn một lịch khám để xóa.");
-            }
-    }//GEN-LAST:event_jButton1ActionPerformed
-    }
-
-    private int xoaLichKhamTrongCSDL(String maDatLich) {
-        // Sử dụng maDatLich để thực hiện xóa dữ liệu trong CSDL
-        DatLichKhamController datLichController = new DatLichKhamController();
-        return datLichController.xoaLichKhamTheoId(maDatLich);
-    }
-
     /**
      * @param args the command line arguments
      */
@@ -1151,24 +1150,16 @@ public class QuanLyDatLich extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLyDatLich.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(QuanLyDatLich.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLyDatLich.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(QuanLyDatLich.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLyDatLich.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(QuanLyDatLich.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLyDatLich.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyDatLich.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1182,10 +1173,10 @@ public class QuanLyDatLich extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDatLich;
+    private javax.swing.JButton btnHuyLich;
     private javax.swing.JComboBox<String> cbbChuyenKhoa;
     private javax.swing.JComboBox<String> cbbNgay;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
@@ -1193,7 +1184,6 @@ public class QuanLyDatLich extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JList<String> jList;

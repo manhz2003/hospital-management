@@ -146,7 +146,7 @@ public class ThanhToan extends javax.swing.JFrame {
         });
 
         if (DangNhap.xacNhanDangNhap != null) {
-            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+            if (DangNhap.xacNhanDangNhap.equals("admin")) {
 //                chuyển form đặt lịch sang form quản lý bác sĩ
                 itemBacSi.addActionListener((ActionEvent e) -> {
 //                đóng form hiện tại
@@ -167,7 +167,7 @@ public class ThanhToan extends javax.swing.JFrame {
         });
 
         if (DangNhap.xacNhanDangNhap != null) {
-            if (DangNhap.xacNhanDangNhap.equals("Admin")) {
+            if (DangNhap.xacNhanDangNhap.equals("admin")) {
 //                chuyển form đặt lịch sang form quản lý bác sĩ
                 itemBenhNhan.addActionListener((ActionEvent e) -> {
 //                đóng form hiện tại

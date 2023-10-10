@@ -117,27 +117,44 @@ public class QuanLyBacSiDao implements DaoInterface<BacSiModel> {
         try {
             // Lấy kết nối tới cơ sở dữ liệu
             connection = ConnectDB.getConnection();
+            connection.setAutoCommit(false); // Tắt chế độ tự động commit
 
-            // Chuẩn bị câu truy vấn SQL để xóa dữ liệu
-            String sql = "DELETE FROM bacsi WHERE maBacSi = ?";
-            preparedStatement = connection.prepareStatement(sql);
-
-            // Đặt tham số cho câu truy vấn SQL
+            // Bước 1: Xóa tất cả các lịch khám liên quan đến bác sĩ cần xóa
+            String deleteLichKhamSql = "DELETE FROM lichKham WHERE maBacSi = ?";
+            preparedStatement = connection.prepareStatement(deleteLichKhamSql);
             preparedStatement.setString(1, id);
-
-            // Thực hiện xóa dữ liệu và lấy số dòng bị ảnh hưởng
             rowsAffected = preparedStatement.executeUpdate();
+
+            // Bước 2: Xóa bác sĩ từ bảng bacsi
+            String deleteBacSiSql = "DELETE FROM bacsi WHERE maBacSi = ?";
+            preparedStatement = connection.prepareStatement(deleteBacSiSql);
+            preparedStatement.setString(1, id);
+            rowsAffected += preparedStatement.executeUpdate();
+
+            // Commit thay đổi nếu không có lỗi
+            connection.commit();
         } catch (SQLException e) {
+            // Rollback nếu có lỗi
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
         } finally {
-            // Đóng kết nối và tài nguyên
-            ConnectDB.closeConnection(connection);
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
+            // Mở lại chế độ tự động commit và đóng kết nối và tài nguyên
+            try {
+                if (connection != null) {
+                    connection.setAutoCommit(true);
+                    connection.close();
                 }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
         return rowsAffected;

@@ -54,7 +54,7 @@ public class QuanLyDatLich extends javax.swing.JFrame {
 //        đặt mặc định của cbbChuyenKhoa là null.
         cbbChuyenKhoa.setSelectedIndex(-1);
 //        tự động load data lên jlist
-        refreshListView();
+        refreshListView(DangNhap.xacNhanDangNhap);
         // load tên cột tự động
         // Tạo DefaultTableModel với các cột bạn muốn hiển thị
         DefaultTableModel model = new DefaultTableModel();
@@ -903,9 +903,9 @@ public class QuanLyDatLich extends javax.swing.JFrame {
     }
 
 //    cập nhật lại jlist
-    private void refreshListView() {
+    private void refreshListView(String tenDangNhap) {
         DatLichKhamController datLichKhamController = new DatLichKhamController();
-        ArrayList<DatLichKhamModel> danhSachDatLich = datLichKhamController.layDanhSachDatLich();
+        ArrayList<DatLichKhamModel> danhSachDatLich = datLichKhamController.layDanhSachDatLich2(tenDangNhap);
         listModel.clear();
         for (DatLichKhamModel datLichKham : danhSachDatLich) {
             String thongTinDatLich = "Mã đặt lịch: " + datLichKham.getMaDatLich()
@@ -970,7 +970,7 @@ public class QuanLyDatLich extends javax.swing.JFrame {
             int result = datLichController.insertDatLich(datLich);
             // Kiểm tra kết quả lưu vào CSDL
             if (result > 0) {
-                refreshListView();
+                refreshListView(tenDangNhap);
                 JOptionPane.showMessageDialog(this, "Đặt lịch thành công!");
             } else {
                 JOptionPane.showMessageDialog(this, "Đặt lịch thất bại!");
@@ -1027,8 +1027,54 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         return datLichController.xoaLichKhamTheoId(maDatLich);
     }
 
+    static int soLuongLichDat;
     private void btnDatLichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatLichActionPerformed
-        // TODO add your handling code here:
+//        int[] selectedIndices = jList.getSelectedIndices();
+//        int itemCount = selectedIndices.length;
+//        if (itemCount == 0) {
+//            JOptionPane.showMessageDialog(this, "Bạn phải chọn ít nhất một lịch trước khi thanh toán.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+
+        Object[] selectedItems = jList.getSelectedValues();
+        int itemCount = selectedItems.length;
+
+        if (itemCount == 0) {
+            JOptionPane.showMessageDialog(this, "Bạn phải chọn ít nhất một lịch trước khi thanh toán.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Lặp qua danh sách các lịch đã chọn và in mã đặt lịch ra console
+        for (Object selectedItem : selectedItems) {
+            String selectedData = selectedItem.toString();
+            String maDatLich = extractMaDatLich(selectedData);
+            System.out.println("Mã đặt lịch: " + maDatLich);
+        }
+
+        soLuongLichDat = itemCount;
+        dispose();
+        ThanhToan thanhToan = new ThanhToan();
+        thanhToan.setVisible(true);
+        System.out.println(soLuongLichDat);
+    }
+
+    private String extractMaDatLich(String data) {
+        // Tìm vị trí của "Mã đặt lịch:" trong chuỗi
+        int startIndex = data.indexOf("Mã đặt lịch:") + "Mã đặt lịch:".length();
+
+        // Tìm vị trí của dấu phẩy "," sau mã đặt lịch
+        int endIndex = data.indexOf(",", startIndex);
+
+        // Kiểm tra xem có tìm thấy mã đặt lịch hay không
+        if (startIndex != -1 && endIndex != -1 && startIndex < endIndex) {
+            // Trích xuất mã đặt lịch từ chuỗi
+            String maDatLich = data.substring(startIndex, endIndex).trim();
+            return maDatLich;
+        }
+
+        // Trường hợp không tìm thấy mã đặt lịch
+        return "";
+
     }//GEN-LAST:event_btnDatLichActionPerformed
 
     private void lblCaKham1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCaKham1MouseClicked

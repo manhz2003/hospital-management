@@ -24,6 +24,10 @@ public class DatLichKhamController {
     public ArrayList<DatLichKhamModel> layDanhSachDatLich() {
         return datLichDao.selectAll();
     }
+    
+    public ArrayList<DatLichKhamModel> layDanhSachDatLich2(String tenDangNhap) {
+        return datLichDao.selectAll2(tenDangNhap);
+    }
 
     public int xoaLichKhamTheoId(String id) {
         int rowsAffected = datLichDao.deleteById(id);

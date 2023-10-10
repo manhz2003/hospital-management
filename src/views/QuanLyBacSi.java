@@ -419,7 +419,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         jTableBacSi = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         btnTimTheoId = new javax.swing.JButton();
-        btnTimTatCa = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtKinhNghiem = new javax.swing.JTextArea();
@@ -531,7 +530,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         btnXoaTatCa.setBackground(new java.awt.Color(0, 102, 102));
         btnXoaTatCa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnXoaTatCa.setForeground(new java.awt.Color(255, 255, 255));
-        btnXoaTatCa.setText("Xóa tất cả");
+        btnXoaTatCa.setText("Xem");
         btnXoaTatCa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnXoaTatCa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -568,17 +567,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         btnTimTheoId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimTheoIdActionPerformed(evt);
-            }
-        });
-
-        btnTimTatCa.setBackground(new java.awt.Color(0, 102, 102));
-        btnTimTatCa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnTimTatCa.setForeground(new java.awt.Color(255, 255, 255));
-        btnTimTatCa.setText("Tìm kiếm tất cả");
-        btnTimTatCa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnTimTatCa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimTatCaActionPerformed(evt);
             }
         });
 
@@ -693,15 +681,13 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
                     .addComponent(txtTimKiem)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnTimTheoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTimTatCa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnXuatExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnTimTheoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnXuatExcel))
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -773,7 +759,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnTimTheoId)
-                            .addComponent(btnTimTatCa)
                             .addComponent(btnXuatExcel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -793,12 +778,44 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaTatCajButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTatCajButton1ActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa tất cả dữ liệu?", "Xác nhận xóa tất cả", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            BacSiController bacSiController = new BacSiController();
-            bacSiController.xoaTatCaBacSi();
-            hienThiDanhSachBacSi();
+        // Gọi controller để lấy danh sách bác sĩ
+        BacSiController bacSiController = new BacSiController();
+        ArrayList<BacSiModel> danhSachBacSi = bacSiController.layDanhSachBacSi();
+
+        // Tạo DefaultTableModel với các cột bạn muốn hiển thị
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã Bác Sĩ");
+        model.addColumn("Họ và Tên");
+        model.addColumn("Số Điện Thoại");
+        model.addColumn("Email");
+        model.addColumn("Địa Chỉ");
+        model.addColumn("Giới Tính");
+        model.addColumn("Chuyên Khoa");
+        model.addColumn("Kinh Nghiệm Làm Việc");
+        model.addColumn("Học Vấn");
+        model.addColumn("Ảnh");
+
+        // Thêm dữ liệu từ danh sách bác sĩ vào model
+        for (BacSiModel bacSi : danhSachBacSi) {
+            model.addRow(new Object[]{
+                bacSi.getMaBacSi(),
+                bacSi.getHoVaTen(),
+                bacSi.getSoDienThoai(),
+                bacSi.getEmai(),
+                bacSi.getDiaChi(),
+                bacSi.getGioiTinh(),
+                bacSi.getChuyenKhoa(),
+                bacSi.getKinhNgiemLamViec(),
+                bacSi.getHocVan(),
+                bacSi.getHinhAnh()
+            });
         }
+
+//         Gắn model vào JTable.
+        jTableBacSi.setModel(model);
+
+//        tự động chỉnh độ rộng cột với thanh cuộn ngang.
+        jTableBacSi.setAutoscrolls(true);
     }//GEN-LAST:event_btnXoaTatCajButton1ActionPerformed
 
     private void btnXoajButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoajButton4ActionPerformed
@@ -998,47 +1015,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnTimTheoIdActionPerformed
 
-    private void btnTimTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTatCaActionPerformed
-        // Gọi controller để lấy danh sách bác sĩ
-        BacSiController bacSiController = new BacSiController();
-        ArrayList<BacSiModel> danhSachBacSi = bacSiController.layDanhSachBacSi();
-
-        // Tạo DefaultTableModel với các cột bạn muốn hiển thị
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Mã Bác Sĩ");
-        model.addColumn("Họ và Tên");
-        model.addColumn("Số Điện Thoại");
-        model.addColumn("Email");
-        model.addColumn("Địa Chỉ");
-        model.addColumn("Giới Tính");
-        model.addColumn("Chuyên Khoa");
-        model.addColumn("Kinh Nghiệm Làm Việc");
-        model.addColumn("Học Vấn");
-        model.addColumn("Ảnh");
-
-        // Thêm dữ liệu từ danh sách bác sĩ vào model
-        for (BacSiModel bacSi : danhSachBacSi) {
-            model.addRow(new Object[]{
-                bacSi.getMaBacSi(),
-                bacSi.getHoVaTen(),
-                bacSi.getSoDienThoai(),
-                bacSi.getEmai(),
-                bacSi.getDiaChi(),
-                bacSi.getGioiTinh(),
-                bacSi.getChuyenKhoa(),
-                bacSi.getKinhNgiemLamViec(),
-                bacSi.getHocVan(),
-                bacSi.getHinhAnh()
-            });
-        }
-
-//         Gắn model vào JTable.
-        jTableBacSi.setModel(model);
-
-//        tự động chỉnh độ rộng cột với thanh cuộn ngang.
-        jTableBacSi.setAutoscrolls(true);
-    }//GEN-LAST:event_btnTimTatCaActionPerformed
-
     private String selectedImagePath;
     private void btnTaiAnhjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaiAnhjButton3ActionPerformed
         // Tạo một đối tượng JFileChooser
@@ -1128,7 +1104,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaiAnh;
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnTimTatCa;
     private javax.swing.JButton btnTimTheoId;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoaTatCa;

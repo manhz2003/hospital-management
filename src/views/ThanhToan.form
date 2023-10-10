@@ -32,16 +32,16 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblMaGiaoDich50" alignment="0" pref="161" max="32767" attributes="0"/>
-                              <Component id="jLabel136" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="lblThoiGian" alignment="0" pref="161" max="32767" attributes="0"/>
                               <Component id="lblMaGiaoDich" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel136" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel139" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblMaGiaoDich51" max="32767" attributes="0"/>
-                          <Component id="lblTongTien1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblTongTien_" max="32767" attributes="0"/>
+                          <Component id="lblSoLich" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel141" min="-2" pref="130" max="-2" attributes="0"/>
@@ -51,7 +51,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="txtSoTaiKhoan7" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtSoTaiKhoan" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel131" min="-2" pref="135" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -63,12 +63,10 @@
                   </Group>
                   <Component id="jLabel130" alignment="0" min="-2" pref="205" max="-2" attributes="0"/>
                   <Component id="jLabel135" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
-                  <Component id="jLabel129" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                   <Component id="jLabel137" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
                   <Component id="jLabel140" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                  <Component id="cbbNganHang7" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
-                  <Component id="txtTenTaiKhoan7" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtTenDangNhap7" alignment="0" max="32767" attributes="0"/>
+                  <Component id="cbbNganHang" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
+                  <Component id="txtTenTaiKhoan" alignment="0" max="32767" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -80,15 +78,15 @@
                                   <Component id="jLabel123" min="-2" pref="130" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel120" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="jLabel120" min="-2" pref="124" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="lblNgayThanhToan" alignment="1" min="-2" pref="167" max="-2" attributes="0"/>
+                              <Component id="lblThoiGian2" alignment="1" min="-2" pref="167" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel142" min="-2" pref="72" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                      <Component id="lblTongTien2" max="32767" attributes="0"/>
+                                      <Component id="lblSoLich2" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel126" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
@@ -158,8 +156,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblMaGiaoDich50" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="lblMaGiaoDich51" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblThoiGian" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblTongTien_" min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -169,18 +167,18 @@
                                   <Component id="jLabel139" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblTongTien1" min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="lblSoLich" min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
                           <Component id="lblMaGiaoDich" min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel140" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cbbNganHang7" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbbNganHang" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel135" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtSoTaiKhoan7" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSoTaiKhoan" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel126" min="-2" max="-2" attributes="0"/>
@@ -211,7 +209,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblTongTien2" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblSoLich2" min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="jLabel142" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -222,7 +220,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblTongTien" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="lblNgayThanhToan" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblThoiGian2" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -231,15 +229,11 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel137" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtTenTaiKhoan7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel129" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtTenDangNhap7" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTenTaiKhoan" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel118" min="-2" pref="82" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel127" min="-2" max="-2" attributes="0"/>
@@ -254,14 +248,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel129">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="66" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="T&#xea;n &#x111;&#x103;ng nh&#x1ead;p"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel130">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -272,8 +258,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Thanh to&#xe1;n b&#x1eb1;ng th&#x1ebb; ng&#xe2;n h&#xe0;ng"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtTenDangNhap7">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel131">
       <Properties>
@@ -291,7 +275,7 @@
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbbNganHang7">
+    <Component class="javax.swing.JComboBox" name="cbbNganHang">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="12" style="1"/>
@@ -332,9 +316,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
@@ -374,14 +356,12 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblMaGiaoDich50">
+    <Component class="javax.swing.JLabel" name="lblThoiGian">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
@@ -398,19 +378,17 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ng&#xe0;y thanh to&#xe1;n"/>
+        <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian giao d&#x1ecb;ch"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtSoTaiKhoan7">
+    <Component class="javax.swing.JTextField" name="txtSoTaiKhoan">
     </Component>
-    <Component class="javax.swing.JLabel" name="lblMaGiaoDich51">
+    <Component class="javax.swing.JLabel" name="lblTongTien_">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
@@ -430,7 +408,7 @@
         <Property name="text" type="java.lang.String" value="T&#x1ed5;ng s&#x1ed1; ti&#x1ec1;n thanh to&#xe1;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTenTaiKhoan7">
+    <Component class="javax.swing.JTextField" name="txtTenTaiKhoan">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel139">
       <Properties>
@@ -453,9 +431,6 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
@@ -465,8 +440,8 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="66" green="66" red="0" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Nguy&#x1ec5;n Th&#x1ebf; M&#x1ea1;nh"/>
@@ -502,9 +477,6 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
@@ -513,9 +485,6 @@
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="MBBank"/>
@@ -551,7 +520,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ng&#xe0;y thanh to&#xe1;n"/>
+        <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian giao d&#x1ecb;ch"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel128">
@@ -562,13 +531,10 @@
         <Property name="text" type="java.lang.String" value="M&#xe3; giao d&#x1ecb;ch"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblNgayThanhToan">
+    <Component class="javax.swing.JLabel" name="lblThoiGian2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="opaque" type="boolean" value="true"/>
@@ -606,9 +572,6 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0987739823"/>
         <Property name="opaque" type="boolean" value="true"/>
@@ -619,21 +582,15 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="029986666868"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblTongTien1">
+    <Component class="javax.swing.JLabel" name="lblSoLich">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="opaque" type="boolean" value="true"/>
@@ -655,13 +612,10 @@
         <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblTongTien2">
+    <Component class="javax.swing.JLabel" name="lblSoLich2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="opaque" type="boolean" value="true"/>

@@ -204,6 +204,57 @@ public class DatLichKhamDao implements DaoInterface<DatLichKhamModel> {
         return list;
     }
 
+//    lấy thông tin đặt lịch theo từng tên đăng nhập
+    public ArrayList<DatLichKhamModel> selectAll2(String tenDangNhap) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ArrayList<DatLichKhamModel> list = new ArrayList<>();
+
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "SELECT lichkham.*, bacsi.ChuyenKhoa "
+                    + "FROM lichkham "
+                    + "JOIN bacsi ON lichkham.maBacSi = bacsi.maBacSi "
+                    + "WHERE lichkham.tenDangNhap = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, tenDangNhap);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                DatLichKhamModel lichKhamModel = new DatLichKhamModel();
+                lichKhamModel.setMaDatLich(resultSet.getString("maDatLich"));
+                lichKhamModel.setGiaDichVuKham(resultSet.getFloat("giaDichVuKham"));
+                lichKhamModel.setThoiGioiKham(resultSet.getString("thoiGianKham"));
+                lichKhamModel.setDiaChiKham(resultSet.getString("diaChiKham"));
+                lichKhamModel.setTenDangNhap(resultSet.getString("tenDangNhap"));
+                lichKhamModel.setMaBacSi(resultSet.getString("maBacSi"));
+                lichKhamModel.setChuyenKhoa(resultSet.getString("ChuyenKhoa"));
+
+                list.add(lichKhamModel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return list;
+    }
+
     // Kiểm tra trùng lịch dựa trên thời gian khám
     public boolean kiemTraTrungLich(String selectedDate) {
         Connection connection = null;

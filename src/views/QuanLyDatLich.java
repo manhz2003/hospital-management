@@ -15,6 +15,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -659,8 +660,10 @@ public class QuanLyDatLich extends javax.swing.JFrame {
 
         lblPhongKham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblPhongKham.setForeground(new java.awt.Color(0, 102, 102));
+        lblPhongKham.setText("Phòng khám đa khoa bệnh viện EAUT");
 
         lblDiaChi.setForeground(new java.awt.Color(0, 102, 102));
+        lblDiaChi.setText("78 Giải Phóng, Phương Mai, Đống Đa, Hà Nội.");
 
         lblGia.setBackground(new java.awt.Color(255, 255, 255));
         lblGia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -779,15 +782,13 @@ public class QuanLyDatLich extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jScrollPane2)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblPhongKham)
-                                            .addComponent(lblDiaChi))
-                                        .addGap(0, 368, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane2))))
+                                            .addComponent(lblDiaChi)
+                                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -909,6 +910,7 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         listModel.clear();
         for (DatLichKhamModel datLichKham : danhSachDatLich) {
             String thongTinDatLich = "Mã đặt lịch: " + datLichKham.getMaDatLich()
+                    + ", trạng thái: " + datLichKham.getTrangThaiThanhToan()
                     + ", " + datLichKham.getThoiGioiKham()
                     + ", " + datLichKham.getChuyenKhoa()
                     + ", mã bác sĩ: " + datLichKham.getMaBacSi();
@@ -922,14 +924,9 @@ public class QuanLyDatLich extends javax.swing.JFrame {
     String maDatLich;
 
     public void datLich(String selectedLabel, String selectedDate, String selectChuyenKhoa) {
-        // Kiểm tra trùng lịch trong CSDL
         String thoiGianKham = "Ca khám: [" + selectedDate + ", " + selectedLabel + "]";
+        String chuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
         DatLichKhamController datLichController = new DatLichKhamController();
-
-        if (datLichController.kiemTraTrungLich(thoiGianKham)) {
-            JOptionPane.showMessageDialog(this, "Thời gian khám đã có lịch, bạn không được chọn trùng ca!", "Lỗi chọn trùng lịch", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
         // Lấy ra ca khám đã chọn
         Set<String> selectedCaKham = selectedDates.get(thoiGianKham);
@@ -937,18 +934,8 @@ public class QuanLyDatLich extends javax.swing.JFrame {
             selectedCaKham = new HashSet<>();
         }
 
-        // Kiểm tra trùng ca khám
-        if (selectedCaKham.contains(thoiGianKham)) {
-            JOptionPane.showMessageDialog(this, "Bạn không được chọn hai ca trùng nhau cùng một ngày !", "Lỗi chọn trùng ca", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Nếu không trùng lịch hoặc trùng ca khám, tiến hành đặt lịch
         selectedCaKham.add(selectedLabel);
         selectedDates.put(selectedDate, selectedCaKham);
-
-        // Tạo mã đặt lịch
-        maDatLich = generateRandomCode();
 
         // Tạo nội dung hiển thị trên jList
         float giaDichVu = 300000.0f;
@@ -956,61 +943,55 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         lblPhongKham.setText("Phòng khám đa khoa bệnh viện EAUT");
         lblDiaChi.setText("78 Giải Phóng, Phương Mai, Đống Đa, Hà Nội.");
 
-//        lưu lịch đặt
-//        Tạo mã đặt lịch
         maDatLich = generateRandomCode();
         String diaChi = lblPhongKham.getText() + lblDiaChi.getText();
         String maBacSi = getRandomMaBacSi(jTableBacSi);
         String tenDangNhap = DangNhap.xacNhanDangNhap;
-        String chuyenKhoa = (String) cbbChuyenKhoa.getSelectedItem();
+        boolean trungLich = datLichController.kiemTraTrungLich(thoiGianKham);
+        boolean trungKhoa = datLichController.kiemTraChuyenKhoa(chuyenKhoa);
         if (chuyenKhoa == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn chuyên khoa trước khi đặt lịch !");
         } else {
-            DatLichKhamModel datLich = new DatLichKhamModel(maDatLich, giaDichVu, thoiGianKham, diaChi, tenDangNhap, maBacSi, selectChuyenKhoa);
-            int result = datLichController.insertDatLich(datLich);
-            // Kiểm tra kết quả lưu vào CSDL
-            if (result > 0) {
-                refreshListView(tenDangNhap);
-                JOptionPane.showMessageDialog(this, "Đặt lịch thành công!");
+            if (trungLich && trungKhoa) {
+                JOptionPane.showMessageDialog(this, "Bạn không được chọn trùng chuyên khoa hoặc ngày\ntrong cùng 1 ca !", "Lỗi chọn trùng ca", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Đặt lịch thất bại!");
+                String trangThaiThanhToan = "Chưa thanh toán";
+                DatLichKhamModel datLich = new DatLichKhamModel(maDatLich, giaDichVu, thoiGianKham, diaChi, tenDangNhap, trangThaiThanhToan, maBacSi, selectChuyenKhoa);
+                int result = datLichController.insertDatLich(datLich);
+                // Kiểm tra kết quả lưu vào CSDL
+                if (result > 0) {
+                    refreshListView(tenDangNhap);
+                    JOptionPane.showMessageDialog(this, "Đặt lịch thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Đặt lịch thất bại!");
+                }
             }
+
         }
     }
 
-    private void btnHuyLichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyLichActionPerformed
-        //           Lấy chỉ số dòng được chọn trong JList
-        int selectedIndex = jList.getSelectedIndex();
 
+    private void btnHuyLichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyLichActionPerformed
+        // Lấy chỉ số dòng được chọn trong JList
+        int selectedIndex = jList.getSelectedIndex();
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một lịch khám để xóa.");
         }
-        //           Kiểm tra xem có dòng được chọn không
         if (selectedIndex != -1) {
             // Lấy dòng được chọn từ JList
             Object selectedObject = jList.getModel().getElementAt(selectedIndex);
-
-            // Chuyển đối tượng dòng được chọn thành chuỗi
             String selectedText = selectedObject.toString();
-
-            // Sử dụng logic để trích xuất mã đặt lịch từ chuỗi dòng đó (tương tự như ví dụ ở trên)
-            // Ví dụ:
             int startIndex = selectedText.indexOf("Mã đặt lịch: ");
             if (startIndex != -1) {
                 startIndex += "Mã đặt lịch: ".length();
                 int commaIndex = selectedText.indexOf(",", startIndex);
                 if (commaIndex != -1) {
-                    String maDatLich = selectedText.substring(startIndex, commaIndex);
-
-                    // Bây giờ bạn có thể làm gì đó với mã đặt lịch này
-                    System.out.println("Mã đặt lịch: " + maDatLich);
-
-                    // Xóa phần tử đã chọn từ JList
+                    String maHuyLich = selectedText.substring(startIndex, commaIndex);
                     listModel.remove(selectedIndex);
+                    System.out.println("chọn được đặt lịch: " + maHuyLich);
 
                     // Sử dụng maDatLich để xóa dữ liệu tương ứng trong CSDL
-                    int result = xoaLichKhamTrongCSDL(maDatLich);
-
+                    int result = xoaLichKhamTrongCSDL(maHuyLich);
                     if (result > 0) {
                         JOptionPane.showMessageDialog(this, "Xóa lịch khám thành công!");
                     } else {
@@ -1027,15 +1008,10 @@ public class QuanLyDatLich extends javax.swing.JFrame {
         return datLichController.xoaLichKhamTheoId(maDatLich);
     }
 
+//    đăng ký lịch đưa ra số lượng đăng ký, danh sách mã đặt lịch
     static int soLuongLichDat;
+    static List<String> maDatLichList = new ArrayList<>();
     private void btnDatLichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatLichActionPerformed
-//        int[] selectedIndices = jList.getSelectedIndices();
-//        int itemCount = selectedIndices.length;
-//        if (itemCount == 0) {
-//            JOptionPane.showMessageDialog(this, "Bạn phải chọn ít nhất một lịch trước khi thanh toán.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-//            return;
-//        }
-
         Object[] selectedItems = jList.getSelectedValues();
         int itemCount = selectedItems.length;
 
@@ -1044,35 +1020,35 @@ public class QuanLyDatLich extends javax.swing.JFrame {
             return;
         }
 
-        // Lặp qua danh sách các lịch đã chọn và in mã đặt lịch ra console
+        // Lặp qua danh sách các lịch đã chọn và kiểm tra nếu có lịch đã thanh toán
         for (Object selectedItem : selectedItems) {
             String selectedData = selectedItem.toString();
-            String maDatLich = extractMaDatLich(selectedData);
-            System.out.println("Mã đặt lịch: " + maDatLich);
+            String maDatLichItem = extractMaDatLich(selectedData);
+
+            // Kiểm tra nếu chuỗi "Đã thanh toán" xuất hiện trong selectedItem
+            if (selectedData.contains("Đã thanh toán")) {
+                // Hiển thị mã đặt lịch trong thông báo
+                JOptionPane.showMessageDialog(this, "Mã đặt lịch: " + maDatLichItem +"đã thanh toán\nvui lòng chọn lịch khác để tiếp tục thanh toán !", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return; // Dừng vòng lặp nếu tìm thấy lịch đã thanh toán
+            }
+
+            maDatLichList.add(maDatLichItem);
         }
 
         soLuongLichDat = itemCount;
         dispose();
         ThanhToan thanhToan = new ThanhToan();
         thanhToan.setVisible(true);
-        System.out.println(soLuongLichDat);
     }
 
+//    tìm mã đặt lịch
     private String extractMaDatLich(String data) {
-        // Tìm vị trí của "Mã đặt lịch:" trong chuỗi
         int startIndex = data.indexOf("Mã đặt lịch:") + "Mã đặt lịch:".length();
-
-        // Tìm vị trí của dấu phẩy "," sau mã đặt lịch
         int endIndex = data.indexOf(",", startIndex);
-
-        // Kiểm tra xem có tìm thấy mã đặt lịch hay không
         if (startIndex != -1 && endIndex != -1 && startIndex < endIndex) {
-            // Trích xuất mã đặt lịch từ chuỗi
-            String maDatLich = data.substring(startIndex, endIndex).trim();
-            return maDatLich;
+            String maLich = data.substring(startIndex, endIndex).trim();
+            return maLich;
         }
-
-        // Trường hợp không tìm thấy mã đặt lịch
         return "";
 
     }//GEN-LAST:event_btnDatLichActionPerformed

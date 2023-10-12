@@ -4,14 +4,13 @@
  */
 package views;
 
+import controllers.DatLichKhamController;
 import controllers.TaiKhoanController;
 import controllers.ThanhToanController;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import static java.lang.Math.random;
-import static java.lang.StrictMath.random;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -24,8 +23,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
-import static javax.xml.stream.XMLStreamConstants.CHARACTERS;
 import models.ThanhToanModel;
+import static views.QuanLyDatLich.maDatLichList;
 
 /**
  *
@@ -424,7 +423,6 @@ public class ThanhToan extends javax.swing.JFrame {
         lblTongTien.setOpaque(true);
 
         lblMaGiaoDich48.setBackground(new java.awt.Color(204, 204, 204));
-        lblMaGiaoDich48.setForeground(new java.awt.Color(0, 102, 102));
         lblMaGiaoDich48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaGiaoDich48.setText("Nguyễn Thế Mạnh");
         lblMaGiaoDich48.setOpaque(true);
@@ -702,9 +700,14 @@ public class ThanhToan extends javax.swing.JFrame {
                 ThanhToanModel thanhToan = new ThanhToanModel(maGiaoDich, soTaiKhoan, tenTaiKhoan, tenNganHang, thoiGianThanhToan, tenDangNhap);
                 ThanhToanController tt = new ThanhToanController();
                 tt.insertThanhToan(thanhToan);
+
+                DatLichKhamController datLichKhamController = new DatLichKhamController();
+                datLichKhamController.capNhatTrangThaiThanhToan(maDatLichList);
+                System.out.println(maDatLichList);
+                
                 String mess = "Chúc mừng bạn " + tenDangNhap + " đã thanh toán thành công !\n"
                         + "Tổng số tiền: " + lblTongTien.getText() + " và số lượng lịch: " + lblSoLich.getText() + "\n"
-                        + "Mã giao dịch: " + lblMaGiaoDich.getText() + " thời gian: " + thoiGianThanhToan;
+                        + "Mã giao dịch: " + lblMaGiaoDich.getText() + ", thời gian: " + thoiGianThanhToan;
                 JOptionPane.showMessageDialog(null, mess);
             }
         }
@@ -745,15 +748,9 @@ public class ThanhToan extends javax.swing.JFrame {
     }
 
     public static String getCurrentDateTime() {
-        // Lấy ngày tháng năm giờ phút giây hiện tại
         LocalDateTime now = LocalDateTime.now();
-
-        // Định dạng ngày tháng năm giờ phút giây
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
-
-        // Chuyển đổi thành chuỗi
         String formattedDateTime = now.format(formatter);
-
         return formattedDateTime;
     }
 

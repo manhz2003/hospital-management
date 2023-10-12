@@ -7,20 +7,32 @@ public class DatLichKhamModel {
     private String thoiGioiKham;
     private String diaChiKham;
     private String tenDangNhap;
+    private String trangThaiThanhToan;
     private String maBacSi;
     private String chuyenKhoa;
 
     public DatLichKhamModel() {
     }
 
-    public DatLichKhamModel(String maDatLich, float giaDichVuKham, String thoiGioiKham, String diaChiKham, String tenDangNhap, String maBacSi, String chuyenKhoa) {
+    public DatLichKhamModel(String maDatLich, float giaDichVuKham, String thoiGioiKham, String diaChiKham, String tenDangNhap, String trangThaiThanhToan, String maBacSi, String chuyenKhoa) {
         this.maDatLich = maDatLich;
         this.giaDichVuKham = giaDichVuKham;
         this.thoiGioiKham = thoiGioiKham;
         this.diaChiKham = diaChiKham;
         this.tenDangNhap = tenDangNhap;
+        this.trangThaiThanhToan = trangThaiThanhToan;
         this.maBacSi = maBacSi;
         this.chuyenKhoa = chuyenKhoa;
+    }
+
+
+
+    public String getTrangThaiThanhToan() {
+        return trangThaiThanhToan;
+    }
+
+    public void setTrangThaiThanhToan(String trangThaiThanhToan) {
+        this.trangThaiThanhToan = trangThaiThanhToan;
     }
 
     public String getChuyenKhoa() {

@@ -32,15 +32,15 @@ public class ThanhToanDao implements DaoInterface<ThanhToanModel> {
             connection = ConnectDB.getConnection();
 
             // Chuẩn bị câu truy vấn SQL để chèn dữ liệu
-            String sql = "INSERT INTO bacsi (maBacSi, hoVaTen, soDienThoai, email, diaChi, GioiTinh, chuyenKhoa, kinhNghiemLamViec, hocVan, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO thanhtoan (maThanhToan, soTaiKhoan, tenTaiKhoan, tenNganHang, thoiGianThanhToan, tenDangNhap) VALUES (?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
-
-            // Đặt các tham số cho câu truy vấn SQL từ đối tượng BacSiModel
             preparedStatement.setString(1, t.getMaThanhToan());
             preparedStatement.setString(2, t.getSoTaiKhoan());
             preparedStatement.setString(3,  t.getTenTaiKhoan());
             preparedStatement.setString(4,  t.getTenNganhang());
             preparedStatement.setString(5, t.getThoiGianThanhToan());
+            preparedStatement.setString(6, t.getTenDangNhap());
+            
             rowsAffected = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -734,6 +734,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
         </Property>
+        <Property name="text" type="java.lang.String" value="Ph&#xf2;ng kh&#xe1;m &#x111;a khoa b&#x1ec7;nh vi&#x1ec7;n EAUT"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDiaChi">
@@ -741,6 +742,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
         </Property>
+        <Property name="text" type="java.lang.String" value="78 Gi&#x1ea3;i Ph&#xf3;ng, Ph&#x1b0;&#x1a1;ng Mai, &#x110;&#x1ed1;ng &#x110;a, H&#xe0; N&#x1ed9;i."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblGia">

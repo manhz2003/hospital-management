@@ -14,4 +14,5 @@ public class ThanhToanController {
     public int insertThanhToan(ThanhToanModel thanhToan) {
         return thanhToanDao.insert(thanhToan);
     }
+    
 }

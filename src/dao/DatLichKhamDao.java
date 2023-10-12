@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import models.BacSiModel;
 import models.DatLichKhamModel;
 
@@ -82,14 +83,15 @@ public class DatLichKhamDao implements DaoInterface<DatLichKhamModel> {
 
         try {
             connection = ConnectDB.getConnection();
-            String insertQuery = "INSERT INTO lichkham  (MaDatLich, GiaDichVuKham, ThoiGianKham, DiaChiKham, TenDangNhap, MaBacSi) VALUES (?, ?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO lichkham  (MaDatLich, GiaDichVuKham, ThoiGianKham, DiaChiKham, TenDangNhap, trangThaiThanhToan, MaBacSi) VALUES (?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setString(1, datLich.getMaDatLich());
             preparedStatement.setFloat(2, datLich.getGiaDichVuKham());
             preparedStatement.setString(3, datLich.getThoiGioiKham());
             preparedStatement.setString(4, datLich.getDiaChiKham());
             preparedStatement.setString(5, datLich.getTenDangNhap());
-            preparedStatement.setString(6, datLich.getMaBacSi());
+            preparedStatement.setString(6, datLich.getTrangThaiThanhToan());
+            preparedStatement.setString(7, datLich.getMaBacSi());
 
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -228,6 +230,7 @@ public class DatLichKhamDao implements DaoInterface<DatLichKhamModel> {
                 lichKhamModel.setThoiGioiKham(resultSet.getString("thoiGianKham"));
                 lichKhamModel.setDiaChiKham(resultSet.getString("diaChiKham"));
                 lichKhamModel.setTenDangNhap(resultSet.getString("tenDangNhap"));
+                lichKhamModel.setTrangThaiThanhToan(resultSet.getString("trangThaiThanhToan"));
                 lichKhamModel.setMaBacSi(resultSet.getString("maBacSi"));
                 lichKhamModel.setChuyenKhoa(resultSet.getString("ChuyenKhoa"));
 
@@ -290,6 +293,88 @@ public class DatLichKhamDao implements DaoInterface<DatLichKhamModel> {
             if (connection != null) {
                 try {
                     connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // Kiểm tra trùng chuyên khoa dựa trên lựa chọn chuyên khoa
+    public boolean kiemTraTrungChuyenKhoa(String chuyenKhoa) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "SELECT lichkham.* FROM lichKham JOIN bacsi ON lichKham.maBacSi ="
+                    + " bacsi.maBacSi WHERE bacsi.chuyenKhoa = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, chuyenKhoa);
+            resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+//    cập nhật trạng thái thanh toán
+    public void updateTrangThaiThanhToan(List<String> maDatLichList) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = ConnectDB.getConnection();
+            StringBuilder sql = new StringBuilder("UPDATE lichKham SET trangThaiThanhToan = 'Đã thanh toán' WHERE maDatLich IN (");
+
+            // Tạo danh sách tham số "?" cho maDatLich
+            for (int i = 0; i < maDatLichList.size(); i++) {
+                sql.append("?");
+                if (i < maDatLichList.size() - 1) {
+                    sql.append(", ");
+                }
+            }
+            sql.append(")");
+
+            preparedStatement = connection.prepareStatement(sql.toString());
+
+            // Đặt giá trị cho các tham số
+            for (int i = 0; i < maDatLichList.size(); i++) {
+                preparedStatement.setString(i + 1, maDatLichList.get(i));
+            }
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

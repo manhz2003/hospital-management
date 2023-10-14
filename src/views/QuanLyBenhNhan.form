@@ -123,7 +123,7 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jPanel10" max="32767" attributes="0"/>
-                                          <Component id="btnXoa5" max="32767" attributes="0"/>
+                                          <Component id="btnTaiAnh" max="32767" attributes="0"/>
                                           <Component id="btnReset" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -136,16 +136,16 @@
                           <Component id="txtTimKiem" alignment="0" min="-2" pref="391" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnXoa4" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
-                                  <Component id="radNam1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnThem" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="radBenhNhan" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="radNu1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="radBenhAn" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="btnXoa7" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="btnXem" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnXoa8" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="btnSua" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnXoa9" min="-2" pref="90" max="-2" attributes="0"/>
                                   </Group>
@@ -167,12 +167,12 @@
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="txtKetLuanKham" min="-2" pref="341" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Component id="btnTimTheoId1" min="-2" pref="157" max="-2" attributes="0"/>
+                      <Component id="btnTimHoSoBenhNhan" min="-2" pref="141" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnTimTheoId" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Component id="btnTimTheoId" min="-2" pref="152" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnTimTheoId2" min="-2" pref="92" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnTimTheoId2" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -224,7 +224,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnXoa5" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnTaiAnh" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -239,8 +239,8 @@
                   <Component id="txtMaHoSo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtMaBenhNhan2" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="txtMabenhNhan1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="radNam1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="radNu1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="radBenhNhan" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="radBenhAn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -248,9 +248,9 @@
                       <Component id="txtMaBacSi" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel17" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="txtTrieuChung" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnXoa4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnXoa7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnXoa8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnThem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnXem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSua" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnXoa9" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel20" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
@@ -270,16 +270,18 @@
                   <Component id="txtTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel22" min="-2" pref="22" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="btnTimTheoId1" alignment="3" pref="0" max="32767" attributes="0"/>
-                      <Component id="txtKetLuanKham" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel22" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="btnTimHoSoBenhNhan" alignment="3" pref="0" max="32767" attributes="0"/>
+                          <Component id="txtKetLuanKham" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="btnTimTheoId2" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="btnTimTheoId2" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnTimTheoId" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="btnTimTheoId" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -409,7 +411,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnXoa5">
+    <Component class="javax.swing.JButton" name="btnTaiAnh">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
@@ -426,7 +428,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoa5jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTaiAnhjButton3ActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtHoVaTen">
@@ -564,7 +566,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m theo m&#xe3;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;T&#xec;m ki&#x1ebf;m b&#x1ec7;nh nh&#xe2;n m&#xe0; b&#xe1;c s&#x129; &#x111;i&#x1ec1;u tr&#x1ecb;&lt;/html&gt;"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Hand Cursor"/>
         </Property>
@@ -575,7 +577,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtTimKiem">
     </Component>
-    <Component class="javax.swing.JButton" name="btnXoa4">
+    <Component class="javax.swing.JButton" name="btnThem">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
@@ -592,7 +594,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoa4jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemjButton3ActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel19">
@@ -606,7 +608,7 @@
         <Property name="text" type="java.lang.String" value="Ch&#x1ee9;c n&#x103;ng &#x111;i&#x1ec1;u khi&#x1ec3;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnXoa7">
+    <Component class="javax.swing.JButton" name="btnXem">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
@@ -623,10 +625,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoa7jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXemjButton3ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnXoa8">
+    <Component class="javax.swing.JButton" name="btnSua">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
@@ -643,7 +645,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoa8jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuajButton3ActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnXoa9">
@@ -666,7 +668,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoa9jButton3ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnTimTheoId1">
+    <Component class="javax.swing.JButton" name="btnTimHoSoBenhNhan">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
@@ -677,16 +679,17 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;hi&#x1ec3;n th&#x1ecb; danh s&#xe1;ch h&#x1ed3; s&#x1a1; theo m&#xe3; b&#x1ec7;nh nh&#xe2;n&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;T&#xec;m ki&#x1ebf;m hs b&#x1ec7;nh &#xe1;n c&#x1ee7;a b&#x1ec7;nh nh&#xe2;n&lt;/html&gt;"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Hand Cursor"/>
         </Property>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimTheoId1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimHoSoBenhNhanActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="radNam1">
+    <Component class="javax.swing.JRadioButton" name="radBenhNhan">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
@@ -697,7 +700,7 @@
         <Property name="text" type="java.lang.String" value="b&#x1ec7;nh nh&#xe2;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="radNu1">
+    <Component class="javax.swing.JRadioButton" name="radBenhAn">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
@@ -716,7 +719,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m / xu&#x1ea5;t file"/>
+        <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtKetLuanKham">
@@ -732,7 +735,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t excel"/>
+        <Property name="text" type="java.lang.String" value="T&#xec;m id"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Hand Cursor"/>
         </Property>

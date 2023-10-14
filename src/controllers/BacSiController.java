@@ -26,7 +26,6 @@ public class BacSiController {
         return bacSiDao.maBacSiTrung(maBacSi);
     }
 
-    // Phương thức để lấy danh sách bác sĩ từ model
     public ArrayList<BacSiModel> layDanhSachBacSi() {
         return bacSiDao.selectAll();
     }

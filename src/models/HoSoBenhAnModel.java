@@ -1,16 +1,19 @@
 package models;
 
-
 public class HoSoBenhAnModel {
+
     private String maHoSo;
-    private BacSiModel maBacSi;
-    private BenhNhanModel maBenhNhan;
+    private String maBacSi;
+    private String maBenhNhan;
     private String trieuChung;
     private String tienSuBenhAn;
     private String chuanDoan;
     private String ketLuan;
 
-    public HoSoBenhAnModel(String maHoSo, BacSiModel maBacSi, BenhNhanModel maBenhNhan, String trieuChung, String tienSuBenhAn, String chuanDoan, String ketLuan) {
+    public HoSoBenhAnModel() {
+    }
+
+    public HoSoBenhAnModel(String maHoSo, String maBacSi, String maBenhNhan, String trieuChung, String tienSuBenhAn, String chuanDoan, String ketLuan) {
         this.maHoSo = maHoSo;
         this.maBacSi = maBacSi;
         this.maBenhNhan = maBenhNhan;
@@ -18,9 +21,6 @@ public class HoSoBenhAnModel {
         this.tienSuBenhAn = tienSuBenhAn;
         this.chuanDoan = chuanDoan;
         this.ketLuan = ketLuan;
-    }
-
-    public HoSoBenhAnModel() {
     }
 
     public String getMaHoSo() {
@@ -31,19 +31,19 @@ public class HoSoBenhAnModel {
         this.maHoSo = maHoSo;
     }
 
-    public BacSiModel getMaBacSi() {
+    public String getMaBacSi() {
         return maBacSi;
     }
 
-    public void setMaBacSi(BacSiModel maBacSi) {
+    public void setMaBacSi(String maBacSi) {
         this.maBacSi = maBacSi;
     }
 
-    public BenhNhanModel getMaBenhNhan() {
+    public String getMaBenhNhan() {
         return maBenhNhan;
     }
 
-    public void setMaBenhNhan(BenhNhanModel maBenhNhan) {
+    public void setMaBenhNhan(String maBenhNhan) {
         this.maBenhNhan = maBenhNhan;
     }
 
@@ -83,6 +83,5 @@ public class HoSoBenhAnModel {
     public String toString() {
         return "HoSoBenhAnModel{" + "maHoSo=" + maHoSo + ", maBacSi=" + maBacSi + ", maBenhNhan=" + maBenhNhan + ", trieuChung=" + trieuChung + ", tienSuBenhAn=" + tienSuBenhAn + ", chuanDoan=" + chuanDoan + ", ketLuan=" + ketLuan + '}';
     }
-    
-    
+
 }

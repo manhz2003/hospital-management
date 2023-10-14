@@ -4,6 +4,9 @@
  */
 package views;
 
+import controllers.BacSiController;
+import controllers.BenhNhanController;
+import controllers.HoSoBenhAnController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,6 +14,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -18,9 +23,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import models.BacSiModel;
+import models.BenhNhanModel;
+import models.HoSoBenhAnModel;
 
 /**
  *
@@ -38,6 +48,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         setMenu();
         getContentPane().setBackground(Color.WHITE);
         jPanel10.setPreferredSize(new Dimension(130, 138));
+
     }
 
     //    set icon cho jframe form
@@ -285,7 +296,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         lblAnh = new javax.swing.JLabel();
-        btnXoa5 = new javax.swing.JButton();
+        btnTaiAnh = new javax.swing.JButton();
         txtHoVaTen = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtMaBenhNhan2 = new javax.swing.JLabel();
@@ -305,14 +316,14 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         btnTimTheoId = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
-        btnXoa4 = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
-        btnXoa7 = new javax.swing.JButton();
-        btnXoa8 = new javax.swing.JButton();
+        btnXem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
         btnXoa9 = new javax.swing.JButton();
-        btnTimTheoId1 = new javax.swing.JButton();
-        radNam1 = new javax.swing.JRadioButton();
-        radNu1 = new javax.swing.JRadioButton();
+        btnTimHoSoBenhNhan = new javax.swing.JButton();
+        radBenhNhan = new javax.swing.JRadioButton();
+        radBenhAn = new javax.swing.JRadioButton();
         jLabel23 = new javax.swing.JLabel();
         txtKetLuanKham = new javax.swing.JTextField();
         btnTimTheoId2 = new javax.swing.JButton();
@@ -370,14 +381,14 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                 .addComponent(lblAnh))
         );
 
-        btnXoa5.setBackground(new java.awt.Color(0, 102, 102));
-        btnXoa5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa5.setForeground(new java.awt.Color(255, 255, 255));
-        btnXoa5.setText("Tải ảnh");
-        btnXoa5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnXoa5.addActionListener(new java.awt.event.ActionListener() {
+        btnTaiAnh.setBackground(new java.awt.Color(0, 102, 102));
+        btnTaiAnh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTaiAnh.setForeground(new java.awt.Color(255, 255, 255));
+        btnTaiAnh.setText("Tải ảnh");
+        btnTaiAnh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTaiAnh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoa5jButton3ActionPerformed(evt);
+                btnTaiAnhjButton3ActionPerformed(evt);
             }
         });
 
@@ -424,7 +435,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         btnTimTheoId.setBackground(new java.awt.Color(0, 102, 102));
         btnTimTheoId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTimTheoId.setForeground(new java.awt.Color(255, 255, 255));
-        btnTimTheoId.setText("Tìm kiếm theo mã");
+        btnTimTheoId.setText("<html>Tìm kiếm bệnh nhân mà bác sĩ điều trị</html>");
         btnTimTheoId.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTimTheoId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -432,14 +443,14 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
             }
         });
 
-        btnXoa4.setBackground(new java.awt.Color(0, 102, 102));
-        btnXoa4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa4.setForeground(new java.awt.Color(255, 255, 255));
-        btnXoa4.setText("Thêm");
-        btnXoa4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnXoa4.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBackground(new java.awt.Color(0, 102, 102));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoa4jButton3ActionPerformed(evt);
+                btnThemjButton3ActionPerformed(evt);
             }
         });
 
@@ -447,25 +458,25 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setText("Chức năng điều khiển");
 
-        btnXoa7.setBackground(new java.awt.Color(0, 102, 102));
-        btnXoa7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa7.setForeground(new java.awt.Color(255, 255, 255));
-        btnXoa7.setText("Xem");
-        btnXoa7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnXoa7.addActionListener(new java.awt.event.ActionListener() {
+        btnXem.setBackground(new java.awt.Color(0, 102, 102));
+        btnXem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXem.setForeground(new java.awt.Color(255, 255, 255));
+        btnXem.setText("Xem");
+        btnXem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoa7jButton3ActionPerformed(evt);
+                btnXemjButton3ActionPerformed(evt);
             }
         });
 
-        btnXoa8.setBackground(new java.awt.Color(0, 102, 102));
-        btnXoa8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa8.setForeground(new java.awt.Color(255, 255, 255));
-        btnXoa8.setText("Sửa");
-        btnXoa8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnXoa8.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setBackground(new java.awt.Color(0, 102, 102));
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua.setText("Sửa");
+        btnSua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoa8jButton3ActionPerformed(evt);
+                btnSuajButton3ActionPerformed(evt);
             }
         });
 
@@ -480,33 +491,34 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
             }
         });
 
-        btnTimTheoId1.setBackground(new java.awt.Color(0, 102, 102));
-        btnTimTheoId1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnTimTheoId1.setForeground(new java.awt.Color(255, 255, 255));
-        btnTimTheoId1.setText("<html>hiển thị danh sách hồ sơ theo mã bệnh nhân</html>");
-        btnTimTheoId1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnTimTheoId1.addActionListener(new java.awt.event.ActionListener() {
+        btnTimHoSoBenhNhan.setBackground(new java.awt.Color(0, 102, 102));
+        btnTimHoSoBenhNhan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTimHoSoBenhNhan.setForeground(new java.awt.Color(255, 255, 255));
+        btnTimHoSoBenhNhan.setText("<html>Tìm kiếm hs bệnh án của bệnh nhân</html>");
+        btnTimHoSoBenhNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTimHoSoBenhNhan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTimHoSoBenhNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimTheoId1ActionPerformed(evt);
+                btnTimHoSoBenhNhanActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(radNam1);
-        radNam1.setForeground(new java.awt.Color(0, 102, 102));
-        radNam1.setText("bệnh nhân");
+        buttonGroup1.add(radBenhNhan);
+        radBenhNhan.setForeground(new java.awt.Color(0, 102, 102));
+        radBenhNhan.setText("bệnh nhân");
 
-        buttonGroup1.add(radNu1);
-        radNu1.setForeground(new java.awt.Color(0, 102, 102));
-        radNu1.setText("Bệnh án");
+        buttonGroup1.add(radBenhAn);
+        radBenhAn.setForeground(new java.awt.Color(0, 102, 102));
+        radBenhAn.setText("Bệnh án");
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel23.setText("Tìm kiếm / xuất file");
+        jLabel23.setText("Tìm kiếm");
 
         btnTimTheoId2.setBackground(new java.awt.Color(0, 102, 102));
         btnTimTheoId2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTimTheoId2.setForeground(new java.awt.Color(255, 255, 255));
-        btnTimTheoId2.setText("Xuất excel");
+        btnTimTheoId2.setText("Tìm id");
         btnTimTheoId2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTimTheoId2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -618,7 +630,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnXoa5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnTaiAnh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -626,15 +638,15 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                             .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnXoa4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(radNam1))
+                                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(radBenhNhan))
                                 .addGap(4, 4, 4)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(radNu1)
+                                    .addComponent(radBenhAn)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnXoa7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnXem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnXoa8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnXoa9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -649,12 +661,12 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(txtKetLuanKham, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(btnTimTheoId1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTimHoSoBenhNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTimTheoId, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTimTheoId, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTimTheoId2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnTimTheoId2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -694,7 +706,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnXoa5))
+                        .addComponent(btnTaiAnh))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -706,17 +718,17 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                     .addComponent(txtMaHoSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMaBenhNhan2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMabenhNhan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radNam1)
-                    .addComponent(radNu1))
+                    .addComponent(radBenhNhan)
+                    .addComponent(radBenhAn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtMaBacSi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTrieuChung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnXoa4)
-                        .addComponent(btnXoa7)
-                        .addComponent(btnXoa8)
+                        .addComponent(btnThem)
+                        .addComponent(btnXem)
+                        .addComponent(btnSua)
                         .addComponent(btnXoa9))
                     .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -731,21 +743,22 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                     .addComponent(txtChuanDoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnTimTheoId1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(txtKetLuanKham, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnTimTheoId2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnTimHoSoBenhNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(txtKetLuanKham, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnTimTheoId2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnTimTheoId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnXoa5jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa5jButton3ActionPerformed
+ private String selectedImagePath;
+    private void btnTaiAnhjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaiAnhjButton3ActionPerformed
         // Tạo một đối tượng JFileChooser
         JFileChooser fileChooser = new JFileChooser();
 
@@ -760,39 +773,102 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             // Lấy đường dẫn đến tệp hình ảnh được chọn
             File selectedFile = fileChooser.getSelectedFile();
-            String imagePath = selectedFile.getAbsolutePath();
+            selectedImagePath = selectedFile.getAbsolutePath();
 
             // Hiển thị hình ảnh trên JLabel
-            ImageIcon imageIcon = new ImageIcon(imagePath);
+            ImageIcon imageIcon = new ImageIcon(selectedImagePath);
             lblAnh.setIcon(imageIcon);
+
         }
-    }//GEN-LAST:event_btnXoa5jButton3ActionPerformed
+    }//GEN-LAST:event_btnTaiAnhjButton3ActionPerformed
 
     private void btnTimTheoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTheoIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTimTheoIdActionPerformed
 
-    private void btnXoa4jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa4jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa4jButton3ActionPerformed
+    private boolean isBenhNhanSelected = true;
 
-    private void btnXoa7jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa7jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa7jButton3ActionPerformed
+    public void loadBenhNhan() {
+        isBenhNhanSelected = true;
+        // Thiết lập sự kiện cho JTable khi dòng được chọn
+        jTablebenhNhan.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting() && isBenhNhanSelected) {
+                // Thực hiện chỉ khi bệnh nhân được chọn
+                int selectedRow = jTablebenhNhan.getSelectedRow();
+                if (selectedRow >= 0 && jTablebenhNhan.isRowSelected(selectedRow)) {
+                    txtMaBenhNhan.setText(jTablebenhNhan.getValueAt(selectedRow, 0).toString());
+                    txtHoVaTen.setText(jTablebenhNhan.getValueAt(selectedRow, 1).toString());
+                    txtSoDienThoai.setText(jTablebenhNhan.getValueAt(selectedRow, 2).toString());
+                    txtEmail.setText(jTablebenhNhan.getValueAt(selectedRow, 3).toString());
+                    txtDiaChi.setText(jTablebenhNhan.getValueAt(selectedRow, 4).toString());
+                    String gioiTinh = (String) jTablebenhNhan.getValueAt(selectedRow, 5);
+                    if (gioiTinh != null) {
+                        switch (gioiTinh) {
+                            case "Nam" -> {
+                                if (!radNam.isSelected()) {
+                                    radNam.setSelected(true);
+                                    radNu.setSelected(false);
+                                }
+                            }
+                            case "Nữ" -> {
+                                if (!radNu.isSelected()) {
+                                    radNam.setSelected(false);
+                                    radNu.setSelected(true);
+                                }
+                            }
+                            default -> {
+                                radNam.setSelected(false);
+                                radNu.setSelected(false);
+                            }
+                        }
+                    }
+                    String hinhAnh = (String) jTablebenhNhan.getValueAt(selectedRow, 6);
+                    if (hinhAnh != null) {
+                        ImageIcon imageIcon = new ImageIcon(hinhAnh);
+                        lblAnh.setIcon(imageIcon);
+                    }
+                    txtTimKiem.setText(txtMaBenhNhan.getText());
+                    txtTienSuBenhAn.setText("");
+                    txtTrieuChung.setText("");
+                    txtChuanDoan.setText("");
+                    txtKetLuanKham.setText("");
+                    txtMaBacSi.setText("");
+                    txtMabenhNhan1.setText("");
+                    txtMaHoSo.setText("");
+                }
+            }
+        });
+    }
 
-    private void btnXoa8jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa8jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa8jButton3ActionPerformed
+    public void loadHoSo() {
+        isBenhNhanSelected = false;
+        // Thiết lập sự kiện cho JTable khi dòng được chọn
+        jTablebenhNhan.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting() && !isBenhNhanSelected) {
+                // Thực hiện chỉ khi hồ sơ được chọn
+                int selectedRow = jTablebenhNhan.getSelectedRow();
+                if (selectedRow >= 0 && jTablebenhNhan.isRowSelected(selectedRow)) {
+                    txtMaHoSo.setText(jTablebenhNhan.getValueAt(selectedRow, 0).toString());
+                    txtMaBacSi.setText(jTablebenhNhan.getValueAt(selectedRow, 1).toString());
+                    txtMabenhNhan1.setText(jTablebenhNhan.getValueAt(selectedRow, 2).toString());
+                    txtTrieuChung.setText(jTablebenhNhan.getValueAt(selectedRow, 3).toString());
+                    txtTienSuBenhAn.setText(jTablebenhNhan.getValueAt(selectedRow, 4).toString());
+                    txtChuanDoan.setText(jTablebenhNhan.getValueAt(selectedRow, 5).toString());
+                    txtKetLuanKham.setText(jTablebenhNhan.getValueAt(selectedRow, 6).toString());
+                    txtTimKiem.setText(txtMaHoSo.getText());
+                    txtHoVaTen.setText("");
+                    txtSoDienThoai.setText("");
+                    txtDiaChi.setText("");
+                    txtMaBenhNhan.setText("");
+                    buttonGroup2.clearSelection();
+                    lblAnh.setIcon(null);
+                    txtEmail.setText("");
+                }
+            }
+        });
+    }
 
-    private void btnXoa9jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa9jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa9jButton3ActionPerformed
-
-    private void btnTimTheoId1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTheoId1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimTheoId1ActionPerformed
-
-    private void btnResetjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetjButton3ActionPerformed
+    public void reset() {
         txtMaBenhNhan.setText("");
         txtMabenhNhan1.setText("");
         txtMaHoSo.setText("");
@@ -809,11 +885,426 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         txtTienSuBenhAn.setText("");
         // xóa icon ảnh
         lblAnh.setIcon(null);
+        txtTimKiem.setText("");
+    }
+
+    public void themBenhNhan() {
+        String hoTen = txtHoVaTen.getText();
+        String maBenhNhan = txtMaBenhNhan.getText();
+        String soDienThoai = txtSoDienThoai.getText();
+        String email = txtEmail.getText();
+        String gioiTinh;
+        String diaChi = txtDiaChi.getText();
+        String hinhAnh;
+        String tenDangNhap = DangNhap.xacNhanDangNhap;
+
+        if (hoTen.isEmpty() || maBenhNhan.isEmpty() || soDienThoai.isEmpty() || email.isEmpty() || diaChi.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa nhập đủ thông tin!");
+        } else {
+            ButtonModel selectedButton = buttonGroup2.getSelection();
+
+            if (selectedButton == null) {
+                JOptionPane.showMessageDialog(null, "Bạn chưa chọn giới tính!");
+            } else {
+                if (selectedButton == radNam.getModel()) {
+                    gioiTinh = "Nam";
+                } else if (selectedButton == radNu.getModel()) {
+                    gioiTinh = "Nữ";
+                } else {
+                    gioiTinh = "Không xác định";
+                }
+                hinhAnh = selectedImagePath;
+
+                BenhNhanController benhNhanController = new BenhNhanController();
+                boolean maTonTai = benhNhanController.kiemTraMaBenhNhanTrung(maBenhNhan);
+
+                if (maTonTai) {
+                    JOptionPane.showMessageDialog(null, "Mã bệnh nhân tồn tại.");
+                } else {
+                    BenhNhanModel benhNhan = new BenhNhanModel(maBenhNhan, tenDangNhap, hoTen, soDienThoai, email, gioiTinh, diaChi, hinhAnh);
+                    int rowsAffected = benhNhanController.themBenhNhan(benhNhan);
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
+                        reset();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại!");
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    public void themHoSo() {
+        String maHoSo = txtMaHoSo.getText();
+        String maBenhNhan = txtMabenhNhan1.getText();
+        String maBacSi = txtMaBacSi.getText();
+        String trieuChung = txtTrieuChung.getText();
+        String tienSuBenhAn = txtTienSuBenhAn.getText();
+        String chuanDoan = txtChuanDoan.getText();
+        String ketLuan = txtKetLuanKham.getText();
+
+        if (maHoSo.isEmpty() || maBenhNhan.isEmpty() || maBacSi.isEmpty() || trieuChung.isEmpty() || tienSuBenhAn.isEmpty() || chuanDoan.isEmpty() || ketLuan.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa nhập đủ thông tin!");
+        } else {
+            HoSoBenhAnController hoSoBenhAnController = new HoSoBenhAnController();
+            boolean maTonTai = hoSoBenhAnController.kiemTraMaHoSoTrung(maHoSo);
+
+            if (maTonTai) {
+                JOptionPane.showMessageDialog(null, "Mã hồ sơ tồn tại.");
+            } else {
+                HoSoBenhAnModel hoSo = new HoSoBenhAnModel(maHoSo, maBacSi, maBenhNhan, trieuChung, tienSuBenhAn, chuanDoan, ketLuan);
+                int rowsAffected = hoSoBenhAnController.themHoSo(hoSo);
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
+                    reset();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Mã bác sĩ hoặc mã bệnh nhân không tồn tại !");
+                }
+            }
+        }
+    }
+
+    private void hienThiDanhSachBenhNhan() {
+        // Gọi controller để lấy danh sách bác sĩ
+        BenhNhanController benhNhanController = new BenhNhanController();
+        ArrayList<BenhNhanModel> danhSachBenhNhan = benhNhanController.layDanhSachBenhNhan();
+
+        // Tạo DefaultTableModel với các cột bạn muốn hiển thị
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã bệnh nhân");
+        model.addColumn("Họ và Tên");
+        model.addColumn("Số Điện Thoại");
+        model.addColumn("Email");
+        model.addColumn("Địa Chỉ");
+        model.addColumn("Giới Tính");
+        model.addColumn("Hình Ảnh");
+
+        // Thêm dữ liệu từ danh sách bác sĩ vào model
+        for (BenhNhanModel benhNhan : danhSachBenhNhan) {
+            model.addRow(new Object[]{
+                benhNhan.getMaBenhNhan(),
+                benhNhan.getHoVaTen(),
+                benhNhan.getSoDienThoai(),
+                benhNhan.getEmai(),
+                benhNhan.getDiaChi(),
+                benhNhan.getGioiTinh(),
+                benhNhan.getHinhAnh()
+            });
+        }
+
+        // Gắn model vào JTable
+        jTablebenhNhan.setModel(model);
+        jTablebenhNhan.setAutoscrolls(true);
+
+    }
+
+    private void hienThiDanhSachHoSo() {
+        HoSoBenhAnController HoSoBenhAnController = new HoSoBenhAnController();
+        ArrayList<HoSoBenhAnModel> danhSachHoSo = HoSoBenhAnController.layDanhSachHoSo();
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã hồ sơ");
+        model.addColumn("Mã bác sĩ");
+        model.addColumn("Mã bệnh nhân");
+        model.addColumn("Triệu chứng");
+        model.addColumn("Tiền sử bệnh án");
+        model.addColumn("Chuẩn đoán");
+        model.addColumn("Kết luận");
+
+        for (HoSoBenhAnModel hoSo : danhSachHoSo) {
+            model.addRow(new Object[]{
+                hoSo.getMaHoSo(),
+                hoSo.getMaBacSi(),
+                hoSo.getMaBenhNhan(),
+                hoSo.getTrieuChung(),
+                hoSo.getTienSuBenhAn(),
+                hoSo.getChuanDoan(),
+                hoSo.getKetLuan()
+            });
+        }
+
+        // Gắn model vào JTable
+        jTablebenhNhan.setModel(model);
+        jTablebenhNhan.setAutoscrolls(true);
+
+    }
+
+
+    private void btnThemjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemjButton3ActionPerformed
+        ButtonModel selectedButton = buttonGroup1.getSelection();
+        if (selectedButton == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn bệnh nhân hoặc bệnh án !");
+        } else {
+            if (selectedButton == radBenhNhan.getModel()) {
+                themBenhNhan();
+                hienThiDanhSachBenhNhan();
+                txtMaHoSo.setText("");
+                txtMaBacSi.setText("");
+                txtTrieuChung.setText("");
+                txtTienSuBenhAn.setText("");
+                txtChuanDoan.setText("");
+                txtKetLuanKham.setText("");
+            } else if (selectedButton == radBenhAn.getModel()) {
+                themHoSo();
+                hienThiDanhSachHoSo();
+                txtHoVaTen.setText("");
+            }
+        }
+    }//GEN-LAST:event_btnThemjButton3ActionPerformed
+
+    private void btnXemjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemjButton3ActionPerformed
+        ButtonModel selectedButton = buttonGroup1.getSelection();
+        if (selectedButton == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn bệnh nhân hoặc bệnh án !");
+        } else {
+            if (selectedButton == radBenhNhan.getModel()) {
+                hienThiDanhSachBenhNhan();
+                loadBenhNhan();
+
+            }
+
+            if (selectedButton == radBenhAn.getModel()) {
+                loadHoSo();
+                hienThiDanhSachHoSo();
+            }
+        }
+    }//GEN-LAST:event_btnXemjButton3ActionPerformed
+
+    public void suaBenhNhan() {
+        // Lấy ID từ JTextField txtTimKiem
+        String idCapNhat = txtTimKiem.getText().trim();
+
+        // Kiểm tra xem ID có được nhập hay không
+        if (idCapNhat.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập ID cần cập nhật.");
+        } else {
+            // Đọc thông tin mới từ các trường nhập liệu
+            String hoVaTen = txtHoVaTen.getText();
+            String maBenhNhan = txtMaBenhNhan.getText();
+            String soDienThoai = txtSoDienThoai.getText();
+            String diaChi = txtDiaChi.getText();
+            String email = txtEmail.getText();
+            String gioiTinh;
+            String hinhAnh;
+            String tenDangNhap = DangNhap.xacNhanDangNhap;
+
+            ButtonModel selectedButton = buttonGroup2.getSelection();
+            if (selectedButton == null) {
+                JOptionPane.showMessageDialog(null, "Bạn chưa chọn giới tính!");
+                return;
+            } else {
+                if (selectedButton == radNam.getModel()) {
+                    gioiTinh = "Nam";
+                } else if (selectedButton == radNu.getModel()) {
+                    gioiTinh = "Nữ";
+                } else {
+                    gioiTinh = "Không xác định";
+                }
+            }
+            System.out.println(gioiTinh);
+            hinhAnh = selectedImagePath;
+            // Tạo một đối tượng BacSiModel mới từ thông tin đã nhập
+            BenhNhanModel benhNhanModel = new BenhNhanModel(maBenhNhan, tenDangNhap, hoVaTen, soDienThoai, email, gioiTinh, diaChi, hinhAnh);
+
+            // Gọi phương thức cập nhật thông tin từ controller
+            BenhNhanController benhNhanController = new BenhNhanController();
+            int rowsAffected = benhNhanController.capNhatThongTinBenhNhan(benhNhanModel, idCapNhat);
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Cập nhật thông tin bệnh nhân thành công.");
+                hienThiDanhSachBenhNhan();
+                reset();
+            } else {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy bệnh nhân có ID: " + idCapNhat);
+            }
+        }
+    }
+
+    public void suaHoSo() {
+        // Lấy ID từ JTextField txtTimKiem
+        String idCapNhat = txtTimKiem.getText().trim();
+
+        // Kiểm tra xem ID có được nhập hay không
+        if (idCapNhat.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập ID hồ sơ cần cập nhật.");
+        } else {
+            // Đọc thông tin mới từ các trường nhập liệu
+            String maHoSo = txtMaHoSo.getText();
+            String maBacSi = txtMaBacSi.getText();
+            String maBenhNhan = txtMaBenhNhan2.getText();
+            String trieuChung = txtTrieuChung.getText();
+            String tienSuBenhAn = txtTienSuBenhAn.getText();
+            String chuanDoan = txtChuanDoan.getText();
+            String ketLuan = txtKetLuanKham.getText();
+
+            HoSoBenhAnModel hoSoBenhAnModel = new HoSoBenhAnModel(maHoSo, maBacSi, maBenhNhan, trieuChung, tienSuBenhAn, chuanDoan, ketLuan);
+
+            HoSoBenhAnController hoSoBenhAnController = new HoSoBenhAnController();
+            int rowsAffected = hoSoBenhAnController.capNhatThongTinHoSo(hoSoBenhAnModel, idCapNhat);
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Cập nhật thông tin hồ sơ thành công.");
+                hienThiDanhSachHoSo();
+                reset();
+            } else {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy hồ sơ có ID: " + idCapNhat);
+            }
+        }
+    }
+
+    private void btnSuajButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuajButton3ActionPerformed
+        ButtonModel selectedButton = buttonGroup1.getSelection();
+        if (selectedButton == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn bệnh nhân hoặc bệnh án !");
+        } else {
+            if (selectedButton == radBenhNhan.getModel()) {
+                suaBenhNhan();
+            }
+
+            if (selectedButton == radBenhAn.getModel()) {
+                suaHoSo();
+            }
+        }
+    }//GEN-LAST:event_btnSuajButton3ActionPerformed
+
+    private void btnXoa9jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa9jButton3ActionPerformed
+        ButtonModel selectedButton = buttonGroup1.getSelection();
+        if (selectedButton == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn bệnh nhân hoặc bệnh án !");
+        } else {
+            if (selectedButton == radBenhNhan.getModel()) {
+                String idXoa = txtTimKiem.getText().trim();
+                if (idXoa.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập ID bệnh nhân cần xóa.");
+                } else {
+                    BenhNhanController benhNhanController = new BenhNhanController();
+                    int rowsAffected = benhNhanController.xoaBenhNhanTheoID(idXoa);
+
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "Xóa bệnh nhân thành công.");
+                        hienThiDanhSachBenhNhan();
+
+                    } else if (rowsAffected == -1) {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy bệnh nhân có ID: " + idXoa);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa bệnh nhân thất bại.");
+                    }
+                }
+
+            }
+
+            if (selectedButton == radBenhAn.getModel()) {
+                String idXoa = txtTimKiem.getText().trim();
+                if (idXoa.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập ID cần xóa.");
+                } else {
+                    HoSoBenhAnController hoSoBenhAnController = new HoSoBenhAnController();
+                    int rowsAffected = hoSoBenhAnController.xoaHoSoTheoId(idXoa);
+
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "Xóa hồ sơ thành công.");
+                        hienThiDanhSachHoSo();
+
+                    } else if (rowsAffected == -1) {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy hồ sơ có ID: " + idXoa);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa hồ sơ thất bại.");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btnXoa9jButton3ActionPerformed
+
+    private void btnResetjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetjButton3ActionPerformed
+        reset();
     }//GEN-LAST:event_btnResetjButton3ActionPerformed
 
+    public void timBenhNhanTheoId(String idTimKiem) {
+        BenhNhanController benhNhanController = new BenhNhanController();
+        BenhNhanModel benhNhanTimKiem = benhNhanController.timBenhNhanTheoID(idTimKiem);
+
+        if (benhNhanTimKiem != null) {
+            DefaultTableModel customModel = new DefaultTableModel();
+            customModel.addColumn("Mã bệnh nhân");
+            customModel.addColumn("Họ và Tên");
+            customModel.addColumn("Số Điện Thoại");
+            customModel.addColumn("Email");
+            customModel.addColumn("Địa Chỉ");
+            customModel.addColumn("Giới Tính");
+            customModel.addColumn("Hình ảnh");
+
+            customModel.addRow(new Object[]{
+                benhNhanTimKiem.getMaBenhNhan(),
+                benhNhanTimKiem.getHoVaTen(),
+                benhNhanTimKiem.getSoDienThoai(),
+                benhNhanTimKiem.getEmai(),
+                benhNhanTimKiem.getDiaChi(),
+                benhNhanTimKiem.getGioiTinh(),
+                benhNhanTimKiem.getHinhAnh()}
+            );
+
+            jTablebenhNhan.setModel(customModel);
+        } else {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy bệnh nhân có ID: " + idTimKiem);
+        }
+    }
+
+    public void timHoSoTheoId(String idTimKiem) {
+        HoSoBenhAnController hoSoBenhAnController = new HoSoBenhAnController();
+        HoSoBenhAnModel hoSoTimKiem = hoSoBenhAnController.timHoSoTheoID(idTimKiem);
+
+        if (hoSoTimKiem != null) {
+            DefaultTableModel customModel = new DefaultTableModel();
+            customModel.addColumn("Mã hồ sơ");
+            customModel.addColumn("Mã bác sĩ");
+            customModel.addColumn("Mã bệnh nhân");
+            customModel.addColumn("Triệu chứng");
+            customModel.addColumn("Tiền sử bệnh án");
+            customModel.addColumn("Chuẩn đoán");
+            customModel.addColumn("Kết luận");
+
+            customModel.addRow(new Object[]{
+                hoSoTimKiem.getMaHoSo(),
+                hoSoTimKiem.getMaBacSi(),
+                hoSoTimKiem.getMaBenhNhan(),
+                hoSoTimKiem.getTrieuChung(),
+                hoSoTimKiem.getTienSuBenhAn(),
+                hoSoTimKiem.getChuanDoan(),
+                hoSoTimKiem.getKetLuan()}
+            );
+
+            jTablebenhNhan.setModel(customModel);
+        } else {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy hồ sơ có ID: " + idTimKiem);
+        }
+    }
+
     private void btnTimTheoId2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTheoId2ActionPerformed
-        // TODO add your handling code here:
+        String idTimKiem = txtTimKiem.getText().trim();
+        if (idTimKiem.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập ID cần tìm kiếm.");
+        }
+
+        ButtonModel selectedButton = buttonGroup1.getSelection();
+        if (selectedButton == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn bệnh nhân hoặc bệnh án !");
+        } else {
+            if (selectedButton == radBenhNhan.getModel()) {
+                timBenhNhanTheoId(idTimKiem);
+                loadBenhNhan();
+            } else if (selectedButton == radBenhAn.getModel()) {
+                timHoSoTheoId(idTimKiem);
+                loadHoSo();
+            }
+        }
+
     }//GEN-LAST:event_btnTimTheoId2ActionPerformed
+
+    private void btnTimHoSoBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimHoSoBenhNhanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTimHoSoBenhNhanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -851,13 +1342,13 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnTaiAnh;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnTimHoSoBenhNhan;
     private javax.swing.JButton btnTimTheoId;
-    private javax.swing.JButton btnTimTheoId1;
     private javax.swing.JButton btnTimTheoId2;
-    private javax.swing.JButton btnXoa4;
-    private javax.swing.JButton btnXoa5;
-    private javax.swing.JButton btnXoa7;
-    private javax.swing.JButton btnXoa8;
+    private javax.swing.JButton btnXem;
     private javax.swing.JButton btnXoa9;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -882,10 +1373,10 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTablebenhNhan;
     private javax.swing.JLabel lblAnh;
+    private javax.swing.JRadioButton radBenhAn;
+    private javax.swing.JRadioButton radBenhNhan;
     private javax.swing.JRadioButton radNam;
-    private javax.swing.JRadioButton radNam1;
     private javax.swing.JRadioButton radNu;
-    private javax.swing.JRadioButton radNu1;
     private javax.swing.JTextField txtChuanDoan;
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtEmail;

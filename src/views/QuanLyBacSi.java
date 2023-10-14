@@ -425,7 +425,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         cbbChuyenKhoa = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         btnTaiAnh = new javax.swing.JButton();
-        btnXuatExcel = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -592,17 +591,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
             }
         });
 
-        btnXuatExcel.setBackground(new java.awt.Color(0, 102, 102));
-        btnXuatExcel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXuatExcel.setForeground(new java.awt.Color(255, 255, 255));
-        btnXuatExcel.setText("Xuất ra file excel");
-        btnXuatExcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXuatExcelActionPerformed(evt);
-            }
-        });
-
         btnReset.setBackground(new java.awt.Color(0, 102, 102));
         btnReset.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnReset.setForeground(new java.awt.Color(255, 255, 255));
@@ -682,12 +670,9 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                     .addComponent(txtTimKiem)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnTimTheoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnXuatExcel))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnTimTheoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -757,9 +742,7 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnTimTheoId)
-                            .addComponent(btnXuatExcel))
+                        .addComponent(btnTimTheoId)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -942,15 +925,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
                         if (rowsAffected > 0) {
                             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
                             hienThiDanhSachBacSi();
-                            txtMaBacSi.setText("");
-                            txtHoVaTen.setText("");
-                            txtSoDienThoai.setText("");
-                            txtEmail.setText("");
-                            buttonGroup1.clearSelection();
-                            txtDiaChi.setText("");
-                            cbbChuyenKhoa.setSelectedIndex(0);
-                            txtHocVan.setText("");
-                            txtKinhNghiem.setText("");
                             reset();
                         } else {
                             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại!");
@@ -1040,11 +1014,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnTaiAnhjButton3ActionPerformed
 
-    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
-
-
-    }//GEN-LAST:event_btnXuatExcelActionPerformed
-
     private void btnResetjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetjButton3ActionPerformed
         reset();
     }//GEN-LAST:event_btnResetjButton3ActionPerformed
@@ -1062,7 +1031,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
         txtTimKiem.setText("");
         // xóa icon ảnh
         lblAnh.setIcon(null);
-        txtTimKiem.setText("");
     }
 
     /**
@@ -1107,7 +1075,6 @@ public class QuanLyBacSi extends javax.swing.JFrame {
     private javax.swing.JButton btnTimTheoId;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoaTatCa;
-    private javax.swing.JButton btnXuatExcel;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbbChuyenKhoa;

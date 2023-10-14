@@ -62,6 +62,50 @@ public class QuanLyBacSiDao implements DaoInterface<BacSiModel> {
     }
 
     @Override
+    public int insert(BacSiModel bacSi) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        int rowsAffected = 0;
+
+        try {
+            // Lấy kết nối tới cơ sở dữ liệu
+            connection = ConnectDB.getConnection();
+
+            // Chuẩn bị câu truy vấn SQL để chèn dữ liệu
+            String sql = "INSERT INTO bacsi (maBacSi, hoVaTen, soDienThoai, email, diaChi, GioiTinh, chuyenKhoa, kinhNghiemLamViec, hocVan, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Đặt các tham số cho câu truy vấn SQL từ đối tượng BacSiModel
+            preparedStatement.setString(1, bacSi.getMaBacSi());
+            preparedStatement.setString(2, bacSi.getHoVaTen());
+            preparedStatement.setString(3, bacSi.getSoDienThoai());
+            preparedStatement.setString(4, bacSi.getEmai());
+            preparedStatement.setString(5, bacSi.getDiaChi());
+            preparedStatement.setString(6, bacSi.getGioiTinh());
+            preparedStatement.setString(7, bacSi.getChuyenKhoa());
+            preparedStatement.setString(8, bacSi.getKinhNgiemLamViec());
+            preparedStatement.setString(9, bacSi.getHocVan());
+            preparedStatement.setString(10, bacSi.getHinhAnh());
+
+            // Thực hiện chèn dữ liệu và lấy số dòng bị ảnh hưởng
+            rowsAffected = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối và tài nguyên
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return rowsAffected;
+    }
+
+    @Override
     public int update(BacSiModel bacSi, String id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -290,50 +334,6 @@ public class QuanLyBacSiDao implements DaoInterface<BacSiModel> {
         }
 
         return bacSi;
-    }
-
-    @Override
-    public int insert(BacSiModel bacSi) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        int rowsAffected = 0;
-
-        try {
-            // Lấy kết nối tới cơ sở dữ liệu
-            connection = ConnectDB.getConnection();
-
-            // Chuẩn bị câu truy vấn SQL để chèn dữ liệu
-            String sql = "INSERT INTO bacsi (maBacSi, hoVaTen, soDienThoai, email, diaChi, GioiTinh, chuyenKhoa, kinhNghiemLamViec, hocVan, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            preparedStatement = connection.prepareStatement(sql);
-
-            // Đặt các tham số cho câu truy vấn SQL từ đối tượng BacSiModel
-            preparedStatement.setString(1, bacSi.getMaBacSi());
-            preparedStatement.setString(2, bacSi.getHoVaTen());
-            preparedStatement.setString(3, bacSi.getSoDienThoai());
-            preparedStatement.setString(4, bacSi.getEmai());
-            preparedStatement.setString(5, bacSi.getDiaChi());
-            preparedStatement.setString(6, bacSi.getGioiTinh());
-            preparedStatement.setString(7, bacSi.getChuyenKhoa());
-            preparedStatement.setString(8, bacSi.getKinhNgiemLamViec());
-            preparedStatement.setString(9, bacSi.getHocVan());
-            preparedStatement.setString(10, bacSi.getHinhAnh());
-
-            // Thực hiện chèn dữ liệu và lấy số dòng bị ảnh hưởng
-            rowsAffected = preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Đóng kết nối và tài nguyên
-            ConnectDB.closeConnection(connection);
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return rowsAffected;
     }
 
 }

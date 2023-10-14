@@ -6,27 +6,24 @@ public class BacSiModel extends NguoiModel{
     private String chuyenKhoa;
     private String kinhNgiemLamViec;
     private String hocVan;
-    private String hinhAnh;
 
     public BacSiModel() {
     }
 
-    public BacSiModel(String maBacSi, String chuyenKhoa, String kinhNgiemLamViec, String hocVan, String hinhAnh) {
+    public BacSiModel(String maBacSi, String chuyenKhoa, String kinhNgiemLamViec, String hocVan) {
         this.maBacSi = maBacSi;
         this.chuyenKhoa = chuyenKhoa;
         this.kinhNgiemLamViec = kinhNgiemLamViec;
         this.hocVan = hocVan;
-        this.hinhAnh = hinhAnh;
     }
 
-    public BacSiModel(String maBacSi, String hoVaTen, String soDienThoai, String emai, String gioiTinh, String diaChi,  String chuyenKhoa, String kinhNgiemLamViec, String hocVan, String hinhAnh) {
-        super(hoVaTen, soDienThoai, emai, gioiTinh, diaChi);
+    public BacSiModel(String maBacSi, String chuyenKhoa, String kinhNgiemLamViec, String hocVan, String hoVaTen, String soDienThoai, String emai, String gioiTinh, String diaChi, String hinhAnh) {
+        super(hoVaTen, soDienThoai, emai, gioiTinh, diaChi, hinhAnh);
         this.maBacSi = maBacSi;
         this.chuyenKhoa = chuyenKhoa;
         this.kinhNgiemLamViec = kinhNgiemLamViec;
         this.hocVan = hocVan;
-        this.hinhAnh = hinhAnh;
-    }
+    }    
 
     public String getMaBacSi() {
         return maBacSi;
@@ -59,19 +56,4 @@ public class BacSiModel extends NguoiModel{
     public void setHocVan(String hocVan) {
         this.hocVan = hocVan;
     }
-
-    public String getHinhAnh() {
-        return hinhAnh;
-    }
-
-    public void setHinhAnh(String hinhAnh) {
-        this.hinhAnh = hinhAnh;
-    }
-
-    @Override
-    public String toString() {
-        return "BacSiModel{" + "maBacSi=" + maBacSi + ", chuyenKhoa=" + chuyenKhoa + ", kinhNgiemLamViec=" + kinhNgiemLamViec + ", hocVan=" + hocVan + ", hinhAnh=" + hinhAnh + '}';
-    }
-    
-    
 }

@@ -1,14 +1,36 @@
 package models;
 
+public class BenhNhanModel extends NguoiModel {
 
-public class BenhNhanModel extends NguoiModel{
     private String maBenhNhan;
+    private String tenTaiKhoan;
 
     public BenhNhanModel() {
     }
 
-    public BenhNhanModel(String hoVaTen, String soDienThoai, String emai, String gioiTinh, String diaChi) {
-        super(hoVaTen, soDienThoai, emai, gioiTinh, diaChi);
+    public BenhNhanModel(String maBenhNhan) {
+        this.maBenhNhan = maBenhNhan;
+    }
+
+    public BenhNhanModel(String maBenhNhan, String tenTaiKhoan) {
+        this.maBenhNhan = maBenhNhan;
+        this.tenTaiKhoan = tenTaiKhoan;
+    }
+
+    public BenhNhanModel(String maBenhNhan, String tenTaiKhoan, String hoVaTen, String soDienThoai, String emai, String gioiTinh, String diaChi, String hinhAnh) {
+        super(hoVaTen, soDienThoai, emai, gioiTinh, diaChi, hinhAnh);
+        this.maBenhNhan = maBenhNhan;
+        this.tenTaiKhoan = tenTaiKhoan;
+    }
+
+
+
+    public String getTenTaiKhoan() {
+        return tenTaiKhoan;
+    }
+
+    public void setTenTaiKhoan(String tenTaiKhoan) {
+        this.tenTaiKhoan = tenTaiKhoan;
     }
 
     public String getMaBenhNhan() {
@@ -23,6 +45,4 @@ public class BenhNhanModel extends NguoiModel{
     public String toString() {
         return "BenhNhanModel{" + "maBenhNhan=" + maBenhNhan + '}';
     }
-    
-    
 }

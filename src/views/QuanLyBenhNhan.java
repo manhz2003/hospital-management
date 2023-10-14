@@ -435,7 +435,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         btnTimTheoId.setBackground(new java.awt.Color(0, 102, 102));
         btnTimTheoId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTimTheoId.setForeground(new java.awt.Color(255, 255, 255));
-        btnTimTheoId.setText("<html>Tìm kiếm bệnh nhân mà bác sĩ điều trị</html>");
+        btnTimTheoId.setText("<html>Tìm kiếm những bệnh nhân mà bác sĩ điều trị</html>");
         btnTimTheoId.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTimTheoId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -494,7 +494,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
         btnTimHoSoBenhNhan.setBackground(new java.awt.Color(0, 102, 102));
         btnTimHoSoBenhNhan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTimHoSoBenhNhan.setForeground(new java.awt.Color(255, 255, 255));
-        btnTimHoSoBenhNhan.setText("<html>Tìm kiếm hs bệnh án của bệnh nhân</html>");
+        btnTimHoSoBenhNhan.setText("<html>Tìm kiếm bệnh án của bệnh nhân</html>");
         btnTimHoSoBenhNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTimHoSoBenhNhan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnTimHoSoBenhNhan.addActionListener(new java.awt.event.ActionListener() {
@@ -661,9 +661,9 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(txtKetLuanKham, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(btnTimHoSoBenhNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTimHoSoBenhNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTimTheoId, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTimTheoId, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnTimTheoId2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -1040,16 +1040,10 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
             if (selectedButton == radBenhNhan.getModel()) {
                 themBenhNhan();
                 hienThiDanhSachBenhNhan();
-                txtMaHoSo.setText("");
-                txtMaBacSi.setText("");
-                txtTrieuChung.setText("");
-                txtTienSuBenhAn.setText("");
-                txtChuanDoan.setText("");
-                txtKetLuanKham.setText("");
+                
             } else if (selectedButton == radBenhAn.getModel()) {
                 themHoSo();
                 hienThiDanhSachHoSo();
-                txtHoVaTen.setText("");
             }
         }
     }//GEN-LAST:event_btnThemjButton3ActionPerformed
@@ -1133,7 +1127,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
             // Đọc thông tin mới từ các trường nhập liệu
             String maHoSo = txtMaHoSo.getText();
             String maBacSi = txtMaBacSi.getText();
-            String maBenhNhan = txtMaBenhNhan2.getText();
+            String maBenhNhan = txtMabenhNhan1.getText();
             String trieuChung = txtTrieuChung.getText();
             String tienSuBenhAn = txtTienSuBenhAn.getText();
             String chuanDoan = txtChuanDoan.getText();

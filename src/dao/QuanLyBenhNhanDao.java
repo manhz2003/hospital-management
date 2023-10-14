@@ -230,6 +230,52 @@ public class QuanLyBenhNhanDao implements DaoInterface<BenhNhanModel> {
         return list;
     }
 
+    public ArrayList<BenhNhanModel> selectBenhNhanDuocBacSiKham(String id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ArrayList<BenhNhanModel> list = new ArrayList<>();
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "SELECT * FROM benhnhan JOIN hosobenhan ON benhnhan.maBenhNhan = hosobenhan.maBenhNhan WHERE hosobenhan.maBacSi = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, id);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                BenhNhanModel benhNhan = new BenhNhanModel();
+                benhNhan.setMaBenhNhan(resultSet.getString("maBenhNhan"));
+                benhNhan.setTenTaiKhoan(resultSet.getString("tenDangNhap"));
+                benhNhan.setHoVaTen(resultSet.getString("hoVaTen"));
+                benhNhan.setSoDienThoai(resultSet.getString("soDienThoai"));
+                benhNhan.setEmai(resultSet.getString("email"));
+                benhNhan.setDiaChi(resultSet.getString("diaChi"));
+                benhNhan.setGioiTinh(resultSet.getString("gioiTinh"));
+                benhNhan.setHinhAnh(resultSet.getString("hinhAnh"));
+                list.add(benhNhan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return list;
+    }
+
     @Override
     public BenhNhanModel selectById(String id) {
         Connection connection = null;

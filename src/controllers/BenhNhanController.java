@@ -39,6 +39,10 @@ public class BenhNhanController {
         return benhNhanDao.selectAll();
     }
 
+    public ArrayList<BenhNhanModel> layDanhSachBenhNhanDuocBacSiKham(String id) {
+        return benhNhanDao.selectBenhNhanDuocBacSiKham(id);
+    }
+
     public BenhNhanModel timBenhNhanTheoID(String id) {
         return benhNhanDao.selectById(id);
     }

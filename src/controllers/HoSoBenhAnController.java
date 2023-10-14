@@ -38,6 +38,10 @@ public class HoSoBenhAnController {
     public ArrayList<HoSoBenhAnModel> layDanhSachHoSo() {
         return hoSoDao.selectAll();
     }
+    
+      public ArrayList<HoSoBenhAnModel> layDanhSachHoSoTheoBenhNhan(String id) {
+        return hoSoDao.selectHoSoBenhAn(id);
+    }
 
     public HoSoBenhAnModel timHoSoTheoID(String id) {
         return hoSoDao.selectById(id);

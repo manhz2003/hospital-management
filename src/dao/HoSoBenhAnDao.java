@@ -204,6 +204,51 @@ public class HoSoBenhAnDao implements DaoInterface<HoSoBenhAnModel> {
         return list;
     }
 
+    public ArrayList<HoSoBenhAnModel> selectHoSoBenhAn(String id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ArrayList<HoSoBenhAnModel> list = new ArrayList<>();
+        try {
+            connection = ConnectDB.getConnection();
+            String sql = "SELECT * FROM hosobenhan where maBenhNhan = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, id);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                HoSoBenhAnModel HoSoBenhAnModel = new HoSoBenhAnModel();
+                HoSoBenhAnModel.setMaHoSo(resultSet.getString("maHoSo"));
+                HoSoBenhAnModel.setMaBacSi(resultSet.getString("maBacSi"));
+                HoSoBenhAnModel.setMaBenhNhan(resultSet.getString("maBenhNhan"));
+                HoSoBenhAnModel.setTrieuChung(resultSet.getString("trieuChung"));
+                HoSoBenhAnModel.setTienSuBenhAn(resultSet.getString("tienSuBenhAn"));
+                HoSoBenhAnModel.setChuanDoan(resultSet.getString("chuanDoan"));
+                HoSoBenhAnModel.setKetLuan(resultSet.getString("ketLuan"));
+                list.add(HoSoBenhAnModel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(connection);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return list;
+    }
+
     @Override
     public HoSoBenhAnModel selectById(String id) {
         Connection connection = null;

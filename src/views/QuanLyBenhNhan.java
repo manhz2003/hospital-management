@@ -783,7 +783,45 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTaiAnhjButton3ActionPerformed
 
     private void btnTimTheoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimTheoIdActionPerformed
-        // TODO add your handling code here:
+        String idTimKiem = txtTimKiem.getText().trim();
+        if (idTimKiem.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập ID bác sĩ để tìm các bệnh nhân được điều trị.");
+        }
+        ArrayList<BenhNhanModel> danhSachBenhNhan;
+        BacSiController bacSiController = new BacSiController();
+        if (bacSiController.kiemTraMaBacSiTrung(idTimKiem) || "".equals(idTimKiem)) {
+            BenhNhanController benhNhanController = new BenhNhanController();
+            danhSachBenhNhan = benhNhanController.layDanhSachBenhNhanDuocBacSiKham(idTimKiem);
+
+            // Tạo DefaultTableModel với các cột bạn muốn hiển thị
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Mã bệnh nhân");
+            model.addColumn("Họ và Tên");
+            model.addColumn("Số Điện Thoại");
+            model.addColumn("Email");
+            model.addColumn("Địa Chỉ");
+            model.addColumn("Giới Tính");
+            model.addColumn("Hình Ảnh");
+
+            // Thêm dữ liệu từ danh sách bác sĩ vào model
+            for (BenhNhanModel benhNhan : danhSachBenhNhan) {
+                model.addRow(new Object[]{
+                    benhNhan.getMaBenhNhan(),
+                    benhNhan.getHoVaTen(),
+                    benhNhan.getSoDienThoai(),
+                    benhNhan.getEmai(),
+                    benhNhan.getDiaChi(),
+                    benhNhan.getGioiTinh(),
+                    benhNhan.getHinhAnh()
+                });
+            }
+
+            // Gắn model vào JTable
+            jTablebenhNhan.setModel(model);
+            jTablebenhNhan.setAutoscrolls(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Bác sĩ bạn tìm không tồn tại.");
+        }
     }//GEN-LAST:event_btnTimTheoIdActionPerformed
 
     private boolean isBenhNhanSelected = true;
@@ -967,7 +1005,6 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
     }
 
     private void hienThiDanhSachBenhNhan() {
-        // Gọi controller để lấy danh sách bác sĩ
         BenhNhanController benhNhanController = new BenhNhanController();
         ArrayList<BenhNhanModel> danhSachBenhNhan = benhNhanController.layDanhSachBenhNhan();
 
@@ -1040,7 +1077,7 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
             if (selectedButton == radBenhNhan.getModel()) {
                 themBenhNhan();
                 hienThiDanhSachBenhNhan();
-                
+
             } else if (selectedButton == radBenhAn.getModel()) {
                 themHoSo();
                 hienThiDanhSachHoSo();
@@ -1297,7 +1334,45 @@ public class QuanLyBenhNhan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTimTheoId2ActionPerformed
 
     private void btnTimHoSoBenhNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimHoSoBenhNhanActionPerformed
-        // TODO add your handling code here:
+        String idTimKiem = txtTimKiem.getText().trim();
+        if (idTimKiem.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập ID bệnh nhân cần tìm kiếm.");
+        }
+        ArrayList<HoSoBenhAnModel> danhSachHoSo;
+        BenhNhanController benhNhanController = new BenhNhanController();
+
+        if (benhNhanController.kiemTraMaBenhNhanTrung(idTimKiem) || "".equals(idTimKiem)) {
+            HoSoBenhAnController benhAnController = new HoSoBenhAnController();
+            danhSachHoSo = benhAnController.layDanhSachHoSoTheoBenhNhan(idTimKiem);
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Mã hồ sơ");
+            model.addColumn("Mã bác sĩ");
+            model.addColumn("Mã bệnh nhân");
+            model.addColumn("Triệu chứng");
+            model.addColumn("Tiền sử bệnh án");
+            model.addColumn("Chuẩn đoán");
+            model.addColumn("Kết luận");
+
+            for (HoSoBenhAnModel hoSo : danhSachHoSo) {
+                model.addRow(new Object[]{
+                    hoSo.getMaHoSo(),
+                    hoSo.getMaBacSi(),
+                    hoSo.getMaBenhNhan(),
+                    hoSo.getTrieuChung(),
+                    hoSo.getTienSuBenhAn(),
+                    hoSo.getChuanDoan(),
+                    hoSo.getKetLuan()
+                });
+            }
+
+            // Gắn model vào JTable
+            jTablebenhNhan.setModel(model);
+            jTablebenhNhan.setAutoscrolls(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Bệnh nhân không tồn tại vui lòng tìm lại.");
+        }
+
+
     }//GEN-LAST:event_btnTimHoSoBenhNhanActionPerformed
 
     /**

@@ -39,10 +39,6 @@ public class BacSiController {
         }
     }
 
-    public void xoaTatCaBacSi() {
-        bacSiDao.deleteAll();
-    }
-
     public BacSiModel timBacSiTheoID(String id) {
         return bacSiDao.selectById(id);
     }
